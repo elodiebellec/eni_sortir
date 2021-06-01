@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+    <h1>Accueil_liste sorties</h1>
+    {% set user= null  %}
+    {% set isbooked= null  %}
+
+
+        <div>
+
+            <table>
+                <thead>
+                <tr>
+                    <th colspan="2">The table header</th>
+                    <th colspan="2">The table header</th>
+                    <th colspan="2">The table header</th>
+                    <th colspan="2">The table header</th>
+                    <th colspan="2">The table header</th>
+                    <th colspan="2">The table header</th>
+                    <th colspan="2">The table header</th>
+                    <th colspan="2">The table header</th>
+                </tr>
+                </thead>
+                <tbody>
+    {% for outing in outings %}
+      {#   {% set listParticipants= outing.participants %}
+
+            {% for participant in listParticipants %}
+                {% if user.pseudo  = participant.pseudo%}
+                    isbooked= true;
+
+                {% endif %}
+            {%  endfor %} #}
+                <tr>
+                    <td>{{ outing.name}}</td>
+                    <td>{{ outing.dateBegin|date ('d/m/y')}}</td>
+                    <td>{{ outing.dateBegin|date_modify("+"~outing.duration)|date ('d/m/y')}}</td>
+                    <td>{{ outing.participants|length}} / {{ outing.maxRegistration }}</td>
+                    <td>{{ outing.state}}</td>
+                    <td> isbooked</td>
+                    <td>{{ outing.planner.lastName}} </td>
+                    <td>Actions</td>
+
+
+                </tr>
+
+    {%  endfor %}
+                </tbody>
+            </table>
+
+
+        </div>
+
+
+
+
+{% endblock %}
