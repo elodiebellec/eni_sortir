@@ -268,13 +268,20 @@ fabric.properties
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
 
+
 #others
  .idea/commandlinetools/
  .idea/phpunit.xml
  .idea/vcs.xml
  .idea/php.xml
 
-  /.idea
- .idea
- *.idea
+
+/.idea
+.idea
+*.idea
+
+
+.idea/modules.xml
+.idea/eni_sortir.iml
+
 
