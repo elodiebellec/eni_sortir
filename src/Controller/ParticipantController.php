@@ -29,7 +29,7 @@ class ParticipantController extends AbstractController
             $manager->persist($user);
             $manager->flush();
             $this->addFlash('success','Profile modifié ! ');
-            $this->redirectToRoute('main_home');
+            return $this->redirectToRoute('outing');
         }
 
         return $this->render('participant/updateProfile.html.twig', [
