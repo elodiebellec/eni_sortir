@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class OutingController extends AbstractController
 {
     /**
-     * @Route("/outing", name="outing")
+     * @Route("/", name="outing")
      */
 
     public function  list (OutingRepository  $outingRepository): Response
