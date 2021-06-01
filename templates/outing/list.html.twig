@@ -53,15 +53,19 @@
                         {% else %}
                                 Non
                         {% endif %}
-
                     </td>
 
 
                     <td colspan="2">{{ outing.planner.lastName}} </td>
                     <td colspan="2"> <div class="action_buttons">
                         <a href="{{ path('outing') }}"> afficher </a>  </div>
-                        <a href="{{ path('outing') }}"> Se desister </a>  </div>
-                        <a href="{{ path('outing') }}">   S'inscrire </a> </div>
+
+                         {% if app.user.outings.contains(outing) %}
+                            <a href="{{ path('outing') }}"> Se desister </a>  </div>
+                        {% else if outing.participants|length < outing.maxRegistration %}
+                            <a href="{{ path('outing_registerto',{'id':outing.id}) }}">   S'inscrire </a> </div>
+                        {% endif %}
+
                         <a href="{{ path('outing') }}"> Modifier </a>  </div>
                         <a href="{{ path('outing') }}"> Annuler  </a> </div>
                     </td>
