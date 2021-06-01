@@ -183,8 +183,9 @@ class AppFixtures extends Fixture
         $states      = $manager->getRepository(State::class)->getStates();
         $now         = new \DateTime('now');
 
-        switch (true) {
+        if($outing->getState()->getLabel() === '')
 
+        switch (true) {
             case $outing->getDateBegin() > $now
                 && $outing->getParticipants()->count() < $outing->getMaxRegistration():
                 $outingState = $states['Ouverte'];

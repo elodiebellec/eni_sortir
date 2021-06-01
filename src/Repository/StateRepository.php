@@ -29,6 +29,16 @@ class StateRepository extends ServiceEntityRepository
         return $states;
     }
 
+    /*private function getState(string $label,StateRepository $stateRepository ):State{
+        $states = $stateRepository->findAll();
+        foreach($states as $state) {
+            if ($state->getLabel() === $label) {
+                return $state;
+
+            }
+        }
+        dd('ERROR state not found');
+    }*/
 
     /*
     public function findOneBySomeField($value): ?State
