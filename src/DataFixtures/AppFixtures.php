@@ -11,7 +11,8 @@ use App\Entity\State;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker;
-use function App\Utils\rnd_elem_from_array;
+use function Utils\rnd_elem_from_array;
+
 
 class AppFixtures extends Fixture
 {
