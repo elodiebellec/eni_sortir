@@ -95,7 +95,7 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator implements Passwor
             return new RedirectResponse($targetPath);
         }
 
-        return new RedirectResponse($this->urlGenerator->generate('main_home'));
+        return new RedirectResponse($this->urlGenerator->generate('outing'));
     }
 
     protected function getLoginUrl()

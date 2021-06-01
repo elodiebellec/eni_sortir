@@ -22,7 +22,9 @@ class OutingController extends AbstractController
         $outingsQuantity = $outingRepository->count([]);
         $maxPage= ceil($outingsQuantity/10);
 
-        return $this->render('outing/list.html.twig', ["outings"=>$outings, "currentPage"=> $page, "maxPage"=>$maxPage
+       $user= $this->getUser();
+
+        return $this->render('outing/list.html.twig', ["outings"=>$outings, "currentPage"=> $page, "maxPage"=>$maxPage, "user"=> $user
 
         ]);
     }
