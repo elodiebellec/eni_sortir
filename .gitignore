@@ -264,3 +264,9 @@ fabric.properties
 /.idea
 .idea
 *.idea
+
+.idea/php.xml
+.idea/vcs.xml
+.idea/modules.xml
+.idea/eni_sortir.iml
+
