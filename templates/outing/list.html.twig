@@ -4,8 +4,7 @@
 
 {% block body %}
     <h1>Accueil_liste sorties</h1>
-    {% set user= null  %}
-    {% set isbooked= null  %}
+
 
 
         <div>
@@ -13,18 +12,18 @@
             <table>
                 <thead>
                 <tr>
-                    <th colspan="2">The table header</th>
-                    <th colspan="2">The table header</th>
-                    <th colspan="2">The table header</th>
-                    <th colspan="2">The table header</th>
-                    <th colspan="2">The table header</th>
-                    <th colspan="2">The table header</th>
-                    <th colspan="2">The table header</th>
-                    <th colspan="2">The table header</th>
+                    <th colspan="2">Nom de la sortie</th>
+                    <th colspan="2">Date de la sortie</th>
+                    <th colspan="2">Clôture</th>
+                    <th colspan="2">inscrits/places</th>
+                    <th colspan="2">Etat</th>
+                    <th colspan="2">Inscrit</th>
+                    <th colspan="2">Organisateurr</th>
+                    <th colspan="2">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
-    {% for outing in outings %}
+     {% for outing in outings %}
       {#   {% set listParticipants= outing.participants %}
 
             {% for participant in listParticipants %}
@@ -34,14 +33,20 @@
                 {% endif %}
             {%  endfor %} #}
                 <tr>
-                    <td>{{ outing.name}}</td>
-                    <td>{{ outing.dateBegin|date ('d/m/y')}}</td>
-                    <td>{{ outing.dateBegin|date_modify("+"~outing.duration)|date ('d/m/y')}}</td>
-                    <td>{{ outing.participants|length}} / {{ outing.maxRegistration }}</td>
-                    <td>{{ outing.state}}</td>
-                    <td> isbooked</td>
-                    <td>{{ outing.planner.lastName}} </td>
-                    <td>Actions</td>
+                    <td colspan="2">{{ outing.name}}</td>
+                    <td colspan="2">{{ outing.dateBegin|date ('d/m/y')}}</td>
+                    <td colspan="2">{{ outing.dateBegin|date_modify("+"~outing.duration)|date ('d/m/y')}}</td>
+                    <td colspan="2">{{ outing.participants|length}} / {{ outing.maxRegistration }}</td>
+                    <td colspan="2">{{ outing.state.label}}</td>
+                    <td colspan="2"> isbooked</td>
+                    <td colspan="2">{{ outing.planner.lastName}} </td>
+                    <td colspan="2"> <div class="action_buttons">
+                        <a href="{{ path('outing') }}"> afficher </a>  </div>
+                        <a href="{{ path('outing') }}"> Se desister </a>  </div>
+                        <a href="{{ path('outing') }}">   S'inscrire </a> </div>
+                        <a href="{{ path('outing') }}"> Modifier </a>  </div>
+                        <a href="{{ path('outing') }}"> Annuler  </a> </div>
+                    </td>
 
 
                 </tr>
@@ -52,8 +57,6 @@
 
 
         </div>
-
-
 
 
 {% endblock %}

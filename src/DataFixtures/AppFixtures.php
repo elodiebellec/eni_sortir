@@ -2,7 +2,6 @@
 
 namespace App\DataFixtures;
 
-
 use App\Entity\City;
 use App\Entity\Location;
 use App\Entity\Outing;
@@ -92,7 +91,7 @@ class AppFixtures extends Fixture
                 ->setStreet($generator->streetAddress)
                 ->setLatitude($generator->randomFloat(2, -90, 90))
                 ->setLongitude($generator->randomFloat(2, -180, 180))
-                ->setCity(rnd_elem_from_array($cities->all));
+                ->setCity(AppFixtures::rnd_elem_from_array($cities->all));
 
             $manager->persist($location);
         }
@@ -134,7 +133,7 @@ class AppFixtures extends Fixture
                 ->setPassword($generator->password)
                 ->setPhone($generator->phoneNumber)
                 ->setPseudo($generator->userName.rand(0,9999))
-                ->setSite(rnd_elem_from_array($sites->all));
+                ->setSite(AppFixtures::rnd_elem_from_array($sites->all));
 
             $manager->persist($participant);
         }
@@ -163,10 +162,10 @@ class AppFixtures extends Fixture
                 ->setDateBegin($dateBegin)
                 ->setDateEnd($dateEnd)
                 ->setDuration($duration)
-                ->setSite(rnd_elem_from_array($sites->all))
-                ->setLocation(rnd_elem_from_array($locations->all))
+                ->setSite(AppFixtures::rnd_elem_from_array($sites->all))
+                ->setLocation(AppFixtures::rnd_elem_from_array($locations->all))
                 ->setMaxRegistration(rand(50, 300))
-                ->setPlanner(rnd_elem_from_array($participants->all));
+                ->setPlanner(AppFixtures::rnd_elem_from_array($participants->all));
 
 
             $outing = $this->setOutingParticipants($manager,$outing);
@@ -230,7 +229,7 @@ class AppFixtures extends Fixture
 
             if($i >= $participants->count - 1) break;
 
-            $randomParticipant = rnd_elem_from_array($participants->all);
+            $randomParticipant = AppFixtures::rnd_elem_from_array($participants->all);
 
             if($outing->getParticipants()->contains($randomParticipant)) continue;
 
@@ -250,6 +249,7 @@ class AppFixtures extends Fixture
             "all" => $entities,
         ];
     }
-
-
+    static function rnd_elem_from_array(array $array){
+        return $array[rand(0,count($array)-1)];
+    }
 }
