@@ -19,22 +19,16 @@ class StateRepository extends ServiceEntityRepository
         parent::__construct($registry, State::class);
     }
 
-    // /**
-    //  * @return State[] Returns an array of State objects
-    //  */
-    /*
-    public function findByExampleField($value)
+
+    public function getStates()
     {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $states = [];
+        foreach($this->findAll() as $state){
+            $states[$state->getLabel()] = $state;
+        }
+        return $states;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?State
