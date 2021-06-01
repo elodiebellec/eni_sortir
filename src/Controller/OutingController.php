@@ -12,12 +12,6 @@ class OutingController extends AbstractController
     /**
      * @Route("/outing", name="outing")
      */
-    public function index(): Response
-    {
-        return $this->render('outing/index.html.twig', [
-            'controller_name' => 'OutingController',
-        ]);
-    }
 
     public function  list (OutingRepository  $outingRepository): Response
     {

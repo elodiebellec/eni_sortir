@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+
 use App\Entity\City;
 use App\Entity\Location;
 use App\Entity\Outing;
@@ -11,6 +12,7 @@ use App\Entity\State;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker;
+
 
 class AppFixtures extends Fixture
 {
