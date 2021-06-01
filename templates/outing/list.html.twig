@@ -3,7 +3,14 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
-    <h1>Accueil_liste sorties</h1>
+    <h1>Accueil</h1>
+
+    {% if currentPage > 1 %}
+        <a href="{{ path('outing', {'page':currentPage-1}) }}"> {{ currentPage-1 }} | Page précédente</a>
+    {% endif %}
+
+
+    <a href="{{ path('outing', {'page':currentPage+1}) }}"> Page suivante | {{ currentPage + 1 }}</a>
 
 
 
@@ -57,6 +64,8 @@
 
 
         </div>
+
+    <p> Page n° {{ currentPage}}</p>
 
 
 {% endblock %}

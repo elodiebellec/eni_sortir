@@ -10,16 +10,19 @@ use Symfony\Component\Routing\Annotation\Route;
 class OutingController extends AbstractController
 {
     /**
-     * @Route("/", name="outing")
+     * @Route("/{page}", name="outing", requirements= {"page"="\d+"})
      */
 
-    public function  list (OutingRepository  $outingRepository): Response
+    public function  list (int $page=1, OutingRepository  $outingRepository): Response
     {
 
 
-        $outings =  $outingRepository->findAll();
+        $outings =  $outingRepository->findAllOutings($page);
+        dump($outings);
+        $outingsQuantity = $outingRepository->count([]);
+        $maxPage= ceil($outingsQuantity/10);
 
-        return $this->render('outing/list.html.twig', ["outings"=>$outings
+        return $this->render('outing/list.html.twig', ["outings"=>$outings, "currentPage"=> $page, "maxPage"=>$maxPage
 
         ]);
     }
