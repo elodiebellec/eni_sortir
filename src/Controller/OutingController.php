@@ -2,9 +2,15 @@
 
 namespace App\Controller;
 
+use App\Entity\Outing;
+use App\Entity\Participant;
+use App\Entity\State;
+use App\Form\OutingType;
 use App\Repository\OutingRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -28,5 +34,41 @@ class OutingController extends AbstractController
         return $this->render('outing/list.html.twig', ["outings"=>$outings, "currentPage"=> $page, "maxPage"=>$maxPage, "user"=> $user
 
         ]);
+    }
+
+    /**
+     * @Route("/create", name="outing_create")
+     */
+
+    public function create(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        //TODO Générer un formulaire pour ajouter un nouveau souhait
+        $outing = new Outing();
+        /**
+         * @var $user Participant
+         */
+        $outing->setPlanner($this->getUser());
+        //$userSite->
+        $outing->setSite($this->getUser()->getSite());
+
+        //TODO switch method find(by id) with method findByLabel
+        $outing->setState($entityManager->getRepository('App:State')->find(1));
+        $outingForm = $this->createForm(OutingType::class, $outing);
+
+
+        $outingForm->handleRequest($request);
+
+        if($outingForm->isSubmitted() && $outingForm->isValid()){
+
+            $entityManager->persist($outing);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Sortie ajoutée !');
+            return $this->redirectToRoute('outing');
+        }
+        return $this->render('outing/create.html.twig', [
+            'outingForm'=> $outingForm->createView()
+        ]);
+
     }
 }
