@@ -3,11 +3,13 @@
 namespace App\Form;
 
 
+use App\Entity\City;
 use App\Entity\Location;
 use App\Entity\Outing;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -51,6 +53,11 @@ class OutingType extends AbstractType
                 'choice_label' => 'name'
             ])
 
+            /*->add('city', EntityType::class, [
+                'class' => City::class,
+                'choice_label' => 'city.name',
+                'mapped' => false
+            ])*/
 
         ;
     }

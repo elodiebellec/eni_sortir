@@ -40,14 +40,15 @@ class OutingController extends AbstractController
 
     public function create(Request $request, EntityManagerInterface $entityManager): Response
     {
-        //TODO Générer un formulaire pour ajouter un nouveau souhait
+
         $outing = new Outing();
         /**
          * @var $user Participant
          */
         $outing->setPlanner($this->getUser());
-        //$userSite->
-        $outing->setSite($this->getUser()->getSite());
+        $userSite = $this->getUser()->getSite();
+        $outing->setSite($userSite);
+        $cityList = $entityManager->getRepository('App:State')->findAll();
 
         //TODO switch method find(by id) with method findByLabel
         $outing->setState($entityManager->getRepository('App:State')->find(1));
@@ -65,7 +66,8 @@ class OutingController extends AbstractController
             return $this->redirectToRoute('outing');
         }
         return $this->render('outing/create.html.twig', [
-            'outingForm'=> $outingForm->createView()
+            'outingForm'=> $outingForm->createView(),
+            'userSite'=> $userSite
         ]);
 
     }

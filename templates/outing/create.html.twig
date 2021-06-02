@@ -5,8 +5,12 @@
 {% block body %}
     <h1>Créer une sortie</h1>
     <div>
+        <p>Ville organisatrice : {{ userSite.name }}</p>
+        <p>Rue : {{ userSite.name }}</p>
+        <p>Code postal : {{ userSite.name }}</p>
         {{ form_start(outingForm) }}
         {{ form_widget(outingForm) }}
+
         <button>Enregistrer</button>
 
         {{ form_end(outingForm) }}
