@@ -3,80 +3,103 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
-    <h1>Accueil</h1>
 
+    <h1>Accueil</h1>
 
     {% if currentPage > 1 %}
         <a href="{{ path('outing', {'page':currentPage-1}) }}"> {{ currentPage-1 }} | Page précédente</a>
     {% endif %}
 
+    {% if currentPage < maxPage %}
+        <a href="{{ path('outing', {'page':currentPage+1}) }}"> Page suivante | {{ currentPage + 1 }}</a>
+    {% endif %}
 
-    <a href="{{ path('outing', {'page':currentPage+1}) }}"> Page suivante | {{ currentPage + 1 }}</a>
-
-    <div>  <P> Date du jour : {{ "now"|date("d/m/Y")  }} </P>
-       {% if user is defined and user is not null %}
-           <P> Participant: {{ user.firstname }} </P>
+    <div>
+        <p> Date du jour : {{ "now"|date("d/m/Y")  }} </p>
+        {% if user is defined and user is not null %}
+            <p> Participant: {{ user.firstname }} </p>
         {% endif %}
     </div>
 
-        <div>
+    <div>
 
-            <table>
-                <thead>
+        <table>
+            <thead>
+            <tr>
+                <th colspan="2">Nom de la sortie</th>
+                <th colspan="2">Date de la sortie</th>
+                <th colspan="2">Clôture</th>
+                <th colspan="2">inscrits/places</th>
+                <th colspan="2">Etat</th>
+                <th colspan="2">Inscrit</th>
+                <th colspan="2">Organisateurr</th>
+                <th colspan="2">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for outing in outings %}
+
                 <tr>
-                    <th colspan="2">Nom de la sortie</th>
-                    <th colspan="2">Date de la sortie</th>
-                    <th colspan="2">Clôture</th>
-                    <th colspan="2">inscrits/places</th>
-                    <th colspan="2">Etat</th>
-                    <th colspan="2">Inscrit</th>
-                    <th colspan="2">Organisateur</th>
-                    <th colspan="2">Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-    {% set isBooked = '' %}
-     {% for outing in outings %}
-         {% if user is defined and user is not null %}
-            {% set listParticipants= outing.participants %}
+                    <td colspan="2">{{ outing.name }}</td>
+                    <td colspan="2">{{ outing.dateBegin|date ('d/m/y') }}</td>
+                    <td colspan="2">{{ outing.dateBegin|date_modify("+"~outing.duration)|date ('d/m/y') }}</td>
+                    <td colspan="2">{{ outing.participants|length }} / {{ outing.maxRegistration }}</td>
+                    <td colspan="2">{{ outing.state.label }}</td>
 
-            {% for participant in listParticipants %}
-                {% if user.pseudo  is same as (participant.pseudo) %}
+                    <td colspan="2">
+                        {% if app.user.outings.contains(outing) %}
+                            Oui
+                        {% else %}
+                            Non
+                        {% endif %}
+                    </td>
 
-                    {% set isBooked = 'X' %}
+                    <td colspan="2">{{ outing.planner.lastName }} </td>
 
-                {% endif %}
+                    <td colspan="2">
+                        <div class="action_buttons">
+                            <a href="{{ path('outing') }}"> afficher </a>
 
+                            {% if app.user.outings.contains(outing) %}
 
-            {%  endfor %}
-         {% endif %}
-                <tr>
-                    <td colspan="2">{{ outing.name}}</td>
-                    <td colspan="2">{{ outing.dateBegin|date ('d/m/y')}}</td>
-                    <td colspan="2">{{ outing.dateBegin|date_modify('+'~outing.duration ~ 'day')|date ('d/m/y')}}</td>
-                    <td colspan="2">{{ outing.participants|length}} / {{ outing.maxRegistration }}</td>
-                    <td colspan="2">{{ outing.state.label}}</td>
-                    <td colspan="2"> {{ isBooked }}</td>
-                    <td colspan="2">{{ outing.planner.lastName}} </td>
-                    <td colspan="2"> <div class="action_buttons">
-                        <a href="{{ path('outing') }}"> afficher </a>
-                        <a href="{{ path('outing') }}"> Se desister </a>
-                        <a href="{{ path('outing') }}">   S'inscrire </a>
-                        <a href="{{ path('outing') }}"> Modifier </a>
-                        <a href="{{ path('outing') }}"> Annuler  </a> </div>
+                                <a href="{{ path('outing_removeParticipant',{'id':outing.id}) }}">
+                                    Se desister
+                                </a>
+
+                            {% elseif outing.state.label == "Ouverte" and outing.planner != app.user %}
+
+                                <a href="{{ path('outing_addParticipant',{'id':outing.id}) }}">
+                                    S'inscrire
+                                </a>
+
+                            {% endif %}
+
+                            {% if (app.user.pseudo == outing.planner.pseudo) or 'ROLE_ADMIN' in app.user.roles %}
+
+                                <a href="{{ path('outing') }}"> Modifier </a>
+
+                                <a href="{{ path('outing') }}"> Annuler </a>
+
+                            {% endif %}
+
+                        </div>
+
                     </td>
 
 
                 </tr>
 
-    {%  endfor %}
-                </tbody>
-            </table>
+            {% endfor %}
+            </tbody>
+        </table>
 
-        </div>
+
+    </div>
+
     <p> <a href="{{ path('outing') }}"> Créer une sortie </a></p>
 
-    <p> Page n° {{ currentPage}}</p>
+    <p> Page n° {{ currentPage }}</p>
 
 
 {% endblock %}
