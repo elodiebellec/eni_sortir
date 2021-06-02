@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Outing;
+use App\Entity\Participant;
+use App\Entity\State;
 use App\Form\OutingType;
 use App\Repository\OutingRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -35,11 +37,18 @@ class OutingController extends AbstractController
     /**
      * @Route("/create", name="outing_create")
      */
+
     public function create(Request $request, EntityManagerInterface $entityManager): Response
     {
         //TODO Générer un formulaire pour ajouter un nouveau souhait
         $outing = new Outing();
-        //$outing->setPlanner($this->getUser()->getUsername());
+        /**
+         * @var $user Participant
+         */
+        $outing->setPlanner($this->getUser());
+        $outing->setSite($this->getUser()->getSite());
+
+        $outing->setState($entityManager->getRepository('App:State')->find(1));
         $outingForm = $this->createForm(OutingType::class, $outing);
 
 
