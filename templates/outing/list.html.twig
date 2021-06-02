@@ -19,7 +19,103 @@
         {% endif %}
     </div>
 
-        <div>
+
+    <div>
+
+        {{ form_start(formulaire) }}
+        <div class = "formulaire">
+            <div class = "formulaireLine">
+                <div class ="labelinput">
+                    <div class=" label"> {{ form_label(formulaire.site) }} </div>
+                    <div class=" input"> {{ form_widget(formulaire.site)}} </div>
+                </div >
+
+                <div class = "error"> {{ form_errors(formulaire.site) }} </div>
+            </div>
+
+            <div class = "formulaireLine">
+                <div class ="labelinput">
+                    <div class="label"> {{ form_label(formulaire.name) }} </div>
+                    <div class="input"> {{ form_widget(formulaire.name)}} </div>
+                </div >
+
+                <div class = "error"> {{ form_errors(formulaire.name) }} </div>
+            </div>
+
+
+            <div class = "formulaireLine">
+                <div class = "labelinput">
+                    <div class = "label"> {{ form_label(formulaire.dateBegin) }} </div>
+                    <div class = "input"> {{ form_widget(formulaire.dateBegin)}} </div>
+                </div >
+
+                <div class = "error"> {{ form_errors(formulaire.dateBegin) }} </div>
+            </div>
+
+            <div class = "formulaireLine">
+                <div class = "labelinput">
+                    <div class="label"> {{ form_label(formulaire.dateEnd) }} </div>
+                    <div class = "input"> {{ form_widget(formulaire.dateEnd)}} </div>
+                </div >
+
+                <div class = "error"> {{ form_errors(formulaire.dateEnd) }} </div>
+            </div>
+
+            <div class = "formulaireLine">
+                <div class = "labelinput">
+                    <div class = "input"> {{ form_widget(formulaire.isPlanner)}} </div>
+                    <div class = "label"> {{ form_label(formulaire.isPlanner) }} </div>
+
+                </div >
+
+                <div class = "error"> {{ form_errors(formulaire.isPlanner) }} </div>
+            </div>
+
+
+            <div class = "formulaireLine">
+                <div class = "labelinput">
+                    <div class = "label"> {{ form_label(formulaire.isRegistered) }} </div>
+                    <div class = "input"> {{ form_widget(formulaire.isRegistered)}} </div>
+                </div >
+
+                <div class = "error"> {{ form_errors(formulaire.isRegistered) }} </div>
+            </div>
+
+            <div class = "formulaireLine">
+                <div class = "labelinput">
+                    <div class = "label"> {{ form_label(formulaire.isNotRegistered) }} </div>
+                    <div class = "input"> {{ form_widget(formulaire.isNotRegistered)}} </div>
+                </div >
+
+                <div class = "error"> {{ form_errors(formulaire.isNotRegistered) }} </div>
+            </div>
+
+            <div class = "formulaireLine" >
+                <div class = "labelinput">
+                    <div class = "label"> {{ form_label(formulaire.isOutDated) }}    </div>
+                    <div class = "input"  >  {{ form_widget(formulaire.isOutDated)}}   </div>
+                </div >
+
+                <div class = "error">  {{ form_errors(formulaire.isOutDated)}}  </div>
+            </div>
+
+
+
+
+
+        </div>
+
+
+
+        {{  form_end (formulaire)}}
+
+
+
+    </div>
+
+
+
+    <div>
 
             <table>
                 <thead>
