@@ -29,12 +29,8 @@ class OutingUpdator
     public function updateState(Outing $outing):Outing{
 
         /**
-         * Default timezone was 2 hours too early.
-         * But every date in the db is 2 hours early so setting the right time break the comparisons
-         * solution : get the right timezone for every date in database then uncomment this line.
-         * TODO:Make this work goddamn
+         * If you remark a problem with the dates try to change your timezone in server config.
          */
-        /*date_default_timezone_set('Europe/Paris');*/
 
         if($outing->getState()->getLabel() === 'Activité annulée') return $outing;
 
@@ -56,24 +52,20 @@ class OutingUpdator
                 $outing->setState($states['Activité passée']);
                 break;
 
-
-            case $this->registrationAreClosed($participantsCount, $registrationsLimit,
-                                              $dateRegistrationEnd,$now):
-                $outing->setState($states['Clôturée']);
-                break;
-
-
             case $this->eventIsOngoing($dateEventBegin, $now, $dateEventEnd) :
                 $outing->setState($states['Activité en cours']);
                 break;
 
+            case $this->registrationAreClosed($participantsCount, $registrationsLimit,
+                $dateRegistrationEnd,$now):
+                $outing->setState($states['Clôturée']);
+                break;
 
             case $this->registrationAreOpened($participantsCount, $registrationsLimit,
                             $dateEventBegin, $now, $dateRegistrationEnd, $dateEventEnd):
                 $outing->setState($states['Ouverte']);
                 break;
         }
-
         return $outing;
     }
 
