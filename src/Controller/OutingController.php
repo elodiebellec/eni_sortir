@@ -137,8 +137,8 @@ class OutingController extends AbstractController
         //$userSite->
         $outing->setSite($this->getUser()->getSite());
 
-        //TODO switch method find(by id) with method findByLabel
-        $outing->setState($entityManager->getRepository('App:State')->find(1));
+
+        $outing->setState($entityManager->getRepository(State::class)->getState('Créée'));
         $outingForm = $this->createForm(OutingType::class, $outing);
 
 
