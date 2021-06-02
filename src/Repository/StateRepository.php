@@ -50,7 +50,7 @@ class StateRepository extends ServiceEntityRepository
      * @param string $label
      * @return State
      */
-    private function getState(string $label):State{
+    public function getState(string $label):State{
         $states = $this->findAll();
         foreach($states as $state) {
             if ($state->getLabel() === $label) {
