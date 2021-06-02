@@ -41,7 +41,7 @@
             {% set listParticipants= outing.participants %}
 
             {% for participant in listParticipants %}
-                {% if user.pseudo  == participant.pseudo %}
+                {% if user.pseudo  is same as (participant.pseudo) %}
 
                     {% set isBooked = 'X' %}
 
@@ -53,16 +53,16 @@
                 <tr>
                     <td colspan="2">{{ outing.name}}</td>
                     <td colspan="2">{{ outing.dateBegin|date ('d/m/y')}}</td>
-                    <td colspan="2">{{ outing.dateBegin|date_modify("+"~outing.duration)|date ('d/m/y')}}</td>
+                    <td colspan="2">{{ outing.dateBegin|date_modify('+'~outing.duration ~ 'day')|date ('d/m/y')}}</td>
                     <td colspan="2">{{ outing.participants|length}} / {{ outing.maxRegistration }}</td>
                     <td colspan="2">{{ outing.state.label}}</td>
                     <td colspan="2"> {{ isBooked }}</td>
                     <td colspan="2">{{ outing.planner.lastName}} </td>
                     <td colspan="2"> <div class="action_buttons">
-                        <a href="{{ path('outing') }}"> afficher </a>  </div>
-                        <a href="{{ path('outing') }}"> Se desister </a>  </div>
-                        <a href="{{ path('outing') }}">   S'inscrire </a> </div>
-                        <a href="{{ path('outing') }}"> Modifier </a>  </div>
+                        <a href="{{ path('outing') }}"> afficher </a>
+                        <a href="{{ path('outing') }}"> Se desister </a>
+                        <a href="{{ path('outing') }}">   S'inscrire </a>
+                        <a href="{{ path('outing') }}"> Modifier </a>
                         <a href="{{ path('outing') }}"> Annuler  </a> </div>
                     </td>
 
@@ -73,8 +73,8 @@
                 </tbody>
             </table>
 
-
         </div>
+    <p> <a href="{{ path('outing') }}"> Créer une sortie </a></p>
 
     <p> Page n° {{ currentPage}}</p>
 
