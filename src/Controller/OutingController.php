@@ -58,13 +58,20 @@ class OutingController extends AbstractController
         $outingForm->handleRequest($request);
 
         if($outingForm->isSubmitted() && $outingForm->isValid()){
+            if ($outingForm->getClickedButton() && 'saveAndAdd' === $outingForm->getClickedButton()->getName()) {
+                $outing->setState($entityManager->getRepository('App:State')->find(2));
+            }
 
             $entityManager->persist($outing);
             $entityManager->flush();
 
             $this->addFlash('success', 'Sortie ajoutée !');
-            return $this->redirectToRoute('outing');
+            return $this->redirectToRoute('outing_create');
+
         }
+
+
+
         return $this->render('outing/create.html.twig', [
             'outingForm'=> $outingForm->createView(),
             'userSite'=> $userSite

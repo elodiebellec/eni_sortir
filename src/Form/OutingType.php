@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -58,6 +59,10 @@ class OutingType extends AbstractType
                 'choice_label' => 'city.name',
                 'mapped' => false
             ])*/
+
+            ->add('save', SubmitType::class, ['label' => 'Enregistrer'])
+            ->add('saveAndAdd', SubmitType::class, ['label'=>'Publier'])
+            ->getForm();
 
         ;
     }
