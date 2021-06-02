@@ -15,6 +15,13 @@
     {% endif %}
 
     <div>
+        <p> Date du jour : {{ "now"|date("d/m/Y")  }} </p>
+        {% if user is defined and user is not null %}
+            <p> Participant: {{ user.firstname }} </p>
+        {% endif %}
+    </div>
+
+    <div>
 
         <table>
             <thead>
@@ -89,6 +96,8 @@
 
 
     </div>
+
+    <p> <a href="{{ path('outing') }}"> Créer une sortie </a></p>
 
     <p> Page n° {{ currentPage }}</p>
 
