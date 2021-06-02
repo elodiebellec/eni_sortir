@@ -46,8 +46,10 @@ class OutingController extends AbstractController
          * @var $user Participant
          */
         $outing->setPlanner($this->getUser());
+        //$userSite->
         $outing->setSite($this->getUser()->getSite());
 
+        //TODO switch method find(by id) with method findByLabel
         $outing->setState($entityManager->getRepository('App:State')->find(1));
         $outingForm = $this->createForm(OutingType::class, $outing);
 
