@@ -4,6 +4,10 @@ namespace App\Verificators;
 use App\Entity\Outing;
 use App\Entity\Participant;
 
+/**
+ * Class OutingVerificator
+ * @package App\Verificators
+ */
 class OutingVerificator
 {
 
@@ -14,6 +18,11 @@ class OutingVerificator
     {
         $this->errors = [];
     }
+
+    /**
+     * Get the different errors following the verification of the outing.
+     * @return string
+     */
     public function getErrorMessages():string{
         $flash = "";
         foreach($this->errors as $error){
@@ -21,10 +30,16 @@ class OutingVerificator
         }
         return $flash;
     }
+
+    /**
+     * @param Participant $participant
+     * @param $outing
+     * @return bool
+     */
     public function canAdd(Participant $participant, $outing) :bool {
 
-        if($this->checkOutingDoNotExists($outing)){
-            return $this->hasErrors();
+        if($this->outingIsNull($outing)){
+            return false;
         }
 
         $this->outing = $outing;
@@ -34,8 +49,9 @@ class OutingVerificator
         $this->checkIsClosed();
         $this->checkParticipantAlreadyRegistered($participant);
 
-        return $this->hasErrors();
+        return $this->hasSucceed();
     }
+
     private function checkParticipantAlreadyRegistered(Participant $participant): void
     {
         $participantAlreadyRegistered = $participant->getOutings()->contains($this->outing);
@@ -48,6 +64,7 @@ class OutingVerificator
         $hasReachRegistrationLimit = $this->outing->getParticipants()->count() >= $this->outing->getMaxRegistration();
         if($hasReachRegistrationLimit){
             $this->errors[] = OutingErrors::$hasReachRegistrationLimit;
+
         }
     }
     private function checkParticipantIsPlanner(Participant $participant): void
@@ -65,10 +82,15 @@ class OutingVerificator
         }
     }
 
+    /**
+     * @param Participant $participant
+     * @param $outing
+     * @return bool
+     */
     public function canRemove(Participant $participant, $outing) :bool {
 
-        if($this->checkOutingDoNotExists($outing)){
-            return $this->hasErrors();
+        if($this->outingIsNull($outing)){
+            return false;
         }
 
         $this->outing = $outing;
@@ -77,7 +99,7 @@ class OutingVerificator
         $this->checkParticipantToRemoveIsPlanner($participant);
         $this->checkOutingIsNotActive();
 
-        return $this->hasErrors();
+        return $this->hasSucceed();
     }
 
     private function checkParticipantIsNotRegistered(Participant $participant): void
@@ -94,6 +116,7 @@ class OutingVerificator
             $this->errors[] = OutingErrors::$participantToRemoveIsPlanner;
         }
     }
+
     private function checkOutingIsNotActive(): void
     {
         $outingIsNotActive =    $this->outing->getState()->getLabel() === 'Activité passée'
@@ -102,15 +125,19 @@ class OutingVerificator
             $this->errors[] = OutingErrors::$outingIsNotActive;
         }
     }
-    private function checkOutingDoNotExists($outing): bool
+    private function outingIsNull($outing): bool
     {
-        $outingDoNotExists = $outing === null;
-        if($outingDoNotExists){
-            $this->errors[] = OutingErrors::$outingDoNotExists;
+        $outingIsNull= $outing === null;
+        if($outingIsNull){
+            $this->errors[] = OutingErrors::$outingIsNull;
         }
-        return $outingDoNotExists;
+        return $outingIsNull;
     }
-    private function hasErrors():bool{
+
+    /**
+     * @return bool
+     */
+    private function hasSucceed():bool{
         return count($this->errors) === 0;
     }
 }

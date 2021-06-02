@@ -154,13 +154,13 @@ class AppFixtures extends Fixture
 
             $dateBegin = $generator->dateTimeBetween('-3 months', '+3months');
             $duration  = rand(3, 240); /*Duration in hours*/
-            $dateEnd   = \DateTimeImmutable::createFromMutable($dateBegin)->modify("+ {$duration} hours");
+            $dateEventEnd   = \DateTimeImmutable::createFromMutable($dateBegin)->modify("+ {$duration} hours");
 
             $outing
                 ->setName($generator->company)
                 ->setDescription($generator->text)
                 ->setDateBegin($dateBegin)
-                ->setDateEnd($dateEnd)
+                ->setDateEnd($dateEventEnd)
                 ->setDuration($duration)
                 ->setSite(AppFixtures::rnd_elem_from_array($sites->all))
                 ->setLocation(AppFixtures::rnd_elem_from_array($locations->all))

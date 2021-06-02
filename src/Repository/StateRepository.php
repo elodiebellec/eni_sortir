@@ -15,12 +15,25 @@ use Doctrine\Persistence\ManagerRegistry;
 class StateRepository extends ServiceEntityRepository
 {
 
+    /**
+     * StateRepository constructor.
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, State::class);
     }
 
-    public function getStates()
+    /**
+     * Get all states that are registered in the database as an array.
+     * Array is indexed with states labels.
+     * You can get a specific states by specifying the label as index.
+     * Example :
+     *      $states = $stateRepo->getStates();
+     *      $openedState = $states['Ouverte'];
+     * @return array
+     */
+    public function getStates() :array
     {
         $states = [];
         foreach($this->findAll() as $state){
@@ -29,6 +42,14 @@ class StateRepository extends ServiceEntityRepository
         return $states;
     }
 
+    /**
+     * Get specific state that is registered in the database.
+     * Specify the label of the desired state.
+     * Example :
+     *      $openendState = $stateRepo->getState('Ouverte');
+     * @param string $label
+     * @return State
+     */
     private function getState(string $label):State{
         $states = $this->findAll();
         foreach($states as $state) {
@@ -39,16 +60,4 @@ class StateRepository extends ServiceEntityRepository
         }
         dd('ERROR state not found');
     }
-
-    /*
-    public function findOneBySomeField($value): ?State
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

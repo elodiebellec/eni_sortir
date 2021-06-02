@@ -56,13 +56,13 @@
 
                             {% if app.user.outings.contains(outing) %}
 
-                                <a href="{{ path('outing_removefrom',{'id':outing.id}) }}">
+                                <a href="{{ path('outing_removeParticipant',{'id':outing.id}) }}">
                                     Se desister
                                 </a>
 
                             {% elseif outing.state.label == "Ouverte" and outing.planner != app.user %}
 
-                                <a href="{{ path('outing_registerto',{'id':outing.id}) }}">
+                                <a href="{{ path('outing_addParticipant',{'id':outing.id}) }}">
                                     S'inscrire
                                 </a>
 

@@ -36,43 +36,54 @@ class OutingController extends AbstractController
 
     /**
      * @IsGranted("ROLE_USER")
-     * @Route("outing/addParticipant/{id}", name="outing_registerto", requirements={"page"="\d+"})
+     * @Route("outing/addParticipant/{id}", name="outing_addParticipant", requirements={"page"="\d+"})
      */
-    public function addParticipant(int $id,
-                                   OutingRepository  $outingRepository,
-                                   EntityManagerInterface $entityManager,
-                                   OutingUpdator $updator,
-                                   OutingVerificator $verificator): RedirectResponse
+    public function addParticipantWithCheck(int $id,
+                                            OutingRepository  $outingRepository,
+                                            EntityManagerInterface $entityManager,
+                                            OutingUpdator $updator,
+                                            OutingVerificator $verificator): RedirectResponse
     {
         /**
          * @var $user Participant
          */
         $user   = $this->getUser();
         $outing = $outingRepository->find($id);
+        /**
+         * Check for nulls.
+         */
+        if(!$outing) return $this->redirectToRoute('outing');
+        /**
+         *  Update in the case the state has changed since the page has been loaded.
+         */
+        $outing  = $updator->updateState($outing);
 
         if($verificator->canAdd($user,$outing)){
-
             $outing  = $outing->addParticipant($user);
             $outing  = $updator->updateState($outing);
-
-            $entityManager->persist($outing);
-            $entityManager->flush();
         }
         else{
             $this->addFlash('Opération impossible',$verificator->getErrorMessages());
         }
+        /**
+         * Refresh the outing and its state even if participant couldn't be added.
+         * It will refresh outing for all users.
+         */
+        $entityManager->persist($outing);
+        $entityManager->flush();
+
         return $this->redirectToRoute('outing');
     }
 
     /**
      * @IsGranted("ROLE_USER")
-     * @Route("outing/removeParticipant/{id}", name="outing_removefrom", requirements={"page"="\d+"})
+     * @Route("outing/removeParticipant/{id}", name="outing_removeParticipant", requirements={"page"="\d+"})
      */
-    public function removeParticipant(int $id,
-                                   OutingRepository  $outingRepository,
-                                   EntityManagerInterface $entityManager,
-                                   OutingUpdator $updator,
-                                   OutingVerificator $verificator): RedirectResponse
+    public function removeParticipantWithCheck(int $id,
+                                               OutingRepository  $outingRepository,
+                                               EntityManagerInterface $entityManager,
+                                               OutingUpdator $updator,
+                                               OutingVerificator $verificator): RedirectResponse
     {
         /**
          * @var $user Participant
@@ -80,17 +91,28 @@ class OutingController extends AbstractController
         $user = $this->getUser();
         $outing = $outingRepository->find($id);
 
-        if($verificator->canRemove($user,$outing)){
+        /**
+         * Check for nulls.
+         */
+        if(!$outing) return $this->redirectToRoute('outing');
+        /**
+         *  Update in the case the state has changed since the page has been loaded.
+         */
+        $outing  = $updator->updateState($outing);
 
+        if($verificator->canRemove($user,$outing)){
             $outing  = $outing->removeParticipant($user);
             $outing  = $updator->updateState($outing);
-
-            $entityManager->persist($outing);
-            $entityManager->flush();
         }
         else{
             $this->addFlash('Opération impossible',$verificator->getErrorMessages());
         }
+        /**
+         * Refresh the outing and its state even if participant couldn't be added.
+         * It will refresh outing for all users.
+         */
+        $entityManager->persist($outing);
+        $entityManager->flush();
 
         return $this->redirectToRoute('outing');
     }
