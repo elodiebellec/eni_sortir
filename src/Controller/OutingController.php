@@ -2,11 +2,11 @@
 
 namespace App\Controller;
 
-use App\Entity\Outing;
 use App\Entity\Participant;
 use App\Entity\State;
 use App\Repository\OutingRepository;
-use App\Repository\StateRepository;
+use App\Updators\OutingUpdator;
+use App\Verificators\OutingVerificator;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -40,34 +40,27 @@ class OutingController extends AbstractController
      */
     public function addParticipant(int $id,
                                    OutingRepository  $outingRepository,
-                                   EntityManagerInterface $entityManager): RedirectResponse
+                                   EntityManagerInterface $entityManager,
+                                   OutingUpdator $updator,
+                                   OutingVerificator $verificator): RedirectResponse
     {
-        $outing = $outingRepository->find($id);
-
         /**
          * @var $user Participant
          */
-        $user = $this->getUser();
+        $user   = $this->getUser();
+        $outing = $outingRepository->find($id);
 
-        if($user->getOutings()->contains($outing)){
-            $this->addFlash('Opération impossible','Vous êtes déjà inscrit à cet évènement.');
-            return $this->redirectToRoute('outing');
+        if($verificator->canAdd($user,$outing)){
+
+            $outing  = $outing->addParticipant($user);
+            $outing  = $updator->updateState($outing);
+
+            $entityManager->persist($outing);
+            $entityManager->flush();
         }
-        if($outing->getParticipants()->count() >= $outing->getMaxRegistration()){
-            $this->addFlash('Opération impossible','Cet évènement ne comporte plus de places disponibles.');
-            return $this->redirectToRoute('outing');
+        else{
+            $this->addFlash('Opération impossible',$verificator->getErrorMessages());
         }
-        if(strcmp($outing->getPlanner()->getPseudo(), $user->getPseudo()) === 0){
-            $this->addFlash('Opération impossible',"Vous organisez cet évènement, de fait vous y participez.");
-            return $this->redirectToRoute('outing');
-        }
-
-        $outing = $outing->addParticipant($user);
-        $outing = $this->updateState($outing);
-
-        $entityManager->persist($outing);
-        $entityManager->flush();
-
         return $this->redirectToRoute('outing');
     }
 
@@ -77,69 +70,29 @@ class OutingController extends AbstractController
      */
     public function removeParticipant(int $id,
                                    OutingRepository  $outingRepository,
-                                   EntityManagerInterface $entityManager): RedirectResponse
+                                   EntityManagerInterface $entityManager,
+                                   OutingUpdator $updator,
+                                   OutingVerificator $verificator): RedirectResponse
     {
-
-        $outing = $outingRepository->find($id);
-
         /**
          * @var $user Participant
          */
         $user = $this->getUser();
+        $outing = $outingRepository->find($id);
 
-        if(!$user->getOutings()->contains($outing)){
-            $this->addFlash('Opération impossible','Vous n\'êtes pas inscrit à cet évènement.');
-            return $this->redirectToRoute('outing');
-        }
-        if(strcmp($outing->getPlanner()->getPseudo(), $user->getPseudo()) === 0){
-            $this->addFlash('Opération impossible',"Vous organisez cet évènement, vous ne pouvez pas vous désister.");
-            return $this->redirectToRoute('outing');
-        }
-        if($outing->getState()->getLabel() === 'Activité passée'
-        || $outing->getState()->getLabel() === 'Activité annulée'){
-            $this->addFlash('Opération impossible',"Impossible de se désister d'une activité non existante.");
-            return $this->redirectToRoute('outing');
-        }
+        if($verificator->canRemove($user,$outing)){
 
-        $outing = $outing->removeParticipant($user);
-        $outing = $this->updateState($outing);
+            $outing  = $outing->removeParticipant($user);
+            $outing  = $updator->updateState($outing);
 
-        $entityManager->persist($outing);
-        $entityManager->flush();
+            $entityManager->persist($outing);
+            $entityManager->flush();
+        }
+        else{
+            $this->addFlash('Opération impossible',$verificator->getErrorMessages());
+        }
 
         return $this->redirectToRoute('outing');
     }
-
-    private function updateState(Outing $outing): Outing
-    {
-        $states = $this->getDoctrine()->getRepository(State::class)->getStates();
-
-        if($outing->getState()->getLabel() === 'Activité annulée') return $outing;
-
-        $outingParticipantsCount    = $outing->getParticipants()->count();
-        $outingMaxRegistration      = $outing->getMaxRegistration();
-
-        $dateBegin  = $outing->getDateBegin();
-        $dateEnd    = $outing->getDateEnd();
-        $now        = new \DateTime;
-
-        switch(true){
-            case $outingParticipantsCount >= $outingMaxRegistration :
-                $outing->setState($states['Clôturée']);
-                break;
-            case $outingParticipantsCount <= $outingMaxRegistration && $dateBegin > $now :
-                $outing->setState($states['Ouverte']);
-                break;
-            case $dateBegin < $now && $dateEnd > $now :
-                $outing->setState($states['Activité en cours']);
-                break;
-            case $dateEnd < $now :
-                $outing->setState($states['Activité passée']);
-                break;
-        }
-
-        return $outing;
-    }
-
 
 }

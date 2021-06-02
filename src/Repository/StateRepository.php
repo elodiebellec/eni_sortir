@@ -14,11 +14,11 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class StateRepository extends ServiceEntityRepository
 {
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, State::class);
     }
-
 
     public function getStates()
     {
@@ -29,8 +29,8 @@ class StateRepository extends ServiceEntityRepository
         return $states;
     }
 
-    /*private function getState(string $label,StateRepository $stateRepository ):State{
-        $states = $stateRepository->findAll();
+    private function getState(string $label):State{
+        $states = $this->findAll();
         foreach($states as $state) {
             if ($state->getLabel() === $label) {
                 return $state;
@@ -38,7 +38,7 @@ class StateRepository extends ServiceEntityRepository
             }
         }
         dd('ERROR state not found');
-    }*/
+    }
 
     /*
     public function findOneBySomeField($value): ?State
