@@ -43,12 +43,6 @@ class RegistrationController extends AbstractController
             $this->addFlash("Succes", "Vous avez bien inscrit ce participant !");
 
             return $this->redirectToRoute('outing');
-            /*return $guardHandler->authenticateUserAndHandleSuccess(
-                $user,
-                $request,
-                $authenticator,
-                'main' // firewall name in security.yaml
-            ); Old method to authenticate the created user */
         }
 
         return $this->render('registration/register.html.twig', [
