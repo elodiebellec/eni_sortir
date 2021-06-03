@@ -21,20 +21,21 @@ class RegistrationController extends AbstractController
      */
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, AppAuthenticator $authenticator): Response
     {
-        $user = new Participant();
-        $form = $this->createForm(RegistrationFormType::class, $user);
+
+        $newParticipant = new Participant();
+        $form = $this->createForm(RegistrationFormType::class, $newParticipant);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user->setPassword(
+            $newParticipant->setPassword(
                 $passwordEncoder->encodePassword(
-                    $user,
+                    $newParticipant,
                     $form->get('plainPassword')->getData()
                 )
             );
 
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
+            $entityManager->persist($newParticipant);
             $entityManager->flush();
 
             $this->addFlash("Succes", "Vous avez bien inscrit ce participant !");
