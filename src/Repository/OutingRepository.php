@@ -72,97 +72,67 @@ class OutingRepository extends ServiceEntityRepository
             $queryBuilder->setParameter('site', $filter->getSite());
         }
 
+
+
+        if( ($filter->getIsPlanner()))
+        {
+
+            $queryBuilder->andWhere("planner.id = :idUser");
+           $queryBuilder->setParameter('idUser', $idUser);
+        }
+
+        if(($filter->getIsRegistered()))
+        {
+            // $queryBuilder->andWhere("o.planner = $idUser");
+           $queryBuilder->andWhere("participants.id = :idUser");
+            $queryBuilder->setParameter('idUser', $idUser);
+        }
+        if(($filter->getIsNotRegistered()))
+        {
+
+            $queryBuilder->andWhere("participants.id != :idUser");
+            $queryBuilder->setParameter('idUser', $idUser);
+        }
+
+        if(($filter->getIsOutDated()))
+        {
+
+            $queryBuilder->andWhere("state.label = :state");
+            $queryBuilder->setParameter('state', $filter->getIsOutDated());
+        }
         /*
-
-        if(!is_null ($isPlanner))
-        {
-           // $queryBuilder->andWhere("o.planner = $idUser");
-        } */
-
-        $query = $queryBuilder->getQuery();
-
-        $offset = ($page -1) *50;
-        $query->setFirstResult($offset);
-        $query->setMaxResults(50);
-
-        $paginator = new Paginator($query);
+         * Count of the number of results
+         */
+       $queryBuilder->select('COUNT( distinct o)');
+        $countQuery= $queryBuilder->getQuery();
+        $maxOutings = $countQuery->getSingleScalarResult();
 
 
-
-       return  $paginator;
-
-    }
-
-   /* public function findByFilter($page, $name, $dateBegin, $dateEnd, $site, $isPlanner, $isRegistered, $isNotRegistered, $isOutDated,$user )
-    {
-
-        $idUser = $user->getId();
-        $queryBuilder = $this->createQueryBuilder('f');
-
-        if(!is_null ($name))
-        {
-            $queryBuilder->andWhere("f.name LIKE '%$name%'");
-        }
-
-        if(!is_null ($dateBegin))
-        {
-            $queryBuilder->andWhere("f.dateBegin = $dateBegin");
-        }
-
-        if(!is_null ($dateEnd))
-        {
-            $queryBuilder->andWhere("f.dateEnd = $dateEnd");
-        }
-        if(!is_null ($site))
-        {
-            $queryBuilder->andWhere("f.site = $site");
-        }
-
-        if(!is_null ($isPlanner))
-        {
-           $queryBuilder->andWhere("f.planner = $idUser");
-        }
-
-
-        if(!is_null ($isRegistered))
-        {
-
-        }
-
-        if(!is_null ($isNotRegistered))
-        {
-
-        }
-
-        if(!is_null ($isOutDated))
-        {
-
-        }
-
-
-        $queryBuilder->leftJoin('f.state','state');
-        $queryBuilder->leftJoin('f.planner','planner');
-        $queryBuilder->leftJoin('f.participants','participants');
-        $queryBuilder->leftJoin('f.site','site');
-        $queryBuilder->leftJoin('f.location','location');
-
-        $queryBuilder->addSelect('state');
-        $queryBuilder->addSelect('planner');
-        $queryBuilder->addSelect('participants');
-        $queryBuilder->addSelect('site');
-        $queryBuilder->addSelect('location');
-
+        /*
+         * New selection of results
+         */
+        $queryBuilder->select('o');
         $query = $queryBuilder->getQuery();
 
         $offset = ($page -1) *10;
         $query->setFirstResult($offset);
         $query->setMaxResults(10);
 
-        $paginator = new Paginator($query);
+       $paginator = new Paginator($query);
 
-        return  $paginator;
+        // 'outings'=>$query->getResult()
 
-    } */
+
+
+       return  [
+           'outings'=>$paginator,
+           'maxOutings'=>$maxOutings
+
+       ];
+
+    }
+
+
 
     // /**
     //  * @return Outing[] Returns an array of Outing objects

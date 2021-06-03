@@ -57,8 +57,8 @@ class FilterType extends AbstractType
         $builder
             ->add('site',ChoiceType::class,  [ 'choices'=>$listWithName, "label"=>"Site:", "placeholder"=> null, "empty_data" =>" "]) // ligne concernée par la liste à afficher
             ->add('name',SearchType::class, [ "required"=>false,"label"=>"Le nom de la sortie contient"])
-            ->add('dateBeginFilter', DateTimeType::class, ["required"=>false, "label"=>"Entre","html5"=>true,"empty_data" =>null, "widget"=>"single_text" ])
-            ->add('dateEndFilter', DateTimeType::class, ["required"=>false, "label"=>"et","html5"=>true,"empty_data" =>null, "widget"=>"single_text" ])
+            ->add('dateBeginFilter', DateTimeType::class, ["required"=>false, "label"=>"Entre","html5"=>true,"empty_data" =>null, "date_widget"=>"single_text" ,'date_format' => 'yyyy-MM-dd'  ] )
+            ->add('dateEndFilter', DateTimeType::class, ["required"=>false, "label"=>"et","html5"=>true,"empty_data" =>null, "date_widget"=>"single_text" ,'date_format' => 'yyyy-MM-dd' ])
 
             ->add('isPlanner', ChoiceType::class, [ "required"=>false,
                 "choices" =>
@@ -80,7 +80,7 @@ class FilterType extends AbstractType
 
             ->add('isOutDated', ChoiceType::class, [ "required"=>false,
                 "choices" =>
-                    ["Sorties passées"=>"ok"],
+                    ["Sorties passées"=>"Activité passée"],
                     "multiple"=>true, "expanded"=>true,
                     'attr' => [ 'class' => 'checkbox'], "label"=> false] )
 

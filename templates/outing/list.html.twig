@@ -10,8 +10,16 @@
         <a href="{{ path('outing', {'page':currentPage-1}) }}"> {{ currentPage-1 }} | Page précédente</a>
     {% endif %}
 
+    {% if currentPage < maxPage %}
+        {% if currentPage == 1 %}
+            <div></div>
+        {% endif %}
+        <a href="{{ path('outing', {'page':currentPage+1}) }}"> Page suivante | {{ currentPage + 1 }}</a>
 
-    <a href="{{ path('outing', {'page':currentPage+1}) }}"> Page suivante | {{ currentPage + 1 }}</a>
+    {% endif %}
+
+
+
 
     <div>  <P> Date du jour : {{ "now"|date("d/m/Y")  }} </P>
        {% if user is defined and user is not null %}
@@ -172,7 +180,8 @@
         </div>
     <p> <a href="{{ path('outing') }}"> Créer une sortie </a></p>
 
-    <p> Page n° {{ currentPage}}</p>
+    <p> Page n° {{ currentPage}} sur {{ maxPage }}</p>
+    <div> {{ maxOutings }} résultats</div>
 
 
 {% endblock %}

@@ -27,21 +27,27 @@ class OutingController extends AbstractController
         $filterForm= $this->createForm(FilterType::class, $filter);
         $filterForm->handleRequest($request);
 
-        $outings = $outingRepository->findAllOutings($page, $filter, $user);
-        $outingsQuantity = $outingRepository->count([]);
-        $maxPage= ceil($outingsQuantity/10);
+        $results = $outingRepository->findAllOutings($page, $filter, $user);
+        //$outingsQuantity = $outingRepository->count([]);
+       // $maxPage= ceil($outingsQuantity/10);
+        $maxPage=ceil($results['maxOutings']/10);
+    dump($maxPage);
 
-
-
-       if($filterForm->isSubmitted()&& $filterForm->isValid())
+       /*if($filterForm->isSubmitted()&& $filterForm->isValid())
        {
 
            $outings = $outingRepository->findAllOutings($page, $filter, $user);
 
-       }
+       } */
 
 
-        return $this->render('outing/list.html.twig', ["outings"=>$outings, "currentPage"=> $page, "maxPage"=>$maxPage, "user"=> $user, "formulaire"=>$filterForm->createView()
+        return $this->render('outing/list.html.twig',
+            ["outings"=>$results['outings'],
+            "maxOutings"=>$results['maxOutings'],
+            "currentPage"=> $page,
+            "maxPage"=>$maxPage,
+            "user"=> $user,
+            "formulaire"=>$filterForm->createView()
 
         ]);
     }

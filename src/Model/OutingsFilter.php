@@ -18,9 +18,7 @@ class OutingsFilter
     private $isOutDated;
     private  $isPlanner;
 
-    /**
-     * @return mixed
-     */
+
     public function getDateBeginFilter()
     {
         return $this->dateBeginFilter;
@@ -34,10 +32,8 @@ class OutingsFilter
         $this->dateBeginFilter = $dateBeginFilter;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getDateEndFilter()
+
+    public function getDateEndFilter(): ?\DateTimeInterface
     {
         return $this->dateEndFilter;
     }
@@ -45,9 +41,11 @@ class OutingsFilter
     /**
      * @param mixed $dateEndFilter
      */
-    public function setDateEndFilter($dateEndFilter): void
+    public function setDateEndFilter(?\DateTimeInterface $dateEndFilter): self
     {
         $this->dateEndFilter = $dateEndFilter;
+
+        return $this;
     }
 
 
