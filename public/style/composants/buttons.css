@@ -1,3 +1,132 @@
+html {
+  font-size: 18px;
+}
 
+html {
+  font-size: 18px;
+}
+
+.form-field, .login-form-field {
+  border-radius: 80px;
+  border-color: #2D2929;
+  opacity: 0.8;
+  transition: 0.33s;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: baseline;
+  padding: 1rem;
+  margin: 0.5rem;
+  border: 1px solid;
+}
+.form-field input, .login-form-field input {
+  background: none;
+  border: none;
+  font-family: "Open Sans", sans-serif;
+  font-size: 1.5rem;
+  margin-inline-start: 1rem;
+}
+.form-field ::placeholder, .login-form-field ::placeholder {
+  font-family: "Open Sans", sans-serif;
+  font-variant-caps: small-caps;
+  font-weight: bold;
+  font-size: 1.25rem;
+  color: black;
+  opacity: 0.8;
+}
+
+/*------------LOGIN-FORM-------------*/
+.login-form {
+  margin: auto;
+  font-size: 1.33rem;
+  display: flex;
+  flex-flow: column nowrap;
+  min-width: 40vw;
+  cursor: pointer;
+}
+
+.login-form-field {
+  padding: 1.55rem;
+  cursor: pointer;
+}
+.login-form-field input {
+  outline: none;
+}
+
+.login-connect {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  margin-block-start: 2rem;
+}
+.login-connect .checkbox-container {
+  min-width: 50%;
+  margin-inline-start: 3rem;
+}
+.login-connect .checkbox-container .checkbox {
+  display: flex;
+  align-items: center;
+  font-family: "Open Sans", sans-serif;
+  color: #232020;
+  opacity: 0.8;
+  margin: auto;
+}
+.login-connect .checkbox-container .checkbox input[type=checkbox] {
+  margin-inline-start: 1rem;
+}
+.login-connect .checkbox-container .checkbox .remember-me {
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-inline-start: 2rem;
+}
+
+@media screen and (max-width: 1250px) {
+  .login-form {
+    min-width: 55vw;
+  }
+}
+@media screen and (max-width: 1000px) {
+  .login-form {
+    min-width: 65vw;
+  }
+}
+@media screen and (max-width: 768px) {
+  .checkbox-container {
+    display: none;
+  }
+}
+@media screen and (max-width: 535px) {
+  .login-form {
+    margin: 0;
+  }
+
+  .login-page {
+    margin: 1rem;
+  }
+}
+button, .button-login-form {
+  border-radius: 80px;
+  border-color: #2D2929;
+  opacity: 0.8;
+  transition: 0.33s;
+  background-color: rgba(41, 44, 45, 0.6);
+  min-width: 10rem;
+  border: 0;
+  font-family: "Open Sans", sans-serif;
+  color: white;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+button:hover, .button-login-form:hover {
+  background-color: rgba(41, 44, 45, 0.8);
+  transition: 0.25s;
+}
+
+.button-login-form {
+  padding: 1.24rem;
+  font-size: 1.33rem;
+  opacity: 0.8;
+  flex: 1 1 auto;
+}
 
 /*# sourceMappingURL=buttons.css.map */

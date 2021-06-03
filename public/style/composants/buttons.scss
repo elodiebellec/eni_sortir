@@ -1,0 +1,29 @@
+@import "../theme/fonts";
+@import "../theme/shape";
+@import "../theme/color";
+@import "form";
+
+button{
+  @include border-primary;
+  background-color: $btn-primary-color;
+  min-width: 10rem;
+  border:0;
+
+  font-family: $opensans;
+  color:white;
+
+  cursor:pointer;
+  transition : 0.25s;
+
+}
+button:hover{
+  background-color: $btn-primary-hover-color;
+  transition : 0.25s;
+}
+.button-login-form{
+  @extend button;
+  padding: $padding-login-form-field * 0.8;
+  font-size: 1.33rem;
+  opacity:0.8;
+  flex:1 1 auto;
+}

@@ -1,0 +1,23 @@
+html {
+  font-size: 18px;
+}
+
+.login-header {
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+  min-height: 38vh;
+}
+.login-header .login-catchphrase {
+  font-weight: 400;
+  font-family: "Open Sans", sans-serif;
+  font-size: 1.33rem;
+}
+.login-header .login-siteName {
+  font-family: "Poiret One", cursive;
+  font-size: 4rem;
+  font-weight: 100;
+  margin-block-start: 1rem;
+}
+
+/*# sourceMappingURL=headers.css.map */
