@@ -103,7 +103,7 @@ class OutingRepository extends ServiceEntityRepository
         /*
          * Count of the number of results
          */
-       $queryBuilder->select('COUNT( distinct o)');
+        $queryBuilder->select('COUNT( distinct o)');
         $countQuery= $queryBuilder->getQuery();
         $maxOutings = $countQuery->getSingleScalarResult();
 

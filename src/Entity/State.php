@@ -51,6 +51,8 @@ class State
         return $this;
     }
 
+
+
     /**
      * @return Collection|Outing[]
      */
