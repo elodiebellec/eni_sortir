@@ -1,0 +1,59 @@
+/*Fichier 1 main*/
+@use "lib";
+
+$font: Roboto,sans-serif;
+$background-color: #000000;
+$font-color: white;
+*{
+  margin:0;
+  padding:0;
+  box-sizing: border-box;
+  color:$font-color;
+}
+html{
+  background-color: $background-color;
+}
+body{
+  display:flex;
+  flex-flow: row nowrap;
+}
+nav{
+  @include lib.sidebar;
+}
+.page{
+
+}
+ul{
+  @include lib.list
+}
+li{
+  @include lib.list-element
+}
+/*Fichier 2 lib */
+@mixin flex-col{
+  display:flex;
+  flex-flow:column nowrap;
+}
+@mixin flex-col-center{
+  @include flex-col;
+  justify-content: center;
+}
+@mixin full-width{
+  min-width:100vw;
+}
+@mixin full-height{
+  min-height:100vh;
+  max-height:100vh;
+}
+@mixin list{
+  list-style-type: none;
+}
+@mixin list-element{
+  margin-block: 2rem;
+}
+@mixin sidebar{
+  @include flex-col-center;
+  @include full-height;
+  width: 20vw;
+  margin:2rem;
+}
