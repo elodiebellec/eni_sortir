@@ -23,6 +23,8 @@ class RegistrationController extends AbstractController
     {
 
         $newParticipant = new Participant();
+        $newParticipant->setRoles(["ROLE_USER"]);
+
         $form = $this->createForm(RegistrationFormType::class, $newParticipant);
         $form->handleRequest($request);
 
@@ -40,7 +42,7 @@ class RegistrationController extends AbstractController
 
             $this->addFlash("Succes", "Vous avez bien inscrit ce participant !");
 
-            $this->redirectToRoute('outing');
+            return $this->redirectToRoute('outing');
             /*return $guardHandler->authenticateUserAndHandleSuccess(
                 $user,
                 $request,
