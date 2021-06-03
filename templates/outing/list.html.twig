@@ -45,20 +45,20 @@
 
             <div class = "formulaireLine">
                 <div class = "labelinput">
-                    <div class = "label"> {{ form_label(formulaire.dateBegin) }} </div>
-                    <div class = "input"> {{ form_widget(formulaire.dateBegin)}} </div>
+                    <div class = "label"> {{ form_label(formulaire.dateBeginFilter) }} </div>
+                    <div class = "input"> {{ form_widget(formulaire.dateBeginFilter)}} </div>
                 </div >
 
-                <div class = "error"> {{ form_errors(formulaire.dateBegin) }} </div>
+                <div class = "error"> {{ form_errors(formulaire.dateBeginFilter) }} </div>
             </div>
 
             <div class = "formulaireLine">
                 <div class = "labelinput">
-                    <div class="label"> {{ form_label(formulaire.dateEnd) }} </div>
-                    <div class = "input"> {{ form_widget(formulaire.dateEnd)}} </div>
+                    <div class="label"> {{ form_label(formulaire.dateEndFilter) }} </div>
+                    <div class = "input"> {{ form_widget(formulaire.dateEndFilter)}} </div>
                 </div >
 
-                <div class = "error"> {{ form_errors(formulaire.dateEnd) }} </div>
+                <div class = "error"> {{ form_errors(formulaire.dateEndFilter) }} </div>
             </div>
 
             <div class = "formulaireLine">
@@ -149,7 +149,7 @@
                 <tr>
                     <td colspan="2">{{ outing.name}}</td>
                     <td colspan="2">{{ outing.dateBegin|date ('d/m/y')}}</td>
-                    <td colspan="2">{{ outing.dateBegin|date_modify('+'~outing.duration ~ 'day')|date ('d/m/y')}}</td>
+                    <td colspan="2">{{ outing.dateEnd|date ('d/m/y')}}</td>
                     <td colspan="2">{{ outing.participants|length}} / {{ outing.maxRegistration }}</td>
                     <td colspan="2">{{ outing.state.label}}</td>
                     <td colspan="2"> {{ isBooked }}</td>

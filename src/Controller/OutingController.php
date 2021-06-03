@@ -27,17 +27,7 @@ class OutingController extends AbstractController
         $filterForm= $this->createForm(FilterType::class, $filter);
         $filterForm->handleRequest($request);
 
-        $name = $filter->getName();
-        $dateBegin= $filter->getDateBegin();
-        $dateEnd = $filter->getDateEnd();
-        $site = $filter ->getSite();
-        $isPlanner= $filter->getIsPlanner();
-        $isRegistered= $filter->getIsRegistered();
-        $isNotRegistered = $filter->getIsNotRegistered();
-        $isOutDated= $filter->getIsOutDated();
-
-       // $outings = $outingRepository->findAllOutings($page, $name, $dateBegin, $dateEnd, $site, $isPlanner, $isRegistered, $isNotRegistered, $isOutDated, $user);
-        $outings= $outingRepository->findAll();
+        $outings = $outingRepository->findAllOutings($page, $filter, $user);
         $outingsQuantity = $outingRepository->count([]);
         $maxPage= ceil($outingsQuantity/10);
 
@@ -45,25 +35,10 @@ class OutingController extends AbstractController
 
        if($filterForm->isSubmitted()&& $filterForm->isValid())
        {
-           // appel methode repository
 
-           $name = $filter->getName();
-           $dateBegin= $filter->getDateBegin();
-           $dateEnd = $filter->getDateEnd();
-           $site = $filter ->getSite();
-           $isPlanner= $filter->getIsPlanner();
-           $isRegistered= $filter->getIsRegistered();
-           $isNotRegistered = $filter->getIsNotRegistered();
-           $isOutDated= $filter->getIsOutDated();
-
-           dump($filterForm);
-
-          // $outings = $outingRepository->findAllOutings($page, $name, $dateBegin, $dateEnd, $site, $isPlanner, $isRegistered, $isNotRegistered, $isOutDated, $user);
-
+           $outings = $outingRepository->findAllOutings($page, $filter, $user);
 
        }
-
-
 
 
         return $this->render('outing/list.html.twig', ["outings"=>$outings, "currentPage"=> $page, "maxPage"=>$maxPage, "user"=> $user, "formulaire"=>$filterForm->createView()

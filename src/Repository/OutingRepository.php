@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Outing;
+use App\Model\OutingsFilter;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -22,7 +23,7 @@ class OutingRepository extends ServiceEntityRepository
     }
 
 
-    public function findAllOutings($page, $name, $dateBegin, $dateEnd, $site, $isPlanner, $isRegistered, $isNotRegistered, $isOutDated,$user )
+    public function findAllOutings($page, $filter,$user )
     {
         $idUser = $user->getId();
         $queryBuilder = $this->createQueryBuilder('o');
@@ -39,37 +40,54 @@ class OutingRepository extends ServiceEntityRepository
         $queryBuilder->addSelect('site');
         $queryBuilder->addSelect('location');
 
-        if(!is_null ($name))
+        /**
+         * @var  OutingsFilter $filter
+         */
+        if(!is_null ($filter->getName()))
         {
-            $queryBuilder->andWhere("o.name LIKE '%$name%'");
+            $queryBuilder->andWhere("o.name LIKE :name");
+            $queryBuilder->setParameter('name', '%'.$filter->getName().'%');
         }
 
-        if(!is_null ($dateBegin))
+
+        if(!is_null ($filter->getDateBeginFilter()))
         {
-            $queryBuilder->andWhere("o.dateBegin = $dateBegin");
+            $queryBuilder->andWhere("o.dateBegin >= :dateBeginFilter");
+            $queryBuilder->setParameter('dateBeginFilter', $filter->getDateBeginFilter());
         }
 
-        if(!is_null ($dateEnd))
+
+
+        if(!is_null ($filter->getDateEndFilter()))
         {
-            $queryBuilder->andWhere("o.dateEnd = $dateEnd");
+            $queryBuilder->andWhere("o.dateBegin<= :dateEndFilter");
+            $queryBuilder->setParameter('dateEndFilter', $filter->getDateEndFilter());
         }
-        if(!is_null ($site))
+
+
+
+        if(!is_null ($filter->getSite()))
         {
-            $queryBuilder->andWhere("o.site = $site");
+            $queryBuilder->andWhere("site.name = :site");
+            $queryBuilder->setParameter('site', $filter->getSite());
         }
+
+        /*
 
         if(!is_null ($isPlanner))
         {
-            $queryBuilder->andWhere("o.planner = $idUser");
-        }
+           // $queryBuilder->andWhere("o.planner = $idUser");
+        } */
 
         $query = $queryBuilder->getQuery();
 
-        $offset = ($page -1) *10;
+        $offset = ($page -1) *50;
         $query->setFirstResult($offset);
-        $query->setMaxResults(10);
+        $query->setMaxResults(50);
 
         $paginator = new Paginator($query);
+
+
 
        return  $paginator;
 

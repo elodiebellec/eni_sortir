@@ -10,18 +10,47 @@ class OutingsFilter
 
 
     private $name;
-    private $dateBegin;
-    private $dateEnd;
+    private $dateBeginFilter;
+    private $dateEndFilter;
     private $site;
     private $isRegistered;
-
     private $isNotRegistered;
-
     private $isOutDated;
-
-
-
     private  $isPlanner;
+
+    /**
+     * @return mixed
+     */
+    public function getDateBeginFilter()
+    {
+        return $this->dateBeginFilter;
+    }
+
+    /**
+     * @param mixed $dateBeginFilter
+     */
+    public function setDateBeginFilter($dateBeginFilter): void
+    {
+        $this->dateBeginFilter = $dateBeginFilter;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDateEndFilter()
+    {
+        return $this->dateEndFilter;
+    }
+
+    /**
+     * @param mixed $dateEndFilter
+     */
+    public function setDateEndFilter($dateEndFilter): void
+    {
+        $this->dateEndFilter = $dateEndFilter;
+    }
+
+
 
     /**
      * @return mixed
@@ -99,32 +128,6 @@ class OutingsFilter
 
         return $this;
     }
-
-    public function getDateBegin(): ?\DateTimeInterface
-    {
-        return $this->dateBegin;
-    }
-
-    public function setDateBegin(\DateTimeInterface $dateBegin=null): self
-    {
-        $this->dateBegin = $dateBegin;
-
-        return $this;
-    }
-
-
-    public function getDateEnd(): ?\DateTimeInterface
-    {
-        return $this->dateEnd;
-    }
-
-    public function setDateEnd(\DateTimeInterface $dateEnd =null): self
-    {
-        $this->dateEnd = $dateEnd;
-
-        return $this;
-    }
-
 
 
     public function getSite(): ?string

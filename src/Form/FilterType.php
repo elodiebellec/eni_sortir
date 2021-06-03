@@ -19,6 +19,10 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Class FilterType
+ * @package App\Form
+ */
 class FilterType extends AbstractType
 {
     protected  $repoSite; // attribut de classe
@@ -45,12 +49,16 @@ class FilterType extends AbstractType
 
         }
 
+        /* Set the last value of the array at null,
+         so it will be one more choice for the choicetype site */
+        $listWithName[' ']=null;
+
 
         $builder
-            ->add('site',ChoiceType::class,  [ 'choices'=>$listWithName, "label"=>"Site:"]) // ligne concernée par la liste à afficher
+            ->add('site',ChoiceType::class,  [ 'choices'=>$listWithName, "label"=>"Site:", "placeholder"=> null, "empty_data" =>" "]) // ligne concernée par la liste à afficher
             ->add('name',SearchType::class, [ "required"=>false,"label"=>"Le nom de la sortie contient"])
-            ->add('dateBegin', DateTimeType::class, ["required"=>false, "label"=>"Entre","html5"=>true,"empty_data" =>null, "input"=>"datetime"])
-            ->add('dateEnd', DateTimeType::class, ["required"=>false, "label"=>"et","html5"=>true,"empty_data" =>null, "input"=>"datetime"])
+            ->add('dateBeginFilter', DateTimeType::class, ["required"=>false, "label"=>"Entre","html5"=>true,"empty_data" =>null, "widget"=>"single_text" ])
+            ->add('dateEndFilter', DateTimeType::class, ["required"=>false, "label"=>"et","html5"=>true,"empty_data" =>null, "widget"=>"single_text" ])
 
             ->add('isPlanner', ChoiceType::class, [ "required"=>false,
                 "choices" =>
