@@ -26,7 +26,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class FilterType extends AbstractType
 {
     protected  $repoSite; // attribut de classe
-    public function __construct( SiteRepository  $siteRepository)
+    public function __construct( SiteRepository  $siteRepository) // constructeur à generer
     {
         $this->repoSite= $siteRepository; // initialisation de l'attribut de classe avec la valeur du repository de l'entity Site
     }
