@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Participant;
 use App\Form\RegistrationFormType;
 use App\Security\AppAuthenticator;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,35 +16,33 @@ use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 class RegistrationController extends AbstractController
 {
     /**
-     * TODO: A reserver aux admins
-     * @Route("/register", name="app_register")
+     * @IsGranted("ROLE_ADMIN")
+     * @Route("admin/register", name="app_register")
      */
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, AppAuthenticator $authenticator): Response
     {
-        $user = new Participant();
-        $form = $this->createForm(RegistrationFormType::class, $user);
+
+        $newParticipant = new Participant();
+        $newParticipant->setRoles(["ROLE_USER"]);
+
+        $form = $this->createForm(RegistrationFormType::class, $newParticipant);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
-            $user->setPassword(
+            $newParticipant->setPassword(
                 $passwordEncoder->encodePassword(
-                    $user,
+                    $newParticipant,
                     $form->get('plainPassword')->getData()
                 )
             );
 
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
+            $entityManager->persist($newParticipant);
             $entityManager->flush();
-            // do anything else you need here, like send an email
 
-            return $guardHandler->authenticateUserAndHandleSuccess(
-                $user,
-                $request,
-                $authenticator,
-                'main' // firewall name in security.yaml
-            );
+            $this->addFlash("Succes", "Vous avez bien inscrit ce participant !");
+
+            return $this->redirectToRoute('outing');
         }
 
         return $this->render('registration/register.html.twig', [
