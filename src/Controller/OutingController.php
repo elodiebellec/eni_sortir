@@ -124,6 +124,7 @@ class OutingController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_USER")
      * @Route("/create", name="outing_create")
      */
     public function create(Request $request, EntityManagerInterface $entityManager): Response
