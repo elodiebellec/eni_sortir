@@ -1,0 +1,62 @@
+@import "color";
+
+$opensans : 'Open Sans', sans-serif;
+$signika  : 'Open Sans', sans-serif;
+$poiret   : 'Poiret One', cursive  ;
+
+$font-size-very-big: 23px;
+$font-size-big: 20px;
+$font-size-large: 18px;
+$font-size-regular: 15px;
+$font-size-small: 14px;
+$font-size-very-small: 12px;
+
+$font-size-secondary  : 0.9rem;
+
+@mixin important-txt{
+  font-family: $signika;
+  font-weight: bold;
+  font-style: normal;
+  font-variant-caps: small-caps;
+  color: $font-primary-color;
+}
+
+@mixin important-txt-regular{
+  @include important-txt;
+  font-size : $font-size-regular;
+}
+@mixin important-txt-big{
+  @include important-txt;
+  font-size : $font-size-big;
+}
+@mixin important-txt-large{
+  @include important-txt;
+  font-size : $font-size-big;
+}
+
+@mixin standard-txt-large {
+  font-size : $font-size-large;
+  font-family: $opensans;
+}
+@mixin standard-txt-regular {
+  font-size : $font-size-regular;
+  font-family: $opensans;
+}
+
+@mixin bold-txt-large {
+  font-family: $opensans;
+  font-size : $font-size-large;
+  font-weight: bold;
+}
+@mixin bold-txt-regular {
+  font-family: $opensans;
+  font-size : $font-size-regular;
+  font-weight: bold;
+}
+
+@mixin italic-txt-small{
+  font-size : $font-size-small;
+  font-family: $opensans;
+  font-style: italic;
+}
+
