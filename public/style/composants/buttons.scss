@@ -3,27 +3,53 @@
 @import "../theme/color";
 @import "form";
 
+$btn-size-unit:36px;
+
 button{
   @include border-primary;
+
   background-color: $btn-primary-color;
-  min-width: 10rem;
+
+  padding:12px;
+
+  min-width : $btn-size-unit*5;
+  max-width : $btn-size-unit*10;
+  min-height: $btn-size-unit;
+  max-height: $btn-size-unit*2;
+
   border:0;
 
   font-family: $opensans;
-  color:white;
+  font-size: 18px;
+  font-weight: bold;
+
+  color:$font-primary-color;
+  opacity:0.8;
 
   cursor:pointer;
   transition : 0.25s;
 
+  &:hover{ /* the "&" refers to the parent element, we need to use it to concatenates selectors*/
+    background-color: $btn-primary-hover-color;
+    transition : 0.25s;
+  }
 }
-button:hover{
-  background-color: $btn-primary-hover-color;
-  transition : 0.25s;
-}
-.button-login-form{
+
+.btn-secondary{
   @extend button;
-  padding: $padding-login-form-field * 0.8;
-  font-size: 1.33rem;
-  opacity:0.8;
+  background-color: $btn-secondary-color;
+  color:$font-secondary-color;
+  &:hover{
+    background-color: $btn-secondary-hover-color;
+  }
+
+}
+
+.btn-login-form{
+  @extend button;
+  padding: $padding-login-form-field;
+  font-size: 24px;
+  font-weight: normal;
   flex:1 1 auto;
+  max-height: $btn-size-unit*2.5;
 }

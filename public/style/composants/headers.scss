@@ -1,4 +1,5 @@
 @import "../theme/fonts";
+
 .login-header{
   display:flex;
   flex-flow: column;
@@ -10,10 +11,9 @@
     font-family: $opensans;
     font-size: 1.33rem;
   }
-  .login-siteName{
-    font-family: $poiret;
-    font-size: 4rem;
-    font-weight: 100;
-    margin-block-start: 1rem;
+}
+@media screen and (max-width: 768px) {
+  .login-header {
+    min-height:50vh;
   }
 }

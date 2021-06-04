@@ -1,3 +1,12 @@
+html {
+  font-size: 18px;
+}
 
+.logo {
+  font-family: "Poiret One", cursive;
+  font-size: 4rem;
+  font-weight: 100;
+  margin-block-start: 1rem;
+}
 
 /*# sourceMappingURL=navbar.css.map */

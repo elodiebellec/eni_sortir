@@ -36,17 +36,15 @@ html {
 
 /*------------LOGIN-FORM-------------*/
 .login-form {
-  margin: auto;
-  font-size: 1.33rem;
+  font-size: 24px;
   display: flex;
   flex-flow: column nowrap;
-  min-width: 40vw;
-  cursor: pointer;
+  min-width: 50vw;
+  margin: auto;
 }
 
 .login-form-field {
-  padding: 1.55rem;
-  cursor: pointer;
+  padding: 18px;
 }
 .login-form-field input {
   outline: none;
@@ -56,11 +54,11 @@ html {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
-  margin-block-start: 2rem;
+  margin-block-start: 36px;
 }
 .login-connect .checkbox-container {
   min-width: 50%;
-  margin-inline-start: 3rem;
+  margin-inline-start: 54px;
 }
 .login-connect .checkbox-container .checkbox {
   display: flex;
@@ -79,11 +77,6 @@ html {
   margin-inline-start: 2rem;
 }
 
-@media screen and (max-width: 1250px) {
-  .login-form {
-    min-width: 55vw;
-  }
-}
 @media screen and (max-width: 1000px) {
   .login-form {
     min-width: 65vw;
@@ -96,37 +89,53 @@ html {
 }
 @media screen and (max-width: 535px) {
   .login-form {
-    margin: 0;
+    margin: 8px;
   }
 
   .login-page {
-    margin: 1rem;
+    margin: 18px;
   }
 }
-button, .button-login-form {
+button, .btn-login-form, .btn-secondary {
   border-radius: 80px;
   border-color: #2D2929;
   opacity: 0.8;
   transition: 0.33s;
-  background-color: rgba(41, 44, 45, 0.6);
-  min-width: 10rem;
+  background-color: #7e7f80;
+  padding: 12px;
+  min-width: 180px;
+  max-width: 360px;
+  min-height: 36px;
+  max-height: 72px;
   border: 0;
   font-family: "Open Sans", sans-serif;
-  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  color: #ffffff;
+  opacity: 0.8;
   cursor: pointer;
   transition: 0.25s;
 }
-
-button:hover, .button-login-form:hover {
+button:hover, .btn-login-form:hover, .btn-secondary:hover {
+  /* the "&" refers to the parent element, we need to use it to concatenates selectors*/
   background-color: rgba(41, 44, 45, 0.8);
   transition: 0.25s;
 }
 
-.button-login-form {
-  padding: 1.24rem;
-  font-size: 1.33rem;
-  opacity: 0.8;
+.btn-secondary {
+  background-color: #d3d4d4;
+  color: #232020;
+}
+.btn-secondary:hover {
+  background-color: #a09b9b;
+}
+
+.btn-login-form {
+  padding: 18px;
+  font-size: 24px;
+  font-weight: normal;
   flex: 1 1 auto;
+  max-height: 90px;
 }
 
 /*# sourceMappingURL=buttons.css.map */

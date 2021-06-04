@@ -13,11 +13,11 @@ html {
   font-family: "Open Sans", sans-serif;
   font-size: 1.33rem;
 }
-.login-header .login-siteName {
-  font-family: "Poiret One", cursive;
-  font-size: 4rem;
-  font-weight: 100;
-  margin-block-start: 1rem;
+
+@media screen and (max-width: 768px) {
+  .login-header {
+    min-height: 50vh;
+  }
 }
 
 /*# sourceMappingURL=headers.css.map */
