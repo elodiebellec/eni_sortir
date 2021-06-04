@@ -21,7 +21,9 @@ $card-height: 22rem;
   padding: 20px 40px;
 }
 .card {
+
   .card-head {
+
     h1,
     h2,
     h3,
@@ -34,6 +36,8 @@ $card-height: 22rem;
       margin-block-end: $font-size-big;
     }
   }
+
+  
   .card-body {
     margin-inline-end: 10%;
     min-height: 35%;
@@ -44,6 +48,8 @@ $card-height: 22rem;
       @include standard-txt-regular;
     }
   }
+
+
   .btn-group {
     display: flex;
     flex-flow: row nowrap;
