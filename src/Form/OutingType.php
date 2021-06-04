@@ -10,9 +10,11 @@ use App\Entity\Outing;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -23,6 +25,8 @@ class OutingType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
+
         $builder
             ->add('name', textType::class, [
                 'label'=> 'Nom de la sortie'
@@ -54,14 +58,20 @@ class OutingType extends AbstractType
                 'choice_label' => 'name'
             ])
 
-            /*->add('city', EntityType::class, [
-                'class' => City::class,
-                'choice_label' => 'city.name',
+            //I try to add a list of city name with CollectionType but list is not diplayed
+            /*
+            ->add('city', CollectionType::class, [
+                'entry_type' => TextType::class,
+                'entry_options' => ['attr' => ['class' => 'name']],
                 'mapped' => false
-            ])*/
+            ])
+
+           */
+
 
             ->add('save', SubmitType::class, ['label' => 'Enregistrer'])
             ->add('saveAndAdd', SubmitType::class, ['label'=>'Publier'])
+            ->add('cancel', ResetType::class, ['label'=>'Annuler'])
             ->getForm();
 
         ;
