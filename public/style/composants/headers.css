@@ -1,0 +1,19 @@
+.login-header {
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+  min-height: 38vh;
+}
+.login-header .login-catchphrase {
+  font-weight: 400;
+  font-family: "Open Sans", sans-serif;
+  font-size: 1.33rem;
+}
+
+@media screen and (max-width: 768px) {
+  .login-header {
+    min-height: 50vh;
+  }
+}
+
+/*# sourceMappingURL=headers.css.map */

@@ -1,0 +1,15 @@
+html{
+  background-color: transparent;
+  background-image: radial-gradient(117.69% 117.69% at 72.4% 102.85%,
+          rgba(223, 115, 115, 0.5335) 16.67%,
+          rgba(235, 192, 81, 0.582) 49.48%,
+          rgba(97, 198, 230, 0.5917) 90.1%);
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
+.login-page{
+  display:flex;
+  flex-flow: column;
+  margin: 54px;
+  box-sizing: border-box;
+}

@@ -2,36 +2,74 @@
 
 {% block title %}Log in!{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('style/frames/login.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/composants/headers.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/composants/form.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/composants/buttons.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/composants/checkbox.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/composants/navbar.css') }}">
+{% endblock %}
+
 {% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
 
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+<div class="login-page">
+
+    <header class="login-header">
+
+        <h3 class="login-catchphrase">Organisez vos sorties ENI en quelques clics</h3>
+
+        <h1 class="logo">Sortir.com</h1>
+
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+    </header>
+
+    <form method="post" class="login-form">
+
+        <label for="inputPseudo">
+                <input type="text"
+                       value="{{ last_username }}"
+                       name="pseudo"
+                       id="inputPseudo"
+                       class="form-control"
+                       autocomplete="username"
+                       placeholder="Identifiant"
+                       required
+                       autofocus>
+
+        </label>
+
+        <label for="inputPassword">
+
+                <input type="password"
+                       name="password"
+                       id="inputPassword"
+                       class="form-control"
+                       autocomplete="current-password"
+                       placeholder="Mot de passe"
+                       required>
+        </label>
+
+        <input type="hidden"
+               name="_csrf_token"
+               value="{{ csrf_token('authenticate') }}">
+
+        <div class="login-connect">
+            <div class="checkbox-container">
+                <div class="checkbox round-checkbox">
+                    <input type="checkbox" id="checkbox" name="_remember_me">
+                    <label for="checkbox"></label>
+                    <div class="remember-me">Se souvenir de moi</div>
+                </div>
+            </div>
+            <button type="submit" class="btn-login-form">
+                Se connecter
+            </button>
         </div>
-    {% endif %}
+    </form>
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputPseudo">Pseudo</label>
-    <input type="text" value="{{ last_username }}" name="pseudo" id="inputPseudo" class="form-control" autocomplete="username" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
-
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" name="_remember_me"> Remember me
-            </label>
-        </div>
-
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
+</div>
 {% endblock %}

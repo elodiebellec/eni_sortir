@@ -1,0 +1,86 @@
+@import "../theme/fonts";
+@import "../theme/shape";
+@import "../theme/color";
+@import "form";
+@import "image";
+
+$card-width: 22rem;
+$card-height: 22rem;
+
+.card {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  background-color: rgba(170, 73, 216, 0.29);
+  border-radius: 40px;
+  border: none;
+
+  height: $card-height;
+  width: $card-width;
+
+  padding: 20px 40px;
+}
+.card {
+
+  .card-head {
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      @include important-txt-big;
+    }
+
+    .date {
+      @include italic-txt-small;
+      margin-block-end: $font-size-big;
+    }
+  }
+
+  
+  .card-body {
+    margin-inline-end: 10%;
+    min-height: 35%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-evenly;
+    p {
+      @include standard-txt-regular;
+    }
+  }
+
+
+  .btn-group {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+    margin-inline-end: 10%;
+
+    button {
+      display: inline;
+      background-color: transparent;
+      min-width: auto;
+      margin: auto;
+      @include important-txt-large;
+    }
+  }
+  .card-feet {
+    display: flex;
+    justify-content: flex-end;
+    img {
+      @include rounded-img;
+      height: 60px;
+      width: auto;
+      margin-inline-end: 12px;
+    }
+    .participant-count {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: $bg-color;
+      border-radius: 50%;
+      height: 60px;
+      width: auto;
+    }
+  }
+}
