@@ -7,6 +7,7 @@ use App\Entity\City;
 use App\Entity\Location;
 use App\Entity\Outing;
 
+use App\Repository\CityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -23,9 +24,21 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class OutingType extends AbstractType
 {
+    protected $repoCity;
+    public function __construct(CityRepository $cityRepository)
+    {
+        $this->repoCity=$cityRepository;
+    }
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $citiesList=$this->repoCity->findAll();
+        $citiesNameList=array();
 
+        for($i=0; $i<sizeof($citiesList); $i++)
+        {
+            $name = $citiesList[$i]->getName();
+            $citiesNameList[] = $name;
+        }
 
         $builder
             ->add('name', textType::class, [
@@ -65,9 +78,8 @@ class OutingType extends AbstractType
                 'entry_options' => ['attr' => ['class' => 'name']],
                 'mapped' => false
             ])
-
            */
-
+            ->add('city', ChoiceType::class, ['choices'=>$citiesNameList, 'label'=>'Ville'])
 
             ->add('save', SubmitType::class, ['label' => 'Enregistrer'])
             ->add('saveAndAdd', SubmitType::class, ['label'=>'Publier'])
