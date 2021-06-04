@@ -2,37 +2,31 @@
 @import "../theme/fonts";
 @import "../theme/shape";
 
-.form-field{
-
-  @include border-primary;
-
-  display    : flex;
-  flex-flow  : row nowrap;
-  align-items: baseline;
-
-  padding : 1rem;
-  margin  : 0.5rem;
-  border  : 1px solid;
 
   input {
-    background: none;
-    border:none;
-    font-family: $opensans;
-    font-size: 1.5rem;
-    margin-inline-start: 1rem;
-  }
-  :hover{
+    @include border-primary;
 
+    display    : flex;
+    flex-flow  : row nowrap;
+    align-items: baseline;
+
+    padding               : 6px;
+    padding-inline-start  : 32px;
+    margin  : 12px;
+
+    border  : none;
+    outline : none;/*Create a border when selected TODO: decide a style for it */
+
+    width: 100%; /*Inputs fill all the width of their containers*/
+    background-color: $input-bg-color;
+    @include standard-txt-regular;
+
+    &::placeholder{
+      @include important-txt-regular;
+    }
   }
-  ::placeholder{
-    font-family: $signika;
-    font-variant-caps: small-caps;
-    font-weight: bold;
-    font-size: 1.25rem;
-    color:black;
-    opacity: 0.8;
-  }
-}
+
+
 /*------------LOGIN-FORM-------------*/
 $font-size-login-form       : 24px;
 $padding-login-form-field   : 18px;
@@ -44,14 +38,23 @@ $padding-login-form-field   : 18px;
   flex-flow: column nowrap;
   min-width: 50vw;
   margin:auto;
-}
-.login-form-field{
-  @extend .form-field;
-  padding: $padding-login-form-field;
+
   input{
-    outline:none;
+    background: none;
+    border  : 1px solid;
+    padding: $padding-login-form-field;
+    padding-inline-start: $padding-login-form-field*2.5;
+    font-size: $font-size-very-big;
+    &::placeholder{
+      color:black;
+      opacity: 0.8;
+    }
+  }
+  button{
+    max-width: inherit;
   }
 }
+
 
 .login-connect{
   display:flex;
@@ -67,7 +70,7 @@ $padding-login-form-field   : 18px;
       display:flex;
       align-items: center;
       font-family: $opensans;
-      color:$font-secondary-color;
+      color: $font-primary-color;
       opacity:0.8;
       margin:auto;
 

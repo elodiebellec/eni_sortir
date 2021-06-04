@@ -3,53 +3,52 @@
 @import "../theme/color";
 @import "form";
 
-$btn-size-unit:36px;
-
-button{
+$btn-size-unit: 36px;
+button {
   @include border-primary;
 
   background-color: $btn-primary-color;
 
-  padding:12px;
+  padding: 12px;
 
-  min-width : $btn-size-unit*5;
-  max-width : $btn-size-unit*10;
+  min-width: $btn-size-unit * 5;
+  max-width: $btn-size-unit * 10;
   min-height: $btn-size-unit;
-  max-height: $btn-size-unit*2;
+  max-height: $btn-size-unit * 2;
 
-  border:0;
+  border: 0;
 
-  font-family: $opensans;
-  font-size: 18px;
-  font-weight: bold;
+  @include bold-txt-regular;
 
-  color:$font-primary-color;
-  opacity:0.8;
+  color: $font-secondary-color;
+  opacity: 0.8;
 
-  cursor:pointer;
-  transition : 0.25s;
+  cursor: pointer;
+  transition: 0.25s;
 
-  &:hover{ /* the "&" refers to the parent element, we need to use it to concatenates selectors*/
+  &:hover {
+    /* the "&" refers to the parent element, we  use it to concatenates selectors (= button:hover)*/
     background-color: $btn-primary-hover-color;
-    transition : 0.25s;
+    transition: 0.25s;
   }
 }
-
-.btn-secondary{
+.btn-secondary {
   @extend button;
   background-color: $btn-secondary-color;
-  color:$font-secondary-color;
-  &:hover{
+  color: $font-primary-color;
+  &:hover {
     background-color: $btn-secondary-hover-color;
   }
-
 }
-
-.btn-login-form{
+.btn-txt-large {
+  @include bold-txt-large;
+}
+/*LOGIN-FORM BUTTON*/
+.btn-login-form {
   @extend button;
   padding: $padding-login-form-field;
   font-size: 24px;
   font-weight: normal;
-  flex:1 1 auto;
-  max-height: $btn-size-unit*2.5;
+  flex: 1 1 auto;
+  max-height: $btn-size-unit * 2.5;
 }

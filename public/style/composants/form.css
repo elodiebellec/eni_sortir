@@ -1,11 +1,100 @@
-
-body::before {
-  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
-      "Droid Sans Mono", monospace, monospace;
-  white-space: pre;
-  display: block;
-  padding: 1em;
-  margin-bottom: 1em;
-  border-bottom: 2px solid black;
-  
+input {
+  border-radius: 80px;
+  border-color: #2d2929;
+  opacity: 0.8;
+  transition: 0.33s;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: baseline;
+  padding: 6px;
+  padding-inline-start: 32px;
+  margin: 12px;
+  border: none;
+  outline: none;
+  /*Create a border when selected TODO: decide a style for it */
+  width: 100%;
+  /*Inputs fill all the width of their containers*/
+  background-color: rgba(255, 253, 255, 0.7);
+  font-size: 15px;
+  font-family: "Open Sans", sans-serif;
 }
+input::placeholder {
+  font-family: "Open Sans", sans-serif;
+  font-weight: bold;
+  font-style: normal;
+  font-variant-caps: small-caps;
+  color: #232020;
+  font-size: 15px;
+}
+
+/*------------LOGIN-FORM-------------*/
+.login-form {
+  font-size: 24px;
+  display: flex;
+  flex-flow: column nowrap;
+  min-width: 50vw;
+  margin: auto;
+}
+.login-form input {
+  background: none;
+  border: 1px solid;
+  padding: 18px;
+  padding-inline-start: 45px;
+  font-size: 23px;
+}
+.login-form input::placeholder {
+  color: black;
+  opacity: 0.8;
+}
+.login-form button {
+  max-width: inherit;
+}
+
+.login-connect {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  margin-block-start: 36px;
+}
+.login-connect .checkbox-container {
+  min-width: 50%;
+  margin-inline-start: 54px;
+}
+.login-connect .checkbox-container .checkbox {
+  display: flex;
+  align-items: center;
+  font-family: "Open Sans", sans-serif;
+  color: #232020;
+  opacity: 0.8;
+  margin: auto;
+}
+.login-connect .checkbox-container .checkbox input[type=checkbox] {
+  margin-inline-start: 1rem;
+}
+.login-connect .checkbox-container .checkbox .remember-me {
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-inline-start: 2rem;
+}
+
+@media screen and (max-width: 1000px) {
+  .login-form {
+    min-width: 65vw;
+  }
+}
+@media screen and (max-width: 768px) {
+  .checkbox-container {
+    display: none;
+  }
+}
+@media screen and (max-width: 535px) {
+  .login-form {
+    margin: 8px;
+  }
+
+  .login-page {
+    margin: 18px;
+  }
+}
+
+/*# sourceMappingURL=form.css.map */

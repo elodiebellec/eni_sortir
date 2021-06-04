@@ -7,16 +7,50 @@
     <link rel="stylesheet" href="{{ asset('style/composants/buttons.css') }}">
     <link rel="stylesheet" href="{{ asset('style/composants/checkbox.css') }}">
     <link rel="stylesheet" href="{{ asset('style/composants/navbar.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/composants/card.css') }}">
+
 {% endblock %}
 {% block title %}Components{% endblock %}
 
 {% block body %}
 
-    <div style="display:flex; flex-flow: column; justify-content: space-around; align-items:center;height:50vh; width: 100vw">
-        <button>Button lorem</button>
-        <button>A laaaaaaaaaaaaaaarge button</button>
-        <button class="btn-secondary">A secondary button</button>
+    <div style="display:flex; flex-flow: column; justify-content: space-around; align-items:center;height:100vh; width: 100vw">
+        <button>Default button</button>
+        <button>Default button with long txt inside</button>
+        <button class="btn-secondary">.btn-secondary</button>
+        <button class="btn-txt-large">.btn-txt-large</button>
         <h1 class="logo">Sortir.com</h1>
+
+        <form>
+            <label><input placeholder="Hello"></label>
+            <label><input type="number" value="123"></label>
+            <label><input type="search" placeholder="search"></label>
+            <label><input type="date"></label>
+        </form>
+
+        <div class="card">
+
+            <div class="card-head" title=".card-head">
+                <h1>Card h1</h1>
+                <div class="date">.date 06/12/2010</div>
+            </div>
+
+            <div class="card-body" title=".card-body">
+                <p> paragraph :Lorem ipsum dolor sit amet</p>
+                <p> paragraph :Lorem ipsum dolor sit amet</p>
+                <p> paragraph :Lorem ipsum dolor sit amet</p>
+            </div>
+
+            <div class="btn-group" title=".btn-group">
+                <button>Afficher</button>
+                <button>S"inscrire</button>
+            </div>
+
+            <div class="card-feet" title=".card-feet">
+                <img class="participant-photo-small" src="{{asset('images/test_avatar.png')}}">
+                <div class="participant-count">107/120</div>
+            </div>
+        </div>
     </div>
 
 
