@@ -156,19 +156,16 @@ class OutingController extends AbstractController
         /**
          * @var $user Participant
          */
+
+
         $outing->setPlanner($this->getUser());
+
+        //Display user Site
         $userSite = $this->getUser()->getSite();
         $outing->setSite($userSite);
 
-        //get the list of all cities' names
-        $cityList = $entityManager->getRepository('App:State')->findAll();
-        $cityListName = array();
 
-        for($i=0; $i<sizeof($cityList); $i++)
-        {
-            $name = $cityList[$i]->getLabel();
-            $cityListName[] = $name;
-        }
+
 
 
 
@@ -178,29 +175,19 @@ class OutingController extends AbstractController
 
         $outingForm->handleRequest($request);
 
-        if ($outingForm->getClickedButton() && 'cancel' === $outingForm->getClickedButton()->getName()) {
-            return $this->redirectToRoute('outing');
-        }
-
-
             if($outingForm->isSubmitted() && $outingForm->isValid()){
-                if ($outingForm->getClickedButton() && 'saveAndAdd' === $outingForm->getClickedButton()->getName()) {
-                    $outing->setState($entityManager->getRepository(State::class)->getState('Ouverte'));
+
+                    if ($outingForm->getClickedButton() && 'saveAndAdd' === $outingForm->getClickedButton()->getName()) {
+                        $outing->setState($entityManager->getRepository(State::class)->getState('Ouverte'));
+                    }
+
+                    $entityManager->persist($outing);
+                    $entityManager->flush();
+
+                    //TODO flash must display on outing page
+                    $this->addFlash('success', 'Sortie ajoutée !');
+                    return $this->redirectToRoute('outing');
                 }
-
-                $entityManager->persist($outing);
-                $entityManager->flush();
-
-                //TODO flash must display on outing page
-                $this->addFlash('success', 'Sortie ajoutée !');
-                return $this->redirectToRoute('outing');
-
-
-            }
-
-
-
-
         return $this->render('outing/create.html.twig', [
             'outingForm'=> $outingForm->createView(),
             'userSite'=> $userSite

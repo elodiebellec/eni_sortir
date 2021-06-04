@@ -10,6 +10,7 @@ use App\Entity\Outing;
 use App\Repository\CityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -37,7 +38,7 @@ class OutingType extends AbstractType
         for($i=0; $i<sizeof($citiesList); $i++)
         {
             $name = $citiesList[$i]->getName();
-            $citiesNameList[] = $name;
+            $citiesNameList[$name] = $name;
         }
 
         $builder
@@ -79,11 +80,10 @@ class OutingType extends AbstractType
                 'mapped' => false
             ])
            */
-            ->add('city', ChoiceType::class, ['choices'=>$citiesNameList, 'label'=>'Ville'])
+            ->add('city', ChoiceType::class, ['choices'=>$citiesNameList, 'label'=>'Ville', 'mapped' => false])
 
             ->add('save', SubmitType::class, ['label' => 'Enregistrer'])
             ->add('saveAndAdd', SubmitType::class, ['label'=>'Publier'])
-            ->add('cancel', ResetType::class, ['label'=>'Annuler'])
             ->getForm();
 
         ;
