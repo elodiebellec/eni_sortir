@@ -120,10 +120,6 @@ class OutingRepository extends ServiceEntityRepository
 
        $paginator = new Paginator($query);
 
-        // 'outings'=>$query->getResult()
-
-
-
        return  [
            'outings'=>$paginator,
            'maxOutings'=>$maxOutings
@@ -131,6 +127,8 @@ class OutingRepository extends ServiceEntityRepository
        ];
 
     }
+
+
 
 
 

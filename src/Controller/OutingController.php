@@ -15,6 +15,7 @@ use App\Verificators\OutingVerificator;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,36 +25,44 @@ class OutingController extends AbstractController
 {
     /**
      * @IsGranted("ROLE_USER")
-     * @Route("/{page}", name="outing", requirements= {"page"="\d+"})
+     * @Route("/outing", name="outing")
      */
 
-    public function  list (int $page=1,  Request $request,OutingRepository  $outingRepository): Response
+    public function  list ( Request $request,OutingRepository  $outingRepository): Response
     {
+
         $user= $this->getUser();
 
-
+        $page = (int)$request->query->get("page", 1);
+        $ajax = $request->get("ajax",1);
         $filter = new OutingsFilter();
         $filterForm= $this->createForm(FilterType::class, $filter);
         $filterForm->handleRequest($request);
 
-        $results = $outingRepository->findAllOutings($page, $filter, $user);
+        $testPage =(int) $request->request->get('pageButtton', 1);
+
+        if ($testPage >= 1 ) {
+            $results = $outingRepository->findAllOutings($testPage, $filter, $user);
+        } else {
+            throw $this->createNotFoundException("Oops ! 404 ! This page does not exist !");
+        }
+
+
+
+
         //$outingsQuantity = $outingRepository->count([]);
        // $maxPage= ceil($outingsQuantity/10);
         $maxPage=ceil($results['maxOutings']/10);
-    dump($maxPage);
 
-       /*if($filterForm->isSubmitted()&& $filterForm->isValid())
-       {
-
-           $outings = $outingRepository->findAllOutings($page, $filter, $user);
-
-       } */
+        dump($filter);
+        dump($filterForm);
+        dump($testPage);
 
 
         return $this->render('outing/list.html.twig',
             ["outings"=>$results['outings'],
             "maxOutings"=>$results['maxOutings'],
-            "currentPage"=> $page,
+            "currentPage"=> $testPage,
             "maxPage"=>$maxPage,
             "user"=> $user,
             "formulaire"=>$filterForm->createView()
