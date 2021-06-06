@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Form\FilterType;
 use App\Model\OutingsFilter;
-
 use App\Entity\Outing;
 use App\Entity\Participant;
 use App\Entity\State;
@@ -15,7 +14,6 @@ use App\Verificators\OutingVerificator;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,37 +30,29 @@ class OutingController extends AbstractController
     {
 
         $user= $this->getUser();
-
-        $page = (int)$request->query->get("page", 1);
-        $ajax = $request->get("ajax",1);
         $filter = new OutingsFilter();
         $filterForm= $this->createForm(FilterType::class, $filter);
         $filterForm->handleRequest($request);
 
-        $testPage =(int) $request->request->get('pageButtton', 1);
+        $page =(int) $request->request->get('pageButtton', 1);
+        $countOutingsFromBDD= $outingRepository->count([]);
+        $maxPagesForAllResearch = $countOutingsFromBDD/10;
 
-        if ($testPage >= 1 ) {
-            $results = $outingRepository->findAllOutings($testPage, $filter, $user);
+        if ($page >= 1 && $page <= $maxPagesForAllResearch) {
+            $results = $outingRepository->findAllOutings($page, $filter, $user);
         } else {
             throw $this->createNotFoundException("Oops ! 404 ! This page does not exist !");
         }
 
+        $outingsQuantity =  sizeof($results['outings']);
+        $maxPage= ceil($outingsQuantity/10);
 
-
-
-        //$outingsQuantity = $outingRepository->count([]);
-       // $maxPage= ceil($outingsQuantity/10);
-        $maxPage=ceil($results['maxOutings']/10);
-
-        dump($filter);
-        dump($filterForm);
-        dump($testPage);
 
 
         return $this->render('outing/list.html.twig',
             ["outings"=>$results['outings'],
-            "maxOutings"=>$results['maxOutings'],
-            "currentPage"=> $testPage,
+            "maxOutings"=>$outingsQuantity,
+            "currentPage"=> $page,
             "maxPage"=>$maxPage,
             "user"=> $user,
             "formulaire"=>$filterForm->createView()

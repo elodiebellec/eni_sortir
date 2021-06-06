@@ -37,7 +37,7 @@ class FilterType extends AbstractType
     {
 
 
-        $listSites= $this->repoSite->findAll();// Recherche des sites en BDD
+        $listSites= $this->repoSite->findAllSite();// Recherche des sites en BDD
         $listWithName=array();
 
 

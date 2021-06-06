@@ -1,21 +1,6 @@
 
 
 
-    {% if currentPage > 1 %}
-        <a href=" {{ path('outing', {'page':currentPage-1}) }}"> {{ currentPage-1 }}   | Page précédente</a>
-
-    {% endif %}
-
-
-
-    {% if currentPage < maxPage %}
-        {% if currentPage == 1 %}
-            <div></div>
-        {% endif %}
-        <a href="{{ path('outing', {'page':currentPage+1}) }}"> Page suivante | {{ currentPage + 1 }}</a>
-
-    {% endif %}
-
 
 <div>
 

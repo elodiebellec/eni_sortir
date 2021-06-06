@@ -17,11 +17,23 @@
 
     <div>
 
+
+
         {{ form_start(formulaire, {'attr': {'class':'mainFilter'}}) }}
 
-
+        {% if currentPage > 1 %}
         <input type="submit" name="pageButtton" value="{{ currentPage-1 }} ">
+        {% endif %}
+
+        {% if currentPage < maxPage %}
+        {% if currentPage == 1 %}
+        <div></div>
+        {% endif %}
+
+
         <input type="submit" name="pageButtton" value="{{ currentPage+1 }} ">
+
+        {% endif %}
 
         <div class = "formulaire">
             <div class = "formulaireLine">
