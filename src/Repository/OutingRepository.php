@@ -98,13 +98,13 @@ class OutingRepository extends ServiceEntityRepository
 
             if($filter->getIsNotRegistered())
             {
-                $queryBuilder->orWhere("o IN (tableRegistered)");
+                $queryBuilder->orWhere("o IN (:tableRegistered)");
                 $queryBuilder->setParameter('tableRegistered', $tableRegistered);
             }
 
             else{
-                $queryBuilder->andWhere("participants.id = :idUser");
-                $queryBuilder->setParameter('idUser', $idUser);
+                $queryBuilder->andWhere("o IN (:tableRegistered)");
+                $queryBuilder->setParameter('tableRegistered', $tableRegistered);
 
             }
         }
@@ -114,13 +114,13 @@ class OutingRepository extends ServiceEntityRepository
 
              if(($filter->getIsRegistered()))
             {
-             $queryBuilder->orWhere("o IN (:tabNotRegistered)");
+                    $queryBuilder->orWhere("o IN (:tabNotRegistered)");
                      $queryBuilder->setParameter('tabNotRegistered', $tabNotRegistered);
             }
 
              else{
-                 $queryBuilder->andWhere("o IN (:user)");
-                 $queryBuilder->setParameter('user', $tabNotRegistered);
+                 $queryBuilder->andWhere("o IN (:tabNotRegistered)");
+                 $queryBuilder->setParameter('tabNotRegistered', $tabNotRegistered);
 
              }
          }
