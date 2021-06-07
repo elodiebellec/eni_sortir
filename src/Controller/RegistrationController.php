@@ -8,6 +8,7 @@ use App\Form\CsvType;
 use App\Form\RegistrationFormType;
 use App\Security\AppAuthenticator;
 use App\Serializer\CsvSerializer;
+use Faker\Provider\File;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
@@ -26,7 +27,8 @@ class RegistrationController extends AbstractController
      */
     public function register(Request $request,
                              UserPasswordEncoderInterface $passwordEncoder,
-                             GuardAuthenticatorHandler $guardHandler): Response
+                             GuardAuthenticatorHandler $guardHandler,
+                                FileUploader $uploader): Response
     {
 
         $newParticipant = new Participant();
@@ -49,6 +51,11 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+
+            if($photo = $form->get('photo')->getData()){
+                $uploader->saveImage($photo);
+                $newParticipant->setPhoto($uploader->getLastUploadedFile());
+            }
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($newParticipant);
