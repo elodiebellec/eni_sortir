@@ -6,10 +6,12 @@ use App\Entity\Participant;
 use App\Entity\Site;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -45,6 +47,19 @@ class ParticipantType extends AbstractType
                     ]),
                 ],
             ])
+            ->add('photo', FileType::class, [
+            'mapped' => false,
+            'required'=>false,
+            'constraints'=>[
+                new Image(
+                    [
+                        'maxSize' => '7024k',
+                        'mimeTypesMessage' => "Image format not allowed !"
+                    ]
+
+                )
+            ]
+        ])
             ->add('submit',SubmitType::class)
         ;
     }
