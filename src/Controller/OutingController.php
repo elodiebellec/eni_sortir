@@ -204,6 +204,9 @@ class OutingController extends AbstractController
     {
 
         $selectedCity = json_decode($request->getContent());
+        /**
+         * @var City $city
+         */
         $city = $cityRepository->findCityByNameWithLocations($selectedCity->cityName)[0];
         $locations = [];
         foreach($city->getLocations() as $location){

@@ -36,4 +36,5 @@ class ParticipantController extends AbstractController
             'updateForm' => $updateForm->createView()
         ]);
     }
+
 }
