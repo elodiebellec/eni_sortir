@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Participant;
+use App\FileUploader\FileUploader;
+use App\Form\CsvType;
 use App\Form\RegistrationFormType;
 use App\Security\AppAuthenticator;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -19,7 +21,11 @@ class RegistrationController extends AbstractController
      * @IsGranted("ROLE_ADMIN")
      * @Route("admin/register", name="app_register")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, AppAuthenticator $authenticator): Response
+    public function register(Request $request,
+                             UserPasswordEncoderInterface $passwordEncoder,
+                             GuardAuthenticatorHandler $guardHandler,
+                             AppAuthenticator $authenticator,
+                             FileUploader $uploader): Response
     {
 
         $newParticipant = new Participant();
@@ -27,6 +33,9 @@ class RegistrationController extends AbstractController
 
         $form = $this->createForm(RegistrationFormType::class, $newParticipant);
         $form->handleRequest($request);
+
+        $csvForm = $this->createForm(CsvType::class);
+        $csvForm->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $newParticipant->setPassword(
@@ -45,8 +54,26 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('outing');
         }
 
+        if($csvForm->isSubmitted() && $csvForm->isValid()){
+               $uploader->saveCSV($csvForm['file']->getData());
+        }
+
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
+            'csvForm' => $csvForm->createView()
         ]);
+    }
+
+        /**
+     * @IsGranted("ROLE_USER")
+     * @Route("/admin/csvregister", name="admin_register_csv")
+     */
+    public function registerToCSV(Request $request)
+    {
+        
+        $myFile = $request->files->get('file');
+        dd($myFile);
+
+        return $this->render('main_home');
     }
 }

@@ -12,4 +12,13 @@
     {{ form(registrationForm) }}
 
 
+    <h2>Register with CSV</h2>
+
+    {{ form(csvForm)}}
+    {# <form action=" {{ path('admin_register_csv') }} " method="POST">
+        <h2>Register with CSV</h2>
+        <input type="file" name="file">
+        <button type="submit">Submit</button>
+    </form> #}
+    
 {% endblock %}
