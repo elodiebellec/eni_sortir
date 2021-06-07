@@ -10,6 +10,7 @@ use App\Security\AppAuthenticator;
 use App\Serializer\CsvSerializer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -73,6 +74,7 @@ class RegistrationController extends AbstractController
                                   FileUploader $uploader,
                                   CsvSerializer $serializer): RedirectResponse
     {
+        $fileSystem = new Filesystem;
         $hasUploaded = $uploader->saveCSV($request->files->get("csv")['file']);
 
         if(!$hasUploaded) {
@@ -87,6 +89,8 @@ class RegistrationController extends AbstractController
 
             return $this->redirectToRoute('outing');
         }
+
+        $fileSystem->remove($uploader->getLastUploadedFile());
 
         $this->addFlash("Succes", "Vous avez bien inscrit ces participants !");
 
