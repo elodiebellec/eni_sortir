@@ -2,13 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\City;
 use App\Form\FilterType;
 use App\Model\OutingsFilter;
-
 use App\Entity\Outing;
 use App\Entity\Participant;
 use App\Entity\State;
 use App\Form\OutingType;
+use App\Repository\CityRepository;
 use App\Repository\OutingRepository;
 use App\Updators\OutingUpdator;
 use App\Verificators\OutingVerificator;
@@ -16,6 +17,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use phpDocumentor\Reflection\Types\Array_;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,35 +27,35 @@ class OutingController extends AbstractController
 {
     /**
      * @IsGranted("ROLE_USER")
-     * @Route("outing/{page}", name="outing", requirements= {"page"="\d+"})
+     * @Route("/outing", name="outing")
      */
 
-    public function  list (int $page=1,  Request $request,OutingRepository  $outingRepository): Response
+    public function  list ( Request $request,OutingRepository  $outingRepository): Response
     {
+
         $user= $this->getUser();
-
-
         $filter = new OutingsFilter();
         $filterForm= $this->createForm(FilterType::class, $filter);
         $filterForm->handleRequest($request);
 
-        $results = $outingRepository->findAllOutings($page, $filter, $user);
-        //$outingsQuantity = $outingRepository->count([]);
-       // $maxPage= ceil($outingsQuantity/10);
-        $maxPage=ceil($results['maxOutings']/10);
-    dump($maxPage);
+        $page =(int) $request->request->get('pageButtton', 1);
+        $countOutingsFromBDD= $outingRepository->count([]);
+        $maxPagesForAllResearch = $countOutingsFromBDD/10;
 
-       /*if($filterForm->isSubmitted()&& $filterForm->isValid())
-       {
+        if ($page >= 1 && $page <= $maxPagesForAllResearch) {
+            $results = $outingRepository->findAllOutings($page, $filter, $user);
+        } else {
+            throw $this->createNotFoundException("Oops ! 404 ! This page does not exist !");
+        }
 
-           $outings = $outingRepository->findAllOutings($page, $filter, $user);
+        $outingsQuantity =  sizeof($results['outings']);
+        $maxPage= ceil($outingsQuantity/10);
 
-       } */
 
 
         return $this->render('outing/list.html.twig',
             ["outings"=>$results['outings'],
-            "maxOutings"=>$results['maxOutings'],
+            "maxOutings"=>$outingsQuantity,
             "currentPage"=> $page,
             "maxPage"=>$maxPage,
             "user"=> $user,
@@ -149,7 +151,7 @@ class OutingController extends AbstractController
      * @IsGranted("ROLE_USER")
      * @Route("outing/create", name="outing_create")
      */
-    public function create(Request $request, EntityManagerInterface $entityManager): Response
+    public function create(Request $request, EntityManagerInterface $entityManager,CityRepository $cityRepository): Response
     {
 
         $outing = new Outing();
@@ -157,7 +159,7 @@ class OutingController extends AbstractController
          * @var $user Participant
          */
 
-
+        //dd($cityRepository->findCityByNameWithLocations("Lenoir"))[0];
         $outing->setPlanner($this->getUser());
 
         //Display user Site
@@ -193,6 +195,21 @@ class OutingController extends AbstractController
             'userSite'=> $userSite
         ]);
 
+    }
+    /**
+     * @Route("outing/ajax-cityData", name="outing_ajax_city")
+     */
+    public function getCityData(Request $request,
+                                CityRepository $cityRepository): JsonResponse
+    {
+
+        $selectedCity = json_decode($request->getContent());
+        $city = $cityRepository->findCityByNameWithLocations($selectedCity->cityName)[0];
+        $locations = [];
+        foreach($city->getLocations() as $location){
+            $locations[$location->getName()] = $location->getName();
+        }
+        return new JsonResponse($locations);
     }
 
 }

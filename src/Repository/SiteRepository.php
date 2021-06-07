@@ -19,6 +19,19 @@ class SiteRepository extends ServiceEntityRepository
         parent::__construct($registry, Site::class);
     }
 
+    public function findAllSite()
+    {
+        $queryBuilder = $this->createQueryBuilder('s');
+        $queryBuilder->leftJoin('s.outings', 'outings');
+        $queryBuilder->leftJoin('s.participants','participants');
+        $queryBuilder->addSelect('outings');
+        $queryBuilder->addSelect('participants');
+
+        $query= $queryBuilder->getQuery();
+        return $query->getResult();
+
+    }
+
     // /**
     //  * @return Site[] Returns an array of Site objects
     //  */
