@@ -6,6 +6,7 @@ use App\Repository\OutingRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=OutingRepository::class)
@@ -20,26 +21,53 @@ class Outing
     private $id;
 
     /**
+     * @Assert\NotBlank(message="Merci de saisir un nom pour la sortie.")
+     * @Assert\Length(
+     *     min=2,
+     *     max=50,
+     *     minMessage="Le nom saisi est trop court (minimum 2 caractères)",
+     *     maxMessage="Le nom saisi est trop long (maximum 50 caractères)"
+     * )
      * @ORM\Column(type="string", length=50)
      */
     private $name;
 
     /**
+     * @Assert\GreaterThan("today", message="La date de la sortie doit être postérieure à la date du jour.")
+     * @Assert\NotBlank(message="Merci de saisir une date et heure de sortie.")
      * @ORM\Column(type="datetime")
      */
     private $dateBegin;
 
     /**
+     * @Assert\Type (type="integer", message="Merci de saisir une durée sous format numérique et sans virgule.")
+     * @Assert\Range (
+     *     min=10,
+     *     max=10000,
+     *     minMessage="La durée est de 10 mn minimum.",
+     *     maxMessage="La durée est de 10 000 mn maximum."
+     *  )
      * @ORM\Column(type="integer", nullable=true)
      */
     private $duration;
 
     /**
+     * @Assert\NotBlank(message="Merci de saisir une date limite d'inscription.")
+     * @Assert\Type("DateTimeInterface")
+     * @Assert\GreaterThan(propertyPath="dateBegin", message="La date limite d'inscription ne doit pas être antérieure à la date de la sortie.")
      * @ORM\Column(type="datetime")
      */
     private $dateEnd;
 
     /**
+     * @Assert\Type (type="integer", message="Le nombre de place doit être un entier.")
+     * @Assert\NotBlank(message="Merci de saisir un nombre de place.")
+     * @Assert\Range (
+     *     min=2,
+     *     max=1000000,
+     *     minMessage="Le nombre minimum de places est 2.",
+     *     maxMessage="Le nombre maximum de places est 1 million, au delà nous n'aurons pas la place de loger tout le monde."
+     *  )
      * @ORM\Column(type="integer")
      */
     private $maxRegistration;
@@ -50,11 +78,15 @@ class Outing
     private $description;
 
     /**
+     * @Assert\Length(
+     *     max=255,
+     *     maxMessage="La description ne doit pas dépasser 255 caratères.")
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $photo;
 
     /**
+     * @Assert\NotBlank(message="Merci de sélectionner un lieu.")
      * @ORM\ManyToOne(targetEntity=Location::class, inversedBy="outings")
      * @ORM\JoinColumn(nullable=false)
      */

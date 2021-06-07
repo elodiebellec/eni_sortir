@@ -1,0 +1,19 @@
+@import "../theme/fonts";
+
+.login-header{
+  display:flex;
+  flex-flow: column;
+  width:100%;
+  min-height:38vh;
+
+  .login-catchphrase{
+    font-weight: 400;
+    font-family: $opensans;
+    font-size: 1.33rem;
+  }
+}
+@media screen and (max-width: 768px) {
+  .login-header {
+    min-height:50vh;
+  }
+}

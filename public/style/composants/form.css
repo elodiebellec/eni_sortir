@@ -46,7 +46,7 @@ input::placeholder {
   color: black;
   opacity: 0.8;
 }
-.login-form button, .login-form .btn-login-form, .login-form .btn-secondary {
+.login-form button {
   max-width: inherit;
 }
 
@@ -96,53 +96,5 @@ input::placeholder {
     margin: 18px;
   }
 }
-button, .btn-login-form, .btn-secondary {
-  border-radius: 80px;
-  border-color: #2d2929;
-  opacity: 0.8;
-  transition: 0.33s;
-  background-color: #7e7f80;
-  padding: 12px;
-  min-width: 180px;
-  max-width: 360px;
-  min-height: 36px;
-  max-height: 72px;
-  border: 0;
-  font-family: "Open Sans", sans-serif;
-  font-size: 15px;
-  font-weight: bold;
-  color: #ffffff;
-  opacity: 0.8;
-  cursor: pointer;
-  transition: 0.25s;
-}
-button:hover, .btn-login-form:hover, .btn-secondary:hover {
-  /* the "&" refers to the parent element, we  use it to concatenates selectors (= button:hover)*/
-  background-color: rgba(41, 44, 45, 0.8);
-  transition: 0.25s;
-}
 
-.btn-secondary {
-  background-color: #d3d4d4;
-  color: #232020;
-}
-.btn-secondary:hover {
-  background-color: #a09b9b;
-}
-
-.btn-txt-large {
-  font-family: "Open Sans", sans-serif;
-  font-size: 18px;
-  font-weight: bold;
-}
-
-/*LOGIN-FORM BUTTON*/
-.btn-login-form {
-  padding: 18px;
-  font-size: 24px;
-  font-weight: normal;
-  flex: 1 1 auto;
-  max-height: 90px;
-}
-
-/*# sourceMappingURL=buttons.css.map */
+/*# sourceMappingURL=form.css.map */

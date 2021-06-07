@@ -2,18 +2,22 @@
 
 namespace App\Controller;
 
+use App\Entity\City;
 use App\Form\FilterType;
 use App\Model\OutingsFilter;
 use App\Entity\Outing;
 use App\Entity\Participant;
 use App\Entity\State;
 use App\Form\OutingType;
+use App\Repository\CityRepository;
 use App\Repository\OutingRepository;
 use App\Updators\OutingUpdator;
 use App\Verificators\OutingVerificator;
 use Doctrine\ORM\EntityManagerInterface;
+use phpDocumentor\Reflection\Types\Array_;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -145,18 +149,26 @@ class OutingController extends AbstractController
 
     /**
      * @IsGranted("ROLE_USER")
-     * @Route("/create", name="outing_create")
+     * @Route("outing/create", name="outing_create")
      */
-    public function create(Request $request, EntityManagerInterface $entityManager): Response
+    public function create(Request $request, EntityManagerInterface $entityManager,CityRepository $cityRepository): Response
     {
-        //TODO Générer un formulaire pour ajouter un nouveau souhait
+
         $outing = new Outing();
         /**
          * @var $user Participant
          */
+
+        //dd($cityRepository->findCityByNameWithLocations("Lenoir"))[0];
         $outing->setPlanner($this->getUser());
-        //$userSite->
-        $outing->setSite($this->getUser()->getSite());
+
+        //Display user Site
+        $userSite = $this->getUser()->getSite();
+        $outing->setSite($userSite);
+
+
+
+
 
 
         $outing->setState($entityManager->getRepository(State::class)->getState('Créée'));
@@ -165,18 +177,39 @@ class OutingController extends AbstractController
 
         $outingForm->handleRequest($request);
 
-        if($outingForm->isSubmitted() && $outingForm->isValid()){
+            if($outingForm->isSubmitted() && $outingForm->isValid()){
 
-            $entityManager->persist($outing);
-            $entityManager->flush();
+                    if ($outingForm->getClickedButton() && 'saveAndAdd' === $outingForm->getClickedButton()->getName()) {
+                        $outing->setState($entityManager->getRepository(State::class)->getState('Ouverte'));
+                    }
 
-            $this->addFlash('success', 'Sortie ajoutée !');
-            return $this->redirectToRoute('outing');
-        }
+                    $entityManager->persist($outing);
+                    $entityManager->flush();
+
+                    //TODO flash must display on outing page
+                    $this->addFlash('success', 'Sortie ajoutée !');
+                    return $this->redirectToRoute('outing');
+                }
         return $this->render('outing/create.html.twig', [
-            'outingForm'=> $outingForm->createView()
+            'outingForm'=> $outingForm->createView(),
+            'userSite'=> $userSite
         ]);
 
+    }
+    /**
+     * @Route("outing/ajax-cityData", name="outing_ajax_city")
+     */
+    public function getCityData(Request $request,
+                                CityRepository $cityRepository): JsonResponse
+    {
+
+        $selectedCity = json_decode($request->getContent());
+        $city = $cityRepository->findCityByNameWithLocations($selectedCity->cityName)[0];
+        $locations = [];
+        foreach($city->getLocations() as $location){
+            $locations[$location->getName()] = $location->getName();
+        }
+        return new JsonResponse($locations);
     }
 
 }

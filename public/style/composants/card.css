@@ -46,7 +46,7 @@ input::placeholder {
   color: black;
   opacity: 0.8;
 }
-.login-form button, .login-form .btn-login-form, .login-form .btn-secondary {
+.login-form button {
   max-width: inherit;
 }
 
@@ -96,53 +96,82 @@ input::placeholder {
     margin: 18px;
   }
 }
-button, .btn-login-form, .btn-secondary {
-  border-radius: 80px;
-  border-color: #2d2929;
-  opacity: 0.8;
-  transition: 0.33s;
-  background-color: #7e7f80;
-  padding: 12px;
-  min-width: 180px;
-  max-width: 360px;
-  min-height: 36px;
-  max-height: 72px;
-  border: 0;
-  font-family: "Open Sans", sans-serif;
-  font-size: 15px;
-  font-weight: bold;
-  color: #ffffff;
-  opacity: 0.8;
-  cursor: pointer;
-  transition: 0.25s;
-}
-button:hover, .btn-login-form:hover, .btn-secondary:hover {
-  /* the "&" refers to the parent element, we  use it to concatenates selectors (= button:hover)*/
-  background-color: rgba(41, 44, 45, 0.8);
-  transition: 0.25s;
+.card {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  background-color: rgba(170, 73, 216, 0.29);
+  border-radius: 40px;
+  border: none;
+  height: 22rem;
+  width: 22rem;
+  padding: 20px 40px;
 }
 
-.btn-secondary {
-  background-color: #d3d4d4;
+.card .card-head h1,
+.card .card-head h2,
+.card .card-head h3,
+.card .card-head h4 {
+  font-family: "Open Sans", sans-serif;
+  font-weight: bold;
+  font-style: normal;
+  font-variant-caps: small-caps;
   color: #232020;
+  font-size: 20px;
 }
-.btn-secondary:hover {
-  background-color: #a09b9b;
-}
-
-.btn-txt-large {
+.card .card-head .date {
+  font-size: 14px;
   font-family: "Open Sans", sans-serif;
-  font-size: 18px;
+  font-style: italic;
+  margin-block-end: 20px;
+}
+.card .card-body {
+  margin-inline-end: 10%;
+  min-height: 35%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-evenly;
+}
+.card .card-body p {
+  font-size: 15px;
+  font-family: "Open Sans", sans-serif;
+}
+.card .btn-group {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  margin-inline-end: 10%;
+}
+.card .btn-group button {
+  display: inline;
+  background-color: transparent;
+  min-width: auto;
+  margin: auto;
+  font-family: "Open Sans", sans-serif;
   font-weight: bold;
+  font-style: normal;
+  font-variant-caps: small-caps;
+  color: #232020;
+  font-size: 20px;
+}
+.card .card-feet {
+  display: flex;
+  justify-content: flex-end;
+}
+.card .card-feet img {
+  border-radius: 50%;
+  height: 60px;
+  width: auto;
+  margin-inline-end: 12px;
+}
+.card .card-feet .participant-count {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #E5E5E5;
+  border-radius: 50%;
+  height: 60px;
+  width: auto;
 }
 
-/*LOGIN-FORM BUTTON*/
-.btn-login-form {
-  padding: 18px;
-  font-size: 24px;
-  font-weight: normal;
-  flex: 1 1 auto;
-  max-height: 90px;
-}
-
-/*# sourceMappingURL=buttons.css.map */
+/*# sourceMappingURL=card.css.map */

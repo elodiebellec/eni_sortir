@@ -2,13 +2,38 @@
 
 {% block title %}Créer sortie{% endblock %}
 
+{% block javascripts %}
+    <script src="{{ asset('js/outing-create.js') }}"></script>
+{% endblock %}
+
 {% block body %}
     <h1>Créer une sortie</h1>
     <div>
-        {{ form_start(outingForm) }}
-        {{ form_widget(outingForm) }}
-        <button>Enregistrer</button>
 
-        {{ form_end(outingForm) }}
+
+
+        {{ form_start(outingForm) }}
+        {{ form_errors(outingForm) }}
+
+        {{ form_row(outingForm.name) }}
+        {{ form_row(outingForm.dateBegin) }}
+        {{ form_row(outingForm.dateEnd) }}
+        {{ form_row(outingForm.maxRegistration) }}
+        {{ form_row(outingForm.duration) }}
+        {{ form_row(outingForm.description) }}
+        <p>Ville organisatrice : {{ userSite.name }}</p>
+        {{ form_row(outingForm.city) }}
+        {{ form_row(outingForm.location) }}
+        <p>Rue : {{ userSite.name }}</p>
+        <p>Code postal : {{ userSite.name }}</p>
+        <p>Latitude : {{ userSite.name }}</p>
+        <p>Longitude : {{ userSite.name }}</p>
+        {{ form_row(outingForm.save) }}
+        {{ form_row(outingForm.saveAndAdd) }}
+        <a href="{{ path('outing') }}" class="button">Annuler</a>
+
+
+{{ form_end(outingForm) }}
+
     </div>
 {% endblock %}
