@@ -42,6 +42,7 @@ class AppFixtures extends Fixture
         $inProgress = new State;
         $finished   = new State;
         $canceled   = new State;
+        $historized   = new State;
 
         $created->setLabel("Créée");
         $opened->setLabel("Ouverte");
@@ -49,6 +50,7 @@ class AppFixtures extends Fixture
         $inProgress->setLabel("Activité en cours");
         $finished->setLabel("Activité passée");
         $canceled->setLabel("Activité annulée");
+        $historized->setLabel("Activité historisée");
 
         $manager->persist($created);
         $manager->persist($opened);
@@ -56,6 +58,7 @@ class AppFixtures extends Fixture
         $manager->persist($inProgress);
         $manager->persist($finished);
         $manager->persist($canceled);
+        $manager->persist($historized);
 
         $manager->flush();
     }
@@ -153,14 +156,23 @@ class AppFixtures extends Fixture
             $outing = new Outing();
 
             $dateBegin = $generator->dateTimeBetween('-3 months', '+3months');
-            $duration  = rand(3, 240); /*Duration in hours*/
-            $dateEventEnd   = \DateTimeImmutable::createFromMutable($dateBegin)->modify("+ {$duration} hours");
+            $duration  = rand(60, 1000); /*Duration in minutes*/
+
+            $durationOpenRegisteringBeforeBegin  = rand(60, 1000);/*in hours*/
+
+            $dateRegistrationEnd   = \DateTimeImmutable
+                ::createFromMutable($dateBegin)
+                ->modify("- {$durationOpenRegisteringBeforeBegin} hours");
+
+            $dateEventEnd = \DateTimeImmutable
+                ::createFromMutable($dateBegin)
+                ->modify("+ {$duration} hours");
 
             $outing
                 ->setName($generator->company)
                 ->setDescription($generator->text)
                 ->setDateBegin($dateBegin)
-                ->setDateEnd($dateEventEnd)
+                ->setDateEnd($dateRegistrationEnd)
                 ->setDuration($duration)
                 ->setSite(AppFixtures::rnd_elem_from_array($sites->all))
                 ->setLocation(AppFixtures::rnd_elem_from_array($locations->all))
@@ -170,20 +182,18 @@ class AppFixtures extends Fixture
 
             $outing = $this->setOutingParticipants($manager,$outing);
 
-            $outing = $this->setOutingState($manager,$outing);
+            $outing = $this->setOutingState($manager,$outing,$dateEventEnd);
 
             $manager->persist($outing);
         }
         $manager->flush();
     }
 
-    private function setOutingState(ObjectManager $manager, Outing $outing): Outing
+    private function setOutingState(ObjectManager $manager, Outing $outing,$dateEventEnd): Outing
     {
         $outingState = new State;
         $states      = $manager->getRepository(State::class)->getStates();
         $now         = new \DateTime('now');
-
-        if($outing->getState()->getLabel() === '')
 
         switch (true) {
             case $outing->getDateBegin() > $now
@@ -197,11 +207,11 @@ class AppFixtures extends Fixture
             break;
 
             case $outing->getDateBegin() < $now
-                && $outing->getDateEnd() > $now:
+                && $dateEventEnd > $now:
                 $outingState = $states['Activité en cours'];
                 break;
 
-            case $outing->getDateEnd() < $now:
+            case $dateEventEnd < $now:
                 $outingState = $states['Activité passée'];
                 break;
         }

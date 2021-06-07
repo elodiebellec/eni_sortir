@@ -21,7 +21,7 @@ use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 class RegistrationController extends AbstractController
 {
     /**
-     * @IsGranted("ROLE_ADMIN")
+     *
      * @Route("admin/register", name="app_register")
      */
     public function register(Request $request,

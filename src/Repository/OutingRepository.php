@@ -134,7 +134,6 @@ class OutingRepository extends ServiceEntityRepository
 
 
         $query = $queryBuilder->getQuery();
-
         $offset = ($page -1) *10;
         $query->setFirstResult($offset);
         $query->setMaxResults(10);
