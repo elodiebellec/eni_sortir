@@ -26,6 +26,37 @@
     }
   }
 
+/*search bar with magnifying glass*/
+  inputSearch {
+
+    .search-field {
+      width: 100%;
+
+      border: none;
+      outline: none;
+    }
+
+    .search-button {
+      background: transparent;
+      border: none;
+      outline: none;
+      margin-left: -33px;
+    }
+
+    .search-button img {
+      width: 20px;
+      height: 20px;
+      object-fit: cover;
+    }
+
+    .loupeForm{
+      border: 1px solid;
+      border-radius: 2em;
+      padding: 0.5em 2em 0.5em 3em;
+      border-color: silver;
+    }
+  }
+
 
 /*------------LOGIN-FORM-------------*/
 $font-size-login-form       : 24px;
