@@ -11,12 +11,16 @@ class OutingsFilter
 
     private $name;
     private $dateBeginFilter;
+
+    /**
+     * @Assert\GreaterThan(propertyPath="dateBeginFilter", message="Attention, la date de fin est antérieure à la date de début.")
+     */
     private $dateEndFilter;
     private $site;
     private $isRegistered;
     private $isNotRegistered;
     private $isOutDated;
-    private  $isPlanner;
+    private $isPlanner;
 
 
     public function getDateBeginFilter()
@@ -33,7 +37,8 @@ class OutingsFilter
     }
 
 
-    public function getDateEndFilter(): ?\DateTimeInterface
+    public function getDateEndFilter()
+
     {
         return $this->dateEndFilter;
     }
@@ -41,7 +46,7 @@ class OutingsFilter
     /**
      * @param mixed $dateEndFilter
      */
-    public function setDateEndFilter(?\DateTimeInterface $dateEndFilter): self
+    public function setDateEndFilter( $dateEndFilter)
     {
         $this->dateEndFilter = $dateEndFilter;
 

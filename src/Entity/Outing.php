@@ -115,6 +115,11 @@ class Outing
      */
     private $participants;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $cancellationReason;
+
     public function __construct()
     {
         $this->participants = new ArrayCollection();
@@ -277,6 +282,18 @@ class Outing
     public function removeParticipant(Participant $participant): self
     {
         $this->participants->removeElement($participant);
+
+        return $this;
+    }
+
+    public function getCancellationReason(): ?string
+    {
+        return $this->cancellationReason;
+    }
+
+    public function setCancellationReason(?string $cancellationReason): self
+    {
+        $this->cancellationReason = $cancellationReason;
 
         return $this;
     }

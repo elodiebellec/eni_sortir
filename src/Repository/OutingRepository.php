@@ -27,17 +27,13 @@ class OutingRepository extends ServiceEntityRepository
     public function findAllOutings($page, $filter,$user )
     {
         $idUser = $user->getId();
-        $tabUser[]= $user;
         $tabNotRegistered = $this->findNotRegistered($user);
         $tableRegistered = $this->findRegistered($user);
 
-        dump($user);
-        dump($filter);
+
 
         $queryBuilder = $this->createQueryBuilder('o');
-       // $expr= $queryBuilder->expr();
-        //$orx= $expr->orX();
-      //  $orx= $expr->andX();
+
 
         $queryBuilder->leftJoin('o.state','state');
         $queryBuilder->leftJoin('o.planner','planner');
@@ -51,6 +47,9 @@ class OutingRepository extends ServiceEntityRepository
         $queryBuilder->addSelect('participants');
         $queryBuilder->addSelect('site');
         $queryBuilder->addSelect('location');
+
+        $queryBuilder->andWhere('state.label <> :historized');
+        $queryBuilder->setParameter('historized', 'Activité historisée');
 
         /**
          * @var  OutingsFilter $filter

@@ -10,7 +10,6 @@ use App\Entity\Participant;
  */
 class OutingVerificator
 {
-
     private array $errors;
     private Outing $outing;
 

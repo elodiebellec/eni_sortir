@@ -23,15 +23,15 @@ class AppFixtures extends Fixture
 
         $this->defineStates($manager);
 
-        $this->generateCities($manager, $generator);
+      //  $this->generateCities($manager, $generator);
 
-        $this->generateLocation($manager, $generator);
+      //  $this->generateLocation($manager, $generator);
 
-        $this->generateSites($manager, $generator);
+      //  $this->generateSites($manager, $generator);
 
-        $this->generateParticipants($manager, $generator);
+       // $this->generateParticipants($manager, $generator);
 
-        $this->generateOutings($manager, $generator);
+       // $this->generateOutings($manager, $generator);
     }
 
     private function defineStates(ObjectManager $manager): void
@@ -42,6 +42,7 @@ class AppFixtures extends Fixture
         $inProgress = new State;
         $finished   = new State;
         $canceled   = new State;
+        $historized = new State;
 
         $created->setLabel("Créée");
         $opened->setLabel("Ouverte");
@@ -49,6 +50,7 @@ class AppFixtures extends Fixture
         $inProgress->setLabel("Activité en cours");
         $finished->setLabel("Activité passée");
         $canceled->setLabel("Activité annulée");
+        $historized->setLabel("Activité historisée");
 
         $manager->persist($created);
         $manager->persist($opened);
@@ -56,6 +58,7 @@ class AppFixtures extends Fixture
         $manager->persist($inProgress);
         $manager->persist($finished);
         $manager->persist($canceled);
+        $manager->persist($historized);
 
         $manager->flush();
     }
