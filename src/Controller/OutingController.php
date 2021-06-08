@@ -270,7 +270,7 @@ public function  list ( Request $request,
         $outingCancellationForm->handleRequest($request);
 
         if($outingCancellationForm->isSubmitted() && $outingCancellationForm->isValid()){
-
+            $outing->setState($entityManager->getRepository(State::class)->getState('Activité annulée'));
             $entityManager->persist($outing);
             $entityManager->flush();
 
@@ -305,6 +305,11 @@ public function  list ( Request $request,
         $outingForm->handleRequest($request);
 
         if($outingForm->isSubmitted() && $outingForm->isValid()){
+            //If the button 'saveAndAdd' ('publier la sortie') is cliked, set the form state to open ("ouverte")
+
+            if ($outingForm->getClickedButton() && 'saveAndAdd' === $outingForm->getClickedButton()->getName()) {
+                $outing->setState($entityManager->getRepository(State::class)->getState('Ouverte'));
+            }
 
             $entityManager->persist($outing);
             $entityManager->flush();
@@ -330,7 +335,7 @@ public function  list ( Request $request,
                            EntityManagerInterface $entityManager): Response
     {
 
-        $outing = $entityManager->find(Serie::class, $id);
+        $outing = $entityManager->find(outing::class, $id);
         $entityManager->remove($outing);
         $entityManager->flush();
 
