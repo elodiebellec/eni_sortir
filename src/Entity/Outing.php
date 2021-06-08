@@ -73,14 +73,14 @@ class Outing
     private $maxRegistration;
 
     /**
+     * @Assert\Length(
+     *     max=255,
+     *     maxMessage="La description ne doit pas dépasser 255 caratères.")
      * @ORM\Column(type="string", length=500, nullable=true)
      */
     private $description;
 
     /**
-     * @Assert\Length(
-     *     max=255,
-     *     maxMessage="La description ne doit pas dépasser 255 caratères.")
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $photo;
@@ -214,6 +214,18 @@ class Outing
         return $this;
     }
 
+    public function getCancellationReason(): ?string
+    {
+        return $this->cancellationReason;
+    }
+
+    public function setCancellationReason(?string $cancellationReason): self
+    {
+        $this->cancellationReason = $cancellationReason;
+
+        return $this;
+    }
+
     public function getLocation(): ?Location
     {
         return $this->location;
@@ -286,15 +298,5 @@ class Outing
         return $this;
     }
 
-    public function getCancellationReason(): ?string
-    {
-        return $this->cancellationReason;
-    }
 
-    public function setCancellationReason(?string $cancellationReason): self
-    {
-        $this->cancellationReason = $cancellationReason;
-
-        return $this;
-    }
 }
