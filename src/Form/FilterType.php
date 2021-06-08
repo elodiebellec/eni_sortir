@@ -10,6 +10,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -59,8 +60,8 @@ class FilterType extends AbstractType
         $builder
             ->add('site',ChoiceType::class,  [ 'choices'=>$listWithName, "label"=>"Site:", "placeholder"=> null, "empty_data" =>" "]) // ligne concernée par la liste à afficher
             ->add('name',SearchType::class, [ "required"=>false,"label"=>"Le nom de la sortie contient"])
-            ->add('dateBeginFilter', DateTimeType::class, ["required"=>false, "label"=>"Entre","html5"=>true,"empty_data" =>null, "date_widget"=>"single_text" ,'date_format' => 'yyyy-MM-dd'  ] )
-            ->add('dateEndFilter', DateTimeType::class, ["required"=>false, "label"=>"et","html5"=>true,"empty_data" =>null, "date_widget"=>"single_text" ,'date_format' => 'yyyy-MM-dd' ])
+            ->add('dateBeginFilter', DateType::class, ["required"=>false, "label"=>"Entre","html5"=>true,"empty_data" =>null , 'format' => 'dd-MM-yyyy' ] )
+            ->add('dateEndFilter', DateType::class, ["required"=>false, "label"=>"et","html5"=>true,"empty_data" =>null, 'format' => 'dd-MM-yyyy' ])
 
             ->add('isPlanner', ChoiceType::class, [ "required"=>false,
                 "choices" =>

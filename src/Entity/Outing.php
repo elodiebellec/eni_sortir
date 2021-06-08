@@ -297,4 +297,6 @@ class Outing
 
         return $this;
     }
+
+
 }

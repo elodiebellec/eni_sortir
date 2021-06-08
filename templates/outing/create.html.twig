@@ -24,10 +24,10 @@
         <p>Ville organisatrice : {{ userSite.name }}</p>
         <p>{{ form_row(outingForm.city) }}</p>
         <p>{{ form_row(outingForm.location) }}</p>
-        <p>Rue : {{ userSite.name }}</p>
-        <p>Code postal : {{ userSite.name }}</p>
-        <p>Latitude : {{ userSite.name }}</p>
-        <p>Longitude : {{ userSite.name }}</p>
+        <p>Rue : <span id="street"></span></p>
+        <p>Code postal : <span id="postalCode"></span> </p>
+        <p>Latitude : <span id="latitude"></span></p>
+        <p>Longitude : <span id="longitude"></span></p>
         {% do outingForm.cancellationReason.setRendered("") %}
         <p>{{ form_row(outingForm.save) }}</p>
         <p>{{ form_row(outingForm.saveAndAdd) }}</p>

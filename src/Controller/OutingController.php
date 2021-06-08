@@ -31,7 +31,7 @@ class OutingController extends AbstractController
      */
 
     public function  list ( Request $request,
-                            OutingRepository  $outingRepository): Response
+                            OutingRepository  $outingRepository, OutingUpdator $updator,  EntityManagerInterface $entityManager): Response
     {
 
         $user= $this->getUser();
@@ -40,20 +40,42 @@ class OutingController extends AbstractController
         $filterForm->handleRequest($request);
 
         $page =(int) $request->request->get('pageButtton', 1);
-        $countOutingsFromBDD= $outingRepository->count([]);
-        $maxPagesForAllResearch = $countOutingsFromBDD/10;
+        $updateOutingStatus = $outingRepository->findAllForStateUpdate();
+
+        $countOutingsFromBDD= sizeof($updateOutingStatus);
+
+        $maxPagesForAllResearch = ceil($countOutingsFromBDD/10);
+
+        foreach ($updateOutingStatus as $value)
+        {
+
+            $updatedOuting= $updator->updateState($value);
+            $entityManager->persist($updatedOuting);
+
+        }
+
+        $entityManager->flush();
+
+
+        /**
+         * @var Outing $outing
+         */
+
 
         if ($page >= 1 && $page <= $maxPagesForAllResearch) {
             $results = $outingRepository->findAllOutings($page, $filter, $user);
+
         } else {
             throw $this->createNotFoundException("Oops ! 404 ! This page does not exist !");
         }
 
-        $outingsQuantity =  sizeof($results['outings']);
-        $maxPage= ceil($outingsQuantity); // orig val : /10
+
+        $outingsQuantity =  sizeof($results);
+        $maxPage= ceil($outingsQuantity/10);
+
 
         return $this->render('outing/list.html.twig',
-            ["outings"=>$results['outings'],
+            ["outings"=> $results,
             "maxOutings"=>$outingsQuantity,
             "currentPage"=> $page,
             "maxPage"=>$maxPage,
@@ -90,7 +112,6 @@ class OutingController extends AbstractController
         if($verificator->canAdd($user,$outing)){
             $outing  = $outing->addParticipant($user);
             $outing  = $updator->updateState($outing);
-
         }
         else{
             $this->addFlash('Opération impossible',$verificator->getErrorMessages());
@@ -99,7 +120,6 @@ class OutingController extends AbstractController
          * Refresh the outing and its state even if participant couldn't be added.
          * It will refresh outing for all users.
          */
-        //dd($outing);
         $entityManager->persist($outing);
         $entityManager->flush();
         return $this->redirectToRoute('outing');
@@ -205,11 +225,17 @@ class OutingController extends AbstractController
          * @var City $city
          */
         $city = $cityRepository->findCityByNameWithLocations($selectedCity->cityName)[0];
-        $locations = [];
+        $data = [];
+        $data['postalCode'] = $city->getPostalCode();
+        $data['locations'] = [];
         foreach($city->getLocations() as $location){
-            $locations[$location->getName()] = $location->getName();
+            $data['locations'][$location->getName()] = [];
+            $data['locations'][$location->getName()]['name'] = $location->getName();
+            $data['locations'][$location->getName()]['street'] = $location->getStreet();
+            $data['locations'][$location->getName()]['latitude'] = $location->getLatitude();
+            $data['locations'][$location->getName()]['longitude'] = $location->getLongitude();
         }
-        return new JsonResponse($locations);
+        return new JsonResponse($data);
     }
 
 
