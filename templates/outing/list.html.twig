@@ -180,7 +180,7 @@
 
                             {% if (app.user.pseudo == outing.planner.pseudo) and outing.state.label == "Créée" %}
 
-                                <a href="{{ path('outing') }}"> Modifier </a>
+                                <a href="{{ path('outing_update', {'id':outing.id}) }}"> Modifier </a>
 
                             {% endif %}
 
