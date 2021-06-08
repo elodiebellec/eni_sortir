@@ -266,6 +266,9 @@ public function  list ( Request $request,
         $userSite = $this->getUser()->getSite();
         $outing->setSite($userSite);
 
+        //Display outing location
+        $outingLocation = $outing->getLocation()->getName();
+
         $outingCancellationForm = $this->createForm(OutingCancellationType::class, $outing);
         $outingCancellationForm->handleRequest($request);
 
@@ -281,6 +284,7 @@ public function  list ( Request $request,
 
         return $this->render('outing/cancel.html.twig', [
             'outing' => $outing,
+            'outingLocation' => $outingLocation,
             'outingCancellationForm'=> $outingCancellationForm->createView(),
             'userSite'=> $userSite
 
@@ -338,7 +342,7 @@ public function  list ( Request $request,
         $outing = $entityManager->find(outing::class, $id);
         $entityManager->remove($outing);
         $entityManager->flush();
-
+        //TODO flash must display on outing page
         $this->addFlash('sucess', 'Sortie supprimée !!');
 
         return $this->redirectToRoute('outing');

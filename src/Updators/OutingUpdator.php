@@ -258,7 +258,7 @@ class OutingUpdator
 
     private function eventIsPublished():bool
     {
-        return true;
+        return false;
     }
 
     private function eventIsCancelled(): bool
