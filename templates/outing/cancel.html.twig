@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Annuler sortie{% endblock %}
+
+
+{% block body %}
+    <h1>Annuler une sortie</h1>
+    <div>
+        <p>Nom de la sortie : {{ outing.name }}</p>
+        <p>Date de la sortie : {{ outing.dateBegin|date("Y-m-d") }}</p>
+        <p>Ville organisatrice : {{ userSite.name }}</p>
+        <p>Lieu : {{ userSite.name }}</p>
+
+
+
+        <a href="{{ path('outing') }}" class="button">Annuler</a>
+
+    </div>
+{% endblock %}

@@ -3,24 +3,22 @@
 namespace App\Form;
 
 
-use App\Entity\City;
 use App\Entity\Location;
 use App\Entity\Outing;
 
 use App\Repository\CityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class OutingType extends AbstractType
@@ -82,11 +80,17 @@ class OutingType extends AbstractType
            */
             ->add('city', ChoiceType::class, ['choices'=>$citiesNameList, 'label'=>'Ville', 'mapped' => false])
 
+            
+            ->add('cancellationReason', textType::class, [
+                'required' => false,
+                'label'=> 'Motif'
+            ])
+
             ->add('save', SubmitType::class, ['label' => 'Enregistrer'])
             ->add('saveAndAdd', SubmitType::class, ['label'=>'Publier'])
             ->getForm();
 
-        ;
+
     }
 
     public function configureOptions(OptionsResolver $resolver)
