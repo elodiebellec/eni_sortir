@@ -3,14 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\City;
-
+use App\Form\FilterType;
 use App\Form\OutingCancellationType;
+use App\Model\OutingsFilter;
 use App\Entity\Outing;
 use App\Entity\Participant;
 use App\Entity\State;
-use App\Form\FilterType;
 use App\Form\OutingType;
-use App\Model\OutingsFilter;
 use App\Repository\CityRepository;
 use App\Repository\LocationRepository;
 use App\Repository\OutingRepository;
@@ -257,14 +256,18 @@ public function  list ( Request $request,
             throw $this->createNotFoundException("Cette sortie n'existe plus !");
         }
 
+        /**
+         * @var $user Participant
+         *
+         */
+        $outing->setPlanner($this->getUser());
+
         //Display user School Site
         $userSite = $this->getUser()->getSite();
         $outing->setSite($userSite);
 
-
         $outingCancellationForm = $this->createForm(OutingCancellationType::class, $outing);
         $outingCancellationForm->handleRequest($request);
-
 
         if($outingCancellationForm->isSubmitted() && $outingCancellationForm->isValid()){
 
@@ -278,10 +281,8 @@ public function  list ( Request $request,
 
         return $this->render('outing/cancel.html.twig', [
             'outing' => $outing,
-
             'outingCancellationForm'=> $outingCancellationForm->createView(),
             'userSite'=> $userSite
-
 
         ]);
     }
