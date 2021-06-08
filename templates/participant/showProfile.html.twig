@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1> {{ participant.pseudo }}</h1>
+
+
+    <div>
+        <p>Prénom : </p>  <p> {{ participant.firstName }}</p>
+    </div>
+
+    <div>
+        <p>Nom :  </p>
+        <p> {{ participant.lastName }}  </p>
+    </div>
+
+    <div>
+        <p>Téléphone :  </p>
+        <p> {{ participant.phone }}  </p>
+    </div>
+
+    <div>
+        <p>Email :  </p>
+        <p> {{ participant.mail }} </p>
+    </div>
+
+    <div>
+        <p>Ville de rattachement :  </p>
+        <p> {{ participant.site.name }} </p>
+    </div>
+
+    <a href="{{ path('outing') }}"> RETOUR </a>
+
+
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
