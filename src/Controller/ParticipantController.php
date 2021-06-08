@@ -4,6 +4,8 @@
 namespace App\Controller;
 
 
+use App\Entity\Participant;
+use App\FileUploader\FileUploader;
 use App\Form\ParticipantType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,13 +20,22 @@ class ParticipantController extends AbstractController
      * @IsGranted("ROLE_USER")
      * @Route("/profile/update", name="participant_profile_update")
      */
-    public function update(Request $request)
+    public function update(Request $request,FileUploader $uploader)
     {
+        /**
+         * @var Participant $user
+         */
         $user = $this->getUser();
         $updateForm = $this->createForm(ParticipantType::class,$user);
         $updateForm->handleRequest($request);
 
         if($updateForm->isSubmitted() && $updateForm->isValid()){
+
+            if($photo = $updateForm->get('photo')->getData()){
+                $uploader->saveImage($photo);
+                $user->setPhoto($uploader->getLastUploadedFile());
+            }
+
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($user);
             $manager->flush();
@@ -36,4 +47,5 @@ class ParticipantController extends AbstractController
             'updateForm' => $updateForm->createView()
         ]);
     }
+
 }

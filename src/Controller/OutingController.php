@@ -30,7 +30,8 @@ class OutingController extends AbstractController
      * @Route("/outing", name="outing")
      */
 
-    public function  list ( Request $request,OutingRepository  $outingRepository): Response
+    public function  list ( Request $request,
+                            OutingRepository  $outingRepository): Response
     {
 
         $user= $this->getUser();
@@ -49,9 +50,7 @@ class OutingController extends AbstractController
         }
 
         $outingsQuantity =  sizeof($results['outings']);
-        $maxPage= ceil($outingsQuantity/10);
-
-
+        $maxPage= ceil($outingsQuantity); // orig val : /10
 
         return $this->render('outing/list.html.twig',
             ["outings"=>$results['outings'],
@@ -91,6 +90,7 @@ class OutingController extends AbstractController
         if($verificator->canAdd($user,$outing)){
             $outing  = $outing->addParticipant($user);
             $outing  = $updator->updateState($outing);
+
         }
         else{
             $this->addFlash('Opération impossible',$verificator->getErrorMessages());
@@ -99,9 +99,9 @@ class OutingController extends AbstractController
          * Refresh the outing and its state even if participant couldn't be added.
          * It will refresh outing for all users.
          */
+        //dd($outing);
         $entityManager->persist($outing);
         $entityManager->flush();
-
         return $this->redirectToRoute('outing');
     }
 
@@ -201,6 +201,9 @@ class OutingController extends AbstractController
     {
 
         $selectedCity = json_decode($request->getContent());
+        /**
+         * @var City $city
+         */
         $city = $cityRepository->findCityByNameWithLocations($selectedCity->cityName)[0];
         $locations = [];
         foreach($city->getLocations() as $location){
