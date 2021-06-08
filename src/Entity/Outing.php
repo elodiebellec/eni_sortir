@@ -54,7 +54,7 @@ class Outing
     /**
      * @Assert\NotBlank(message="Merci de saisir une date limite d'inscription.")
      * @Assert\Type("DateTimeInterface")
-     * @Assert\GreaterThan(propertyPath="dateBegin", message="La date limite d'inscription ne doit pas être antérieure à la date de la sortie.")
+     * @Assert\LessThan(propertyPath="dateBegin", message="La date limite d'inscription ne doit pas être postérieure à la date de la sortie.")
      * @ORM\Column(type="datetime")
      */
     private $dateEnd;
