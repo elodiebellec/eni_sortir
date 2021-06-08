@@ -40,19 +40,16 @@ class OutingController extends AbstractController
         $filterForm->handleRequest($request);
 
         $page =(int) $request->request->get('pageButtton', 1);
-        $countOutingsFromBDD= $outingRepository->count([]);
-        $maxPagesForAllResearch = $countOutingsFromBDD/10;
+        $updateOutingStatus = $outingRepository->findAllForStateUpdate();
 
-        $checkedOutings=array();
+        $countOutingsFromBDD= sizeof($updateOutingStatus);
 
-        $updateOutingStatus = $outingRepository->findAll();
+        $maxPagesForAllResearch = ceil($countOutingsFromBDD/10);
 
         foreach ($updateOutingStatus as $value)
         {
 
             $updatedOuting= $updator->updateState($value);
-
-            $checkedOutings[]=$updatedOuting;
             $entityManager->persist($updatedOuting);
 
         }
@@ -64,7 +61,6 @@ class OutingController extends AbstractController
          * @var Outing $outing
          */
 
-       // $outing  = $updator->updateState($outing);
 
         if ($page >= 1 && $page <= $maxPagesForAllResearch) {
             $results = $outingRepository->findAllOutings($page, $filter, $user);
@@ -74,15 +70,12 @@ class OutingController extends AbstractController
         }
 
 
-        $checkedOutings = array();
-
-        $outingsQuantity =  sizeof($results['outings']);
+        $outingsQuantity =  sizeof($results);
         $maxPage= ceil($outingsQuantity/10);
 
 
-
         return $this->render('outing/list.html.twig',
-            ["outings"=> $results['outings'],
+            ["outings"=> $results,
             "maxOutings"=>$outingsQuantity,
             "currentPage"=> $page,
             "maxPage"=>$maxPage,
