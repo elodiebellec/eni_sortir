@@ -19,7 +19,7 @@ input {
   font-family: "Open Sans", sans-serif;
 }
 input::placeholder {
-  font-family: "Open Sans", sans-serif;
+  font-family: "Signika", sans-serif;
   font-weight: bold;
   font-style: normal;
   font-variant-caps: small-caps;
@@ -70,7 +70,7 @@ inputSearch .loupeForm {
   color: black;
   opacity: 0.8;
 }
-.login-form button, .login-form .btn-login-form, .login-form .btn-secondary {
+.login-form button, .login-form .nav-btn, .login-form .nav-profile-btn, .login-form .btn-login-form, .login-form .btn-secondary, .login-form .button {
   max-width: inherit;
 }
 
@@ -120,7 +120,7 @@ inputSearch .loupeForm {
     margin: 18px;
   }
 }
-button, .btn-login-form, .btn-secondary {
+button, .nav-btn, .nav-profile-btn, .btn-login-form, .btn-secondary, .button {
   border-radius: 80px;
   border-color: #2d2929;
   opacity: 0.8;
@@ -140,12 +140,13 @@ button, .btn-login-form, .btn-secondary {
   cursor: pointer;
   transition: 0.25s;
 }
-button:hover, .btn-login-form:hover, .btn-secondary:hover {
+button:hover, .nav-btn:hover, .nav-profile-btn:hover, .btn-login-form:hover, .btn-secondary:hover, .button:hover {
   /* the "&" refers to the parent element, we  use it to concatenates selectors (= button:hover)*/
   background-color: rgba(41, 44, 45, 0.8);
   transition: 0.25s;
 }
 
+/*Use it to make other HTML tag look like our beloved buttons*/
 .btn-secondary {
   background-color: #d3d4d4;
   color: #232020;
@@ -167,6 +168,43 @@ button:hover, .btn-login-form:hover, .btn-secondary:hover {
   font-weight: normal;
   flex: 1 1 auto;
   max-height: 90px;
+}
+
+/*NAV BUTTONS*/
+.nav-btn, .nav-profile-btn {
+  font-family: "Signika", sans-serif;
+  font-weight: bold;
+  font-style: normal;
+  font-variant-caps: small-caps;
+  color: #232020;
+  font-size: 20px;
+  font-weight: normal;
+  color: white;
+  font-family: "Signika", sans-serif;
+  outline: none;
+  text-decoration: none;
+  text-align: center;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  min-width: 129.6px;
+  min-height: 54px;
+  max-height: 72px;
+}
+
+.nav-profile-btn {
+  font-family: "Signika", sans-serif;
+  font-weight: bold;
+  font-style: normal;
+  font-variant-caps: small-caps;
+  color: #232020;
+  font-size: 20px;
+  border-radius: 50%;
+  color: white;
+  min-width: 54px;
+  max-width: 54px;
+  min-height: 54px;
+  max-height: 54px;
 }
 
 /*# sourceMappingURL=buttons.css.map */
