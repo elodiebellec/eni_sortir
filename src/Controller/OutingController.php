@@ -348,6 +348,22 @@ public function  list ( Request $request,
         return $this->redirectToRoute('outing');
     }
 
+    /**
+     * @Route("/outing/show", name="outing_show")
+     */
+    public function show(Request $request, OutingRepository $repository): Response
+    {
+
+        $OutingId =(int) $request->query->get('id', 1);
+
+        $outing = $repository->find($OutingId);
+
+        return $this->render('outing/showOneOuting.html.twig', [
+            'outing' => $outing
+        ]);
+    }
+
+
 
 
 

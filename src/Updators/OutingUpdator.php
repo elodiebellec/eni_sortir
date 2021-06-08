@@ -32,11 +32,7 @@ class OutingUpdator
 
 
         switch($outing->getState()){
-            case $this->states['Créée']:
-            {
-                $this->created($outing);
-                break;
-            }
+
             case $this->states['Ouverte']:
             {
                 $this->opened($outing);
@@ -68,13 +64,7 @@ class OutingUpdator
 
     }
 
-    private function created(Outing $outing)
-    {
-        if( $this->eventIsPublished())
-        {
-            $outing->setState($this->states['Ouverte']);
-        }
-    }
+
 
     private function opened(Outing $outing)
     {
@@ -256,10 +246,7 @@ class OutingUpdator
         return $isHistorized;
     }
 
-    private function eventIsPublished():bool
-    {
-        return true;
-    }
+
 
     private function eventIsCancelled(): bool
     {
