@@ -258,5 +258,47 @@ class OutingController extends AbstractController
 
     }
 
+    /**
+     * @Route("outing/update/{id}", name="outing_update", requirements={"page"="\d+"})
+     */
+    public function update($id, outingRepository $outingRepository, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $outing = $outingRepository->find($id);
+        if(!$outing) {
+            throw $this->createNotFoundException("Cette sortie n'existe plus !");
+        }
+
+        /**
+         * @var $user Participant
+         *
+         */
+        $outing->setPlanner($this->getUser());
+
+        //Display user School Site
+        $userSite = $this->getUser()->getSite();
+        $outing->setSite($userSite);
+
+        $outingForm = $this->createForm(OutingType::class, $outing);
+        $outingForm->handleRequest($request);
+
+        if($outingForm->isSubmitted() && $outingForm->isValid()){
+
+            $entityManager->persist($outing);
+            $entityManager->flush();
+
+            //TODO flash must display on outing page
+            $this->addFlash('success', 'Sortie annulée !');
+            return $this->redirectToRoute('outing');
+        }
+
+        return $this->render('outing/update.html.twig', [
+            'outing' => $outing,
+            'outingForm'=> $outingForm->createView(),
+            'userSite'=> $userSite
+
+        ]);
+
+    }
+
 
 }
