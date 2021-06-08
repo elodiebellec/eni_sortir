@@ -1,11 +1,17 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Accueil{% endblock %}
-
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('style/composants/headers.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/composants/form.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/composants/buttons.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/composants/checkbox.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/composants/navbar.css') }}">
+{% endblock %}
 {% block body %}
-
-    <h1>Accueil</h1>
-
+{{ parent() }}
+<div class="outing-list-page-container">
     <div>
         <p> Date du jour : {{ "now"|date("d/m/Y")  }} </p>
         {% if user is defined and user is not null %}
@@ -15,8 +21,6 @@
 
 
     <div>
-
-
 
         {{ form_start(formulaire, {'attr': {'class':'mainFilter'}}) }}
 
@@ -210,6 +214,9 @@
 
     <p> Page n° {{ currentPage }} sur {{ maxPage }}</p>
     <div> {{ maxOutings }} résultats</div>
+</div>
 
+<script>
 
+</script>
 {% endblock %}

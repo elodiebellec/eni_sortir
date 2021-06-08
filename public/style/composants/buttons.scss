@@ -32,6 +32,11 @@ button {
     transition: 0.25s;
   }
 }
+/*Use it to make other HTML tag look like our beloved buttons*/
+.button{
+  @extend button;
+}
+
 .btn-secondary {
   @extend button;
   background-color: $btn-secondary-color;
@@ -51,4 +56,31 @@ button {
   font-weight: normal;
   flex: 1 1 auto;
   max-height: $btn-size-unit * 2.5;
+}
+/*NAV BUTTONS*/
+.nav-btn{
+  @extend button;
+  @include important-txt-large;
+  font-weight: normal;
+  color:white;
+  font-family: $signika;
+  outline:none;
+  text-decoration: none;
+  text-align: center;
+  display:flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  min-width: $btn-size-unit * 3.6;
+  min-height: $btn-size-unit*1.5;
+  max-height: $btn-size-unit * 2;
+}
+.nav-profile-btn{
+  @extend .nav-btn;
+  @include important-txt-big;
+  border-radius: 50%;
+  color:white;
+  min-width: $btn-size-unit * 1.5;
+  max-width: $btn-size-unit * 1.5;
+  min-height: $btn-size-unit* 1.5;
+  max-height: $btn-size-unit * 1.5;
 }

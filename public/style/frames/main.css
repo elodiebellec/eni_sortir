@@ -9,4 +9,10 @@ html {
   color: #232020;
 }
 
+.page-main-grid {
+  display: grid;
+  grid-template-rows: 20vh auto;
+  /* Divide screen between navbar and page-content*/
+}
+
 /*# sourceMappingURL=main.css.map */
