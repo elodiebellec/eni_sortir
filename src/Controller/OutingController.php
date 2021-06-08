@@ -239,6 +239,8 @@ class OutingController extends AbstractController
     }
 
 
+    
+
     /**
      * @Route("outing/cancel/{id}", name="outing_cancel", requirements={"page"="\d+"})
      */
@@ -341,6 +343,8 @@ class OutingController extends AbstractController
 
         return $this->redirectToRoute('outing');
     }
+
+
 
 
 }
