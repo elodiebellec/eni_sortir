@@ -8,14 +8,11 @@
     <div>
         <p>Nom de la sortie : {{ outing.name }}</p>
         <p>Date de la sortie : {{ outing.dateBegin|date("d.m.Y") }}</p>
-        <p>Ville organisatrice : TO DO</p>
-        <p>Lieu : {{ userSite.name }}</p>
+        <p>Ville organisatrice : {{ userSite.name }}</p>
+        <p>Lieu : {{ outingLocation }}</p>
         {{ form_start(outingCancellationForm) }}
         {{ form_widget(outingCancellationForm) }}
         {{ form_end(outingCancellationForm) }}
         <a href="{{ path('outing') }}" class="button">Annuler</a>
-
-
-
     </div>
 {% endblock %}
