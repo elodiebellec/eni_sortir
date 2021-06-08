@@ -154,7 +154,7 @@ class OutingUpdator
         $dateRegistrationEnd     = $outing->getDateEnd();
         $now                     = new \DateTime;
         $duration = $outing->getDuration();
-        $dateEventEnd   = $dateEventBegin->modify("+ $duration day");
+        $dateEventEnd   = \DateTimeImmutable::createFromMutable($dateEventBegin)->modify("+ $duration day");
 
         if($this->eventIsCancelled())
         {
@@ -181,7 +181,7 @@ class OutingUpdator
         $dateEventBegin          = $outing->getDateBegin();
         $now                     = new \DateTime;
         $duration = $outing->getDuration();
-        $dateEventEnd   = $dateEventBegin->modify("+ $duration day");
+        $dateEventEnd   = \DateTimeImmutable::createFromMutable($dateEventBegin)->modify("+ $duration day");
 
         if($this->eventIsFinished( $dateEventBegin, $now,  $dateEventEnd))
         {
@@ -195,7 +195,7 @@ class OutingUpdator
         $now                     = new \DateTime;
         $currentState= $outing->getState()->getId();
         $duration = $outing->getDuration();
-        $dateEventEnd   = $dateEventBegin->modify("+ $duration day");
+        $dateEventEnd   = \DateTimeImmutable::createFromMutable($dateEventBegin)->modify("+ $duration day");
 
         if($this->eventShallBeHistorized($dateEventBegin,  $now, $dateEventEnd, $currentState))
         {
@@ -209,10 +209,10 @@ class OutingUpdator
         $now                     = new \DateTime;
         $currentState= $outing->getState()->getId();
         $duration = $outing->getDuration();
-        $dateEventEnd   = $dateEventBegin->modify("+ $duration day");
+        $dateEventEnd   = \DateTimeImmutable::createFromMutable($dateEventBegin)->modify("+ $duration day");
         $outing->setState($this->states['Activité historisée']);
 
-        if($this->eventShallBeHistorized($dateEventBegin,  $now, $dateEventEnd, $currentState))
+        if($this->eventShallBeHistorized($dateEventBegin,  $now,  $dateEventEnd, $currentState))
         {
             $outing->setState($this->states['Activité historisée']);
         }
@@ -225,7 +225,7 @@ class OutingUpdator
      * @param \DateTimeImmutable $dateEventEnd
      * @return bool
      */
-    private function eventIsFinished( $dateEventBegin, \DateTime $now,  $dateEventEnd): bool
+    private function eventIsFinished( \DateTimeInterface $dateEventBegin, \DateTime $now,  \DateTimeImmutable $dateEventEnd): bool
     {
         return $dateEventBegin < $now
             && $dateEventEnd < $now;
@@ -240,8 +240,8 @@ class OutingUpdator
      */
     private function registrationAreClosed(int $participantsCount,
                                            int $registrationsLimit,
-                                            $dateRegistrationEnd,
-                                            $now): bool
+                                           \DateTimeInterface $dateRegistrationEnd,
+                                           \DateTime $now): bool
     {
         return $participantsCount >= $registrationsLimit
             || $dateRegistrationEnd < $now;
@@ -253,7 +253,7 @@ class OutingUpdator
      * @param \DateTimeImmutable $dateEventEnd
      * @return bool
      */
-    private function eventIsOngoing($dateEventBegin, $now, $dateEventEnd): bool
+    private function eventIsOngoing( \DateTimeInterface $dateEventBegin,\DateTime $now, \DateTimeImmutable $dateEventEnd): bool
     {
         return $dateEventBegin <= $now
             && $dateEventEnd > $now;
@@ -268,7 +268,7 @@ class OutingUpdator
      * @param \DateTimeImmutable $dateEventEnd
      * @return bool
      */
-    private function registrationAreOpened(int $participantsCount, ?int $registrationsLimit, $dateEventBegin, \DateTime $now,  $dateRegistrationEnd,  $dateEventEnd): bool
+    private function registrationAreOpened(int $participantsCount, int $registrationsLimit,\DateTimeInterface $dateEventBegin, \DateTime $now, \DateTimeInterface $dateRegistrationEnd, \DateTimeImmutable $dateEventEnd): bool
     {
         return $participantsCount <= $registrationsLimit
             && $dateEventBegin > $now
@@ -283,7 +283,7 @@ class OutingUpdator
      * @param \DateTimeImmutable $dateEventEnd
      * @return bool
      */
-    private function eventShallBeHistorized($dateEventBegin,  $now, $dateEventEnd, $currentState): bool
+    private function eventShallBeHistorized(\DateTimeInterface $dateEventBegin, \DateTime $now, \DateTimeImmutable $dateEventEnd, $currentState): bool
     {
         $isHistorized = false;
         if($currentState=== 5 && $dateEventEnd->modify("+1 Month") < $now)

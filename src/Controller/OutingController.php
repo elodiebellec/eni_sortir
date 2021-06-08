@@ -43,37 +43,20 @@ class OutingController extends AbstractController
         $maxPagesForAllResearch = $countOutingsFromBDD/10;
 
         $checkedOutings=array();
+
         $updateOutingStatus = $outingRepository->findAll();
+
         foreach ($updateOutingStatus as $value)
         {
 
-
-
-            if($value->getId()===39)
-            {
-                dump($value->getState());
-                dump($value->getName());
-                dump($value->getDateBegin()->modify( '+ 1 days'));
-
-
-            }
             $updatedOuting= $updator->updateState($value);
-            if($value->getId()===39)
-            {
-                dump($updatedOuting->getState());
-
-            }
 
             $checkedOutings[]=$updatedOuting;
             $entityManager->persist($updatedOuting);
 
-           // $entityManager->flush();
-
-
         }
 
-
-
+        $entityManager->flush();
 
 
         /**
@@ -94,7 +77,7 @@ class OutingController extends AbstractController
         $checkedOutings = array();
 
 
-        dump($checkedOutings);
+      //  dump($checkedOutings);
 
         $outingsQuantity =  sizeof($results['outings']);
         $maxPage= ceil($outingsQuantity/10);
