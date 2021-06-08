@@ -138,6 +138,9 @@
 
             {% for outing in outings %}
 
+
+
+
                 <tr>
                     <td colspan="2">{{ outing.name}}</td>
                     <td colspan="2">{{ outing.dateBegin|date ('d/m/y')}}</td>
@@ -175,9 +178,14 @@
 
                             {% endif %}
 
-                            {% if (app.user.pseudo == outing.planner.pseudo) or 'ROLE_ADMIN' in app.user.roles %}
+                            {% if (app.user.pseudo == outing.planner.pseudo) and outing.state.label == "Créée" %}
 
-                                <a href="{{ path('outing') }}"> Modifier </a>
+                                <a href="{{ path('outing_update', {'id':outing.id}) }}"> Modifier </a>
+
+                            {% endif %}
+
+                            {% if ((app.user.pseudo == outing.planner.pseudo) or ('ROLE_ADMIN' in app.user.roles))and (outing.state.label == "Ouverte" or outing.state.label == "Clôturée") %}
+
 
                                 <a href="{{ path('outing_cancel', {'id':outing.id}) }}"> Annuler </a>
 

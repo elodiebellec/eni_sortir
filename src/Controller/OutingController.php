@@ -30,37 +30,59 @@ class OutingController extends AbstractController
      * @Route("/outing", name="outing")
      */
 
-    public function  list(Request $request,
-                          OutingRepository $outingRepository): Response
+public function  list ( Request $request,
+                            OutingRepository  $outingRepository, OutingUpdator $updator,  EntityManagerInterface $entityManager): Response
     {
 
-        $user = $this->getUser();
+        $user= $this->getUser();
         $filter = new OutingsFilter();
-        $filterForm = $this->createForm(FilterType::class, $filter);
+        $filterForm= $this->createForm(FilterType::class, $filter);
         $filterForm->handleRequest($request);
 
-        $page = (int)$request->request->get('pageButtton', 1);
-        $countOutingsFromBDD = $outingRepository->count([]);
-        $maxPagesForAllResearch = $countOutingsFromBDD / 10;
+        $page =(int) $request->request->get('pageButtton', 1);
+        $updateOutingStatus = $outingRepository->findAllForStateUpdate();
+
+        $countOutingsFromBDD= sizeof($updateOutingStatus);
+
+        $maxPagesForAllResearch = ceil($countOutingsFromBDD/10);
+
+        foreach ($updateOutingStatus as $value)
+        {
+
+            $updatedOuting= $updator->updateState($value);
+            $entityManager->persist($updatedOuting);
+
+        }
+
+        $entityManager->flush();
+
+
+        /**
+         * @var Outing $outing
+         */
+
 
         if ($page >= 1 && $page <= $maxPagesForAllResearch) {
             $results = $outingRepository->findAllOutings($page, $filter, $user);
+
         } else {
             throw $this->createNotFoundException("Oops ! 404 ! This page does not exist !");
         }
 
-        $outingsQuantity = sizeof($results['outings']);
-        $maxPage = ceil($outingsQuantity); // orig val : /10
+
+        $outingsQuantity =  sizeof($results);
+        $maxPage= ceil($outingsQuantity/10);
+
 
         return $this->render('outing/list.html.twig',
-            ["outings" => $results['outings'],
-                "maxOutings" => $outingsQuantity,
-                "currentPage" => $page,
-                "maxPage" => $maxPage,
-                "user" => $user,
-                "formulaire" => $filterForm->createView()
+            ["outings"=> $results,
+            "maxOutings"=>$outingsQuantity,
+            "currentPage"=> $page,
+            "maxPage"=>$maxPage,
+            "user"=> $user,
+            "formulaire"=>$filterForm->createView()
 
-            ]);
+        ]);
     }
 
     /**
@@ -98,7 +120,6 @@ class OutingController extends AbstractController
          * Refresh the outing and its state even if participant couldn't be added.
          * It will refresh outing for all users.
          */
-        //dd($outing);
         $entityManager->persist($outing);
         $entityManager->flush();
         return $this->redirectToRoute('outing');
@@ -222,6 +243,8 @@ class OutingController extends AbstractController
     }
 
 
+    
+
     /**
      * @Route("outing/cancel/{id}", name="outing_cancel", requirements={"page"="\d+"})
      */
@@ -266,6 +289,66 @@ class OutingController extends AbstractController
         ]);
 
     }
+
+    /**
+     * @Route("outing/update/{id}", name="outing_update", requirements={"page"="\d+"})
+     */
+    public function update($id, outingRepository $outingRepository, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $outing = $outingRepository->find($id);
+        if(!$outing) {
+            throw $this->createNotFoundException("Cette sortie n'existe plus !");
+        }
+
+        /**
+         * @var $user Participant
+         *
+         */
+        $outing->setPlanner($this->getUser());
+
+        //Display user School Site
+        $userSite = $this->getUser()->getSite();
+        $outing->setSite($userSite);
+
+        $outingForm = $this->createForm(OutingType::class, $outing);
+        $outingForm->handleRequest($request);
+
+        if($outingForm->isSubmitted() && $outingForm->isValid()){
+
+            $entityManager->persist($outing);
+            $entityManager->flush();
+
+            //TODO flash must display on outing page
+            $this->addFlash('success', 'Sortie annulée !');
+            return $this->redirectToRoute('outing');
+        }
+
+        return $this->render('outing/update.html.twig', [
+            'outing' => $outing,
+            'outingForm'=> $outingForm->createView(),
+            'userSite'=> $userSite
+
+        ]);
+
+    }
+
+    /**
+     * @Route("/outing/delete/{id}", name="outing_delete")
+     */
+    public function delete($id,
+                           EntityManagerInterface $entityManager): Response
+    {
+
+        $outing = $entityManager->find(Serie::class, $id);
+        $entityManager->remove($outing);
+        $entityManager->flush();
+
+        $this->addFlash('sucess', 'Sortie supprimée !!');
+
+        return $this->redirectToRoute('outing');
+    }
+
+
 
 
 }
