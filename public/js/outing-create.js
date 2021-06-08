@@ -7,6 +7,31 @@ window.onload = init;
 
 function init() {
     /**
+     * We reference all the HTML fields we will need by affecting the global variables declared
+     * at the beginning of the file.
+     */
+    captureRequiredDomElements();
+
+    /**
+     * We fetch locations options relative to the selected city,
+     * then we wait the ajax data arrival to update the
+     * fields related to the current selected location
+     */
+    fetchLocationsOptions().then(_ => updateLocationsFields(currentAjaxData));
+
+    /**
+     * We run the update functions every time the selectors values change
+     */
+    citySelectElement.onchange = () => {
+        fetchLocationsOptions().then(_ => updateLocationsFields(currentAjaxData));
+    }
+
+    locationSelectElement.onchange = () => {
+        updateLocationsFields(currentAjaxData);
+    }
+}
+function captureRequiredDomElements() {
+    /**
      * Once the page is loaded we capture all dom elements we'll need later.
      * @type {HTMLElement}
      */
@@ -20,33 +45,22 @@ function init() {
         longitude: document.getElementById('longitude')
     }
     postalCodeField = document.getElementById('postalCode');
-
-    /**
-     * We initializeFields by running update function once the page is loaded.
-     */
-    updateLocationsOptions();
-    updateLocationFields();
-
-    /**
-     * We run the update functions every time the selectors values change
-     * @type {updateLocationsOptions}
-     */
-    citySelectElement.onchange = updateLocationsOptions;
-    locationSelectElement.onchange = updateLocationFields;
 }
 
-
-function updateLocationsOptions() {
+async function fetchLocationsOptions() {
     const cityData = {"cityName": citySelectElement.value};
 
-    fetch('ajax-cityData', {method: 'POST', body: JSON.stringify(cityData)})
+    return fetch('ajax-cityData', {method: 'POST', body: JSON.stringify(cityData)})
         .then(response => response.json())
         .then(data => {
 
             currentAjaxData = data;
 
-            clearOptions(locationSelectElement);
+            clearOptionsElements(locationSelectElement);
 
+            /**
+             * Create array of <option> "location name" </option> from JSON File.
+             */
             Object
                 .keys(data['locations'])
                 .map(loc => {
@@ -59,43 +73,42 @@ function updateLocationsOptions() {
                 })
 
             postalCodeField.innerText = data['postalCode'];
-
-            let locationsArray = Object.values(data['locations']);
-
-            /**
-             * Check if city has location : if yes update fields, if no clean fields
-             */
-            (locationsArray.length)?
-                updateLocationFields()
-                :
-                cleanLocationFields();
+            updateLocationsFields(data);
 
         });
 
 }
 
-function clearOptions(selectElement) {
+function updateLocationsFields(data) {
+    /**
+     * Convert JSON to js Array.
+     */
+    let locationsArray = Object.values(data['locations']);
+
+    /**
+     * Check if city has location : if yes update fields, if no clean fields
+     */
+    (locationsArray.length) ?
+        setLocationInfos()
+        :
+        cleanLocationInfos();
+}
+
+function clearOptionsElements(selectElement) {
     let i, length = selectElement.options.length - 1;
     for (i = length; i >= 0; i--) {
         selectElement.remove(i);
     }
 }
 
-function updateLocationFields() {
-    /**
-     * Delay the update of location fields in order to wait for the ajax data to be fetched
-     * @returns {number}
-     */
-    let delayedUpdate = () => setTimeout(() => {
-        let locationName = locationSelectElement.value;
-        locationFields.street.innerText = currentAjaxData['locations'][locationName]['street'];
-        locationFields.latitude.innerText = currentAjaxData['locations'][locationName]['latitude'];
-        locationFields.longitude.innerText = currentAjaxData['locations'][locationName]['longitude'];
-    }, 700);
-    delayedUpdate();
-}
+function setLocationInfos() {
+    let locationName = locationSelectElement.value;
+    locationFields.street.innerText = currentAjaxData['locations'][locationName]['street'];
+    locationFields.latitude.innerText = currentAjaxData['locations'][locationName]['latitude'];
+    locationFields.longitude.innerText = currentAjaxData['locations'][locationName]['longitude'];
 
-function cleanLocationFields() {
+}
+function cleanLocationInfos() {
     locationFields.street.innerText = "";
     locationFields.latitude.innerText = "";
     locationFields.longitude.innerText = "";
