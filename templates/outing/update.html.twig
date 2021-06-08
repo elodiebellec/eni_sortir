@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Créer sortie{% endblock %}
+{% block title %}Modifier sortie{% endblock %}
 
 {% block javascripts %}
     <script src="{{ asset('js/outing-create.js') }}"></script>
 {% endblock %}
 
 {% block body %}
-    <h1>Créer une sortie</h1>
+    <h1>Modifier une sortie</h1>
     <div>
 
 
@@ -31,6 +31,7 @@
         {% do outingForm.cancellationReason.setRendered("") %}
         <p>{{ form_row(outingForm.save) }}</p>
         <p>{{ form_row(outingForm.saveAndAdd) }}</p>
+        <a href="{{ path('outing_delete', {'id' : outing.id}) }}" class="button">Supprimer</a>
         <a href="{{ path('outing') }}" class="button">Annuler</a>
 
 

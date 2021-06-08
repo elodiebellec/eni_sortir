@@ -300,5 +300,21 @@ class OutingController extends AbstractController
 
     }
 
+    /**
+     * @Route("/outing/delete/{id}", name="outing_delete")
+     */
+    public function delete($id,
+                           EntityManagerInterface $entityManager): Response
+    {
+
+        $outing = $entityManager->find(Serie::class, $id);
+        $entityManager->remove($outing);
+        $entityManager->flush();
+
+        $this->addFlash('sucess', 'Sortie supprimée !!');
+
+        return $this->redirectToRoute('outing');
+    }
+
 
 }
