@@ -28,7 +28,6 @@
         <p>Code postal : {{ userSite.name }}</p>
         <p>Latitude : {{ userSite.name }}</p>
         <p>Longitude : {{ userSite.name }}</p>
-        {% do outingForm.cancellationReason.setRendered("") %}
         <p>{{ form_row(outingForm.save) }}</p>
         <p>{{ form_row(outingForm.saveAndAdd) }}</p>
         <a href="{{ path('outing_delete', {'id' : outing.id}) }}" class="button">Supprimer</a>

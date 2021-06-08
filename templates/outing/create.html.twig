@@ -28,7 +28,6 @@
         <p>Code postal : <span id="postalCode"></span> </p>
         <p>Latitude : <span id="latitude"></span></p>
         <p>Longitude : <span id="longitude"></span></p>
-        {% do outingForm.cancellationReason.setRendered("") %}
         <p>{{ form_row(outingForm.save) }}</p>
         <p>{{ form_row(outingForm.saveAndAdd) }}</p>
         <a href="{{ path('outing') }}" class="button">Annuler</a>

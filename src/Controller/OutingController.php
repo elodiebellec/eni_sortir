@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\City;
+
+use App\Form\OutingCancellationType;
 use App\Entity\Outing;
 use App\Entity\Participant;
 use App\Entity\State;
@@ -255,23 +257,16 @@ public function  list ( Request $request,
             throw $this->createNotFoundException("Cette sortie n'existe plus !");
         }
 
-        /**
-         * @var $user Participant
-         *
-         */
-        $outing->setPlanner($this->getUser());
-
         //Display user School Site
         $userSite = $this->getUser()->getSite();
         $outing->setSite($userSite);
 
-        $outingForm = $this->createForm(OutingType::class, $outing);
-        $outingForm->handleRequest($request);
 
-        if ($outingForm->isSubmitted() && $outingForm->isValid()) {
+        $outingCancellationForm = $this->createForm(OutingCancellationType::class, $outing);
+        $outingCancellationForm->handleRequest($request);
 
-            $outing->setState($entityManager->getRepository(State::class)->getState('Activité annulée'));
 
+        if($outingCancellationForm->isSubmitted() && $outingCancellationForm->isValid()){
 
             $entityManager->persist($outing);
             $entityManager->flush();
@@ -283,11 +278,12 @@ public function  list ( Request $request,
 
         return $this->render('outing/cancel.html.twig', [
             'outing' => $outing,
-            'outingForm' => $outingForm->createView(),
-            'userSite' => $userSite
+
+            'outingCancellationForm'=> $outingCancellationForm->createView(),
+            'userSite'=> $userSite
+
 
         ]);
-
     }
 
     /**
@@ -299,12 +295,6 @@ public function  list ( Request $request,
         if(!$outing) {
             throw $this->createNotFoundException("Cette sortie n'existe plus !");
         }
-
-        /**
-         * @var $user Participant
-         *
-         */
-        $outing->setPlanner($this->getUser());
 
         //Display user School Site
         $userSite = $this->getUser()->getSite();
@@ -319,7 +309,7 @@ public function  list ( Request $request,
             $entityManager->flush();
 
             //TODO flash must display on outing page
-            $this->addFlash('success', 'Sortie annulée !');
+            $this->addFlash('success', 'Sortie modifiée !');
             return $this->redirectToRoute('outing');
         }
 
