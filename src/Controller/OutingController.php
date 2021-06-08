@@ -232,11 +232,17 @@ class OutingController extends AbstractController
          * @var City $city
          */
         $city = $cityRepository->findCityByNameWithLocations($selectedCity->cityName)[0];
-        $locations = [];
+        $data = [];
+        $data['postalCode'] = $city->getPostalCode();
+        $data['locations'] = [];
         foreach($city->getLocations() as $location){
-            $locations[$location->getName()] = $location->getName();
+            $data['locations'][$location->getName()] = [];
+            $data['locations'][$location->getName()]['name'] = $location->getName();
+            $data['locations'][$location->getName()]['street'] = $location->getStreet();
+            $data['locations'][$location->getName()]['latitude'] = $location->getLatitude();
+            $data['locations'][$location->getName()]['longitude'] = $location->getLongitude();
         }
-        return new JsonResponse($locations);
+        return new JsonResponse($data);
     }
 
 
