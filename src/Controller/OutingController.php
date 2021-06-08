@@ -11,16 +11,16 @@ use App\Entity\Participant;
 use App\Entity\State;
 use App\Form\OutingType;
 use App\Repository\CityRepository;
+use App\Repository\LocationRepository;
 use App\Repository\OutingRepository;
 use App\Updators\OutingUpdator;
 use App\Verificators\OutingVerificator;
 use Doctrine\ORM\EntityManagerInterface;
-use phpDocumentor\Reflection\Types\Array_;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -31,7 +31,7 @@ class OutingController extends AbstractController
      * @Route("/outing", name="outing")
      */
 
-    public function  list ( Request $request,
+public function  list ( Request $request,
                             OutingRepository  $outingRepository, OutingUpdator $updator,  EntityManagerInterface $entityManager): Response
     {
 
@@ -91,7 +91,7 @@ class OutingController extends AbstractController
      * @Route("outing/addParticipant/{id}", name="outing_addParticipant", requirements={"page"="\d+"})
      */
     public function addParticipantWithCheck(int $id,
-                                            OutingRepository  $outingRepository,
+                                            OutingRepository $outingRepository,
                                             EntityManagerInterface $entityManager,
                                             OutingUpdator $updator,
                                             OutingVerificator $verificator): RedirectResponse
@@ -99,23 +99,23 @@ class OutingController extends AbstractController
         /**
          * @var $user Participant
          */
-        $user   = $this->getUser();
+        $user = $this->getUser();
         $outing = $outingRepository->find($id);
         /**
          * Check for nulls.
          */
-        if(!$outing) return $this->redirectToRoute('outing');
+        if (!$outing) return $this->redirectToRoute('outing');
         /**
          *  Update in the case the state has changed since the page has been loaded.
          */
-        $outing  = $updator->updateState($outing);
+        $outing = $updator->updateState($outing);
 
-        if($verificator->canAdd($user,$outing)){
-            $outing  = $outing->addParticipant($user);
-            $outing  = $updator->updateState($outing);
-        }
-        else{
-            $this->addFlash('Opération impossible',$verificator->getErrorMessages());
+        if ($verificator->canAdd($user, $outing)) {
+            $outing = $outing->addParticipant($user);
+            $outing = $updator->updateState($outing);
+
+        } else {
+            $this->addFlash('Opération impossible', $verificator->getErrorMessages());
         }
         /**
          * Refresh the outing and its state even if participant couldn't be added.
@@ -131,7 +131,7 @@ class OutingController extends AbstractController
      * @Route("outing/removeParticipant/{id}", name="outing_removeParticipant", requirements={"page"="\d+"})
      */
     public function removeParticipantWithCheck(int $id,
-                                               OutingRepository  $outingRepository,
+                                               OutingRepository $outingRepository,
                                                EntityManagerInterface $entityManager,
                                                OutingUpdator $updator,
                                                OutingVerificator $verificator): RedirectResponse
@@ -145,18 +145,17 @@ class OutingController extends AbstractController
         /**
          * Check for nulls.
          */
-        if(!$outing) return $this->redirectToRoute('outing');
+        if (!$outing) return $this->redirectToRoute('outing');
         /**
          *  Update in the case the state has changed since the page has been loaded.
          */
-        $outing  = $updator->updateState($outing);
+        $outing = $updator->updateState($outing);
 
-        if($verificator->canRemove($user,$outing)){
-            $outing  = $outing->removeParticipant($user);
-            $outing  = $updator->updateState($outing);
-        }
-        else{
-            $this->addFlash('Opération impossible',$verificator->getErrorMessages());
+        if ($verificator->canRemove($user, $outing)) {
+            $outing = $outing->removeParticipant($user);
+            $outing = $updator->updateState($outing);
+        } else {
+            $this->addFlash('Opération impossible', $verificator->getErrorMessages());
         }
         /**
          * Refresh the outing and its state even if participant couldn't be added.
@@ -172,48 +171,52 @@ class OutingController extends AbstractController
      * @IsGranted("ROLE_USER")
      * @Route("outing/create", name="outing_create")
      */
-    public function create(Request $request, EntityManagerInterface $entityManager,CityRepository $cityRepository): Response
+    public function create(Request $request,
+                           EntityManagerInterface $entityManager,
+                           LocationRepository $locationRepository): Response
     {
 
         $outing = new Outing();
+
         /**
          * @var $user Participant
          */
-
-        //dd($cityRepository->findCityByNameWithLocations("Lenoir"))[0];
-        $outing->setPlanner($this->getUser());
+        $user = $this->getUser();
+        $outing->setPlanner($user);
 
         //Display user School Site
-        $userSite = $this->getUser()->getSite();
+        $userSite = $user->getSite();
         $outing->setSite($userSite);
 
         //Set the form state to create ("créée") when the form is submited
         $outing->setState($entityManager->getRepository(State::class)->getState('Créée'));
         $outingForm = $this->createForm(OutingType::class, $outing);
 
-
         $outingForm->handleRequest($request);
 
-            if($outingForm->isSubmitted() && $outingForm->isValid()){
-                //If the button 'saveAndAdd' ('publier la sortie') is cliked, set the form state to open ("ouverte")
-                    if ($outingForm->getClickedButton() && 'saveAndAdd' === $outingForm->getClickedButton()->getName()) {
-                        $outing->setState($entityManager->getRepository(State::class)->getState('Ouverte'));
-                    }
+        if ($outingForm->isSubmitted() && $outingForm->isValid()) {
 
-                    $entityManager->persist($outing);
-                    $entityManager->flush();
+            //If the button 'saveAndAdd' ('publier la sortie') is cliked, set the form state to open ("ouverte")
 
-                    //TODO flash must display on outing page
-                    $this->addFlash('success', 'Sortie ajoutée !');
-                    return $this->redirectToRoute('outing');
-                }
+            if ($outingForm->getClickedButton() && 'saveAndAdd' === $outingForm->getClickedButton()->getName()) {
+                $outing->setState($entityManager->getRepository(State::class)->getState('Ouverte'));
+            }
+
+            $entityManager->persist($outing);
+            $entityManager->flush();
+
+            //TODO flash must display on outing page
+            $this->addFlash('success', 'Sortie ajoutée !');
+            return $this->redirectToRoute('outing');
+        }
         return $this->render('outing/create.html.twig', [
-            'outingForm'=> $outingForm->createView(),
-            'userSite'=> $userSite
+            'outingForm' => $outingForm->createView(),
+            'userSite' => $userSite
         ]);
 
     }
     //function to get the location when a city is selected in the creation outing form
+
     /**
      * @Route("outing/ajax-cityData", name="outing_ajax_city")
      */
@@ -229,12 +232,13 @@ class OutingController extends AbstractController
         $data = [];
         $data['postalCode'] = $city->getPostalCode();
         $data['locations'] = [];
-        foreach($city->getLocations() as $location){
+        foreach ($city->getLocations() as $location) {
             $data['locations'][$location->getName()] = [];
             $data['locations'][$location->getName()]['name'] = $location->getName();
             $data['locations'][$location->getName()]['street'] = $location->getStreet();
             $data['locations'][$location->getName()]['latitude'] = $location->getLatitude();
             $data['locations'][$location->getName()]['longitude'] = $location->getLongitude();
+            $data['locations'][$location->getName()]['id'] = $location->getId();
         }
         return new JsonResponse($data);
     }
@@ -248,9 +252,15 @@ class OutingController extends AbstractController
     public function cancel($id, outingRepository $outingRepository, Request $request, EntityManagerInterface $entityManager): Response
     {
         $outing = $outingRepository->find($id);
-        if(!$outing) {
+        if (!$outing) {
             throw $this->createNotFoundException("Cette sortie n'existe plus !");
         }
+
+        /**
+         * @var $user Participant
+         *
+         */
+        $outing->setPlanner($this->getUser());
 
         //Display user School Site
         $userSite = $this->getUser()->getSite();
