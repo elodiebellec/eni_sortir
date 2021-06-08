@@ -73,14 +73,14 @@ class Outing
     private $maxRegistration;
 
     /**
+     * @Assert\Length(
+     *     max=255,
+     *     maxMessage="La description ne doit pas dépasser 255 caratères.")
      * @ORM\Column(type="string", length=500, nullable=true)
      */
     private $description;
 
     /**
-     * @Assert\Length(
-     *     max=255,
-     *     maxMessage="La description ne doit pas dépasser 255 caratères.")
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $photo;
@@ -114,6 +114,11 @@ class Outing
      * @ORM\ManyToMany(targetEntity=Participant::class, inversedBy="outings")
      */
     private $participants;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $cancellationReason;
 
     public function __construct()
     {
@@ -205,6 +210,18 @@ class Outing
     public function setPhoto(?string $photo): self
     {
         $this->photo = $photo;
+
+        return $this;
+    }
+
+    public function getCancellationReason(): ?string
+    {
+        return $this->cancellationReason;
+    }
+
+    public function setCancellationReason(?string $cancellationReason): self
+    {
+        $this->cancellationReason = $cancellationReason;
 
         return $this;
     }
