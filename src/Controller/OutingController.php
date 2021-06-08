@@ -3,12 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\City;
+use App\Form\FilterType;
+use App\Form\OutingCancellationType;
+use App\Model\OutingsFilter;
 use App\Entity\Outing;
 use App\Entity\Participant;
 use App\Entity\State;
-use App\Form\FilterType;
 use App\Form\OutingType;
-use App\Model\OutingsFilter;
 use App\Repository\CityRepository;
 use App\Repository\LocationRepository;
 use App\Repository\OutingRepository;
@@ -265,14 +266,14 @@ public function  list ( Request $request,
         $userSite = $this->getUser()->getSite();
         $outing->setSite($userSite);
 
-        $outingForm = $this->createForm(OutingType::class, $outing);
-        $outingForm->handleRequest($request);
+        //Display outing location
+        $outingLocation = $outing->getLocation()->getName();
 
-        if ($outingForm->isSubmitted() && $outingForm->isValid()) {
+        $outingCancellationForm = $this->createForm(OutingCancellationType::class, $outing);
+        $outingCancellationForm->handleRequest($request);
 
+        if($outingCancellationForm->isSubmitted() && $outingCancellationForm->isValid()){
             $outing->setState($entityManager->getRepository(State::class)->getState('Activité annulée'));
-
-
             $entityManager->persist($outing);
             $entityManager->flush();
 
@@ -283,11 +284,11 @@ public function  list ( Request $request,
 
         return $this->render('outing/cancel.html.twig', [
             'outing' => $outing,
-            'outingForm' => $outingForm->createView(),
-            'userSite' => $userSite
+            'outingLocation' => $outingLocation,
+            'outingCancellationForm'=> $outingCancellationForm->createView(),
+            'userSite'=> $userSite
 
         ]);
-
     }
 
     /**
@@ -300,12 +301,6 @@ public function  list ( Request $request,
             throw $this->createNotFoundException("Cette sortie n'existe plus !");
         }
 
-        /**
-         * @var $user Participant
-         *
-         */
-        $outing->setPlanner($this->getUser());
-
         //Display user School Site
         $userSite = $this->getUser()->getSite();
         $outing->setSite($userSite);
@@ -314,12 +309,17 @@ public function  list ( Request $request,
         $outingForm->handleRequest($request);
 
         if($outingForm->isSubmitted() && $outingForm->isValid()){
+            //If the button 'saveAndAdd' ('publier la sortie') is cliked, set the form state to open ("ouverte")
+
+            if ($outingForm->getClickedButton() && 'saveAndAdd' === $outingForm->getClickedButton()->getName()) {
+                $outing->setState($entityManager->getRepository(State::class)->getState('Ouverte'));
+            }
 
             $entityManager->persist($outing);
             $entityManager->flush();
 
             //TODO flash must display on outing page
-            $this->addFlash('success', 'Sortie annulée !');
+            $this->addFlash('success', 'Sortie modifiée !');
             return $this->redirectToRoute('outing');
         }
 
@@ -339,10 +339,10 @@ public function  list ( Request $request,
                            EntityManagerInterface $entityManager): Response
     {
 
-        $outing = $entityManager->find(Serie::class, $id);
+        $outing = $entityManager->find(outing::class, $id);
         $entityManager->remove($outing);
         $entityManager->flush();
-
+        //TODO flash must display on outing page
         $this->addFlash('sucess', 'Sortie supprimée !!');
 
         return $this->redirectToRoute('outing');
