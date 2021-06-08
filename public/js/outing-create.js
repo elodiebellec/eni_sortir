@@ -66,6 +66,9 @@ async function fetchLocationsOptions() {
                 .map(loc => {
                     const optionElement = document.createElement('option');
                     optionElement.text = data['locations'][loc]['name'];
+                    optionElement.id = data['locations'][loc]['id'];
+                    optionElement.value = data['locations'][loc]['id'];
+                    optionElement.innerText = data['locations'][loc]['name'];
                     return optionElement;
                 })
                 .forEach(option => {
@@ -102,7 +105,7 @@ function clearOptionsElements(selectElement) {
 }
 
 function setLocationInfos() {
-    let locationName = locationSelectElement.value;
+    let locationName = locationSelectElement.options[locationSelectElement.selectedIndex].innerHTML;
     locationFields.street.innerText = currentAjaxData['locations'][locationName]['street'];
     locationFields.latitude.innerText = currentAjaxData['locations'][locationName]['latitude'];
     locationFields.longitude.innerText = currentAjaxData['locations'][locationName]['longitude'];

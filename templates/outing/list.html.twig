@@ -158,7 +158,8 @@
                         {% endif %}
                     </td>
 
-                    <td colspan="2">{{ outing.planner.lastName }} </td>
+                    <td colspan="2">  <a href="{{ path('participant_profile_show',{'id':outing.planner.id }) }}">{{ outing.planner.lastName }} </a> </td>
+
 
                     <td colspan="2">
                         <div class="action_buttons">
@@ -178,9 +179,14 @@
 
                             {% endif %}
 
-                            {% if (app.user.pseudo == outing.planner.pseudo) or 'ROLE_ADMIN' in app.user.roles %}
+                            {% if (app.user.pseudo == outing.planner.pseudo) and outing.state.label == "Créée" %}
 
                                 <a href="{{ path('outing_update', {'id':outing.id}) }}"> Modifier </a>
+
+                            {% endif %}
+
+                            {% if ((app.user.pseudo == outing.planner.pseudo) or ('ROLE_ADMIN' in app.user.roles))and (outing.state.label == "Ouverte" or outing.state.label == "Clôturée") %}
+
 
                                 <a href="{{ path('outing_cancel', {'id':outing.id}) }}"> Annuler </a>
 
