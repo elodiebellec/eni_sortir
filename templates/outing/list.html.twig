@@ -158,7 +158,8 @@
                         {% endif %}
                     </td>
 
-                    <td colspan="2">{{ outing.planner.lastName }} </td>
+                    <td colspan="2">  <a href="{{ path('participant_profile_show',{'id':outing.planner.id }) }}">{{ outing.planner.lastName }} </a> </td>
+
 
                     <td colspan="2">
                         <div class="action_buttons">

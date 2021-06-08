@@ -7,6 +7,7 @@ namespace App\Controller;
 use App\Entity\Participant;
 use App\FileUploader\FileUploader;
 use App\Form\ParticipantType;
+use App\Repository\ParticipantRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -45,6 +46,22 @@ class ParticipantController extends AbstractController
 
         return $this->render('participant/updateProfile.html.twig', [
             'updateForm' => $updateForm->createView()
+        ]);
+    }
+
+    /**
+     * @IsGranted("ROLE_USER")
+     * @Route("/profile/show", name="participant_profile_show")
+     */
+    public function show(Request $request, ParticipantRepository $repository)
+    {
+
+
+        $participantId =(int) $request->query->get('id', 1);
+        $participant = $repository->find($participantId);
+
+        return $this->render('participant/showProfile.html.twig', [
+            'participant' => $participant
         ]);
     }
 
