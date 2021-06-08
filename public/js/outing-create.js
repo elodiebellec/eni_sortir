@@ -66,6 +66,8 @@ async function fetchLocationsOptions() {
                 .map(loc => {
                     const optionElement = document.createElement('option');
                     optionElement.text = data['locations'][loc]['name'];
+                    optionElement.id = data['locations'][loc]['id'];
+                    optionElement.value = data['locations'][loc]['name'];
                     return optionElement;
                 })
                 .forEach(option => {
