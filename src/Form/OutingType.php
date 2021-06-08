@@ -80,11 +80,6 @@ class OutingType extends AbstractType
            */
             ->add('city', ChoiceType::class, ['choices'=>$citiesNameList, 'label'=>'Ville', 'mapped' => false])
 
-            
-            ->add('cancellationReason', textType::class, [
-                'required' => false,
-                'label'=> 'Motif'
-            ])
 
             ->add('save', SubmitType::class, ['label' => 'Enregistrer'])
             ->add('saveAndAdd', SubmitType::class, ['label'=>'Publier'])

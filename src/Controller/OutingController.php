@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\City;
 use App\Form\FilterType;
+use App\Form\OutingCancellationType;
 use App\Model\OutingsFilter;
 use App\Entity\Outing;
 use App\Entity\Participant;
@@ -251,23 +252,14 @@ class OutingController extends AbstractController
             throw $this->createNotFoundException("Cette sortie n'existe plus !");
         }
 
-        /**
-         * @var $user Participant
-         *
-         */
-        $outing->setPlanner($this->getUser());
-
         //Display user School Site
         $userSite = $this->getUser()->getSite();
         $outing->setSite($userSite);
 
-        $outingForm = $this->createForm(OutingType::class, $outing);
-        $outingForm->handleRequest($request);
+        $outingCancellationForm = $this->createForm(OutingCancellationType::class, $outing);
+        $outingCancellationForm->handleRequest($request);
 
-        if($outingForm->isSubmitted() && $outingForm->isValid()){
-
-                $outing->setState($entityManager->getRepository(State::class)->getState('Activité annulée'));
-
+        if($outingCancellationForm->isSubmitted() && $outingCancellationForm->isValid()){
 
             $entityManager->persist($outing);
             $entityManager->flush();
@@ -279,11 +271,10 @@ class OutingController extends AbstractController
 
         return $this->render('outing/cancel.html.twig', [
             'outing' => $outing,
-            'outingForm'=> $outingForm->createView(),
+            'outingCancellationForm'=> $outingCancellationForm->createView(),
             'userSite'=> $userSite
 
         ]);
-
     }
 
     /**
@@ -296,12 +287,6 @@ class OutingController extends AbstractController
             throw $this->createNotFoundException("Cette sortie n'existe plus !");
         }
 
-        /**
-         * @var $user Participant
-         *
-         */
-        $outing->setPlanner($this->getUser());
-
         //Display user School Site
         $userSite = $this->getUser()->getSite();
         $outing->setSite($userSite);
@@ -315,7 +300,7 @@ class OutingController extends AbstractController
             $entityManager->flush();
 
             //TODO flash must display on outing page
-            $this->addFlash('success', 'Sortie annulée !');
+            $this->addFlash('success', 'Sortie modifiée !');
             return $this->redirectToRoute('outing');
         }
 
