@@ -5,7 +5,7 @@ namespace App\Repository;
 use App\Entity\Outing;
 use App\Model\OutingsFilter;
 
-use Container46WxjoX\getConsole_ErrorListenerService;
+
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
@@ -139,9 +139,7 @@ class OutingRepository extends ServiceEntityRepository
 
         $paginator = new Paginator($query);
 
-        return  [
-            'outings'=>$paginator
-        ];
+        return $paginator;
 
     }
 
@@ -206,6 +204,35 @@ class OutingRepository extends ServiceEntityRepository
         $query = $queryBuilder->getQuery();
 
         return $query->getResult();
+
+    }
+
+    public function findAllForStateUpdate()
+    {
+
+        $queryBuilder = $this->createQueryBuilder('o');
+
+
+        $queryBuilder->leftJoin('o.state','state');
+        $queryBuilder->leftJoin('o.planner','planner');
+        $queryBuilder->leftJoin('o.participants','participants');
+        $queryBuilder->leftJoin('o.site','site');
+        $queryBuilder->leftJoin('o.location','location');
+
+
+        $queryBuilder->addSelect('state');
+        $queryBuilder->addSelect('planner');
+        $queryBuilder->addSelect('participants');
+        $queryBuilder->addSelect('site');
+        $queryBuilder->addSelect('location');
+
+        $queryBuilder->andWhere('state.label <> :historized');
+        $queryBuilder->setParameter('historized', 'Activité historisée');
+
+        $query = $queryBuilder->getQuery();
+
+        return  $query->getResult() ;
+
 
     }
 

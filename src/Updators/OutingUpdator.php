@@ -30,52 +30,6 @@ class OutingUpdator
          * If you remark a problem with the dates try to change your timezone in server config.
          */
 
-        /*
-        if($outing->getState()->getLabel() === 'Activité annulée') return $outing;
-
-        $states = $this->states;
-
-        $participantsCount       = $outing->getParticipants()->count();
-        $registrationsLimit      = $outing->getMaxRegistration();
-
-        $dateEventBegin          = $outing->getDateBegin();
-        $dateRegistrationEnd     = $outing->getDateEnd();
-        $now                     = new \DateTime;
-        $currentState= $outing->getState()->getId();
-        $duration = $outing->getDuration();
-
-       // $dateEventEnd   = \DateTimeImmutable::createFromMutable($dateEventBegin)
-           // ->modify("+ {$outing->getDuration()} day");
-        $dateEventEnd   = $dateEventBegin->modify("+ $duration day");
-
-
-        switch(true){
-
-            case $this->eventIsFinished($dateEventBegin, $now, $dateEventEnd):
-                $outing->setState($states['Activité passée']);
-                break;
-
-            case $this->eventIsOngoing($dateEventBegin, $now, $dateEventEnd) :
-                $outing->setState($states['Activité en cours']);
-                break;
-
-            case $this->registrationAreClosed($participantsCount, $registrationsLimit,
-                $dateRegistrationEnd,$now):
-                $outing->setState($states['Clôturée']);
-                break;
-
-            case $this->registrationAreOpened($participantsCount, $registrationsLimit,
-                            $dateEventBegin, $now, $dateRegistrationEnd, $dateEventEnd):
-                $outing->setState($states['Ouverte']);
-                break;
-
-                // ajouter la verification de l'etat historisé
-            case $this->eventIsHistorized( $dateEventBegin,  $now, $dateEventEnd, $currentState):
-                $outing->setState($states['Activité historisée']);
-
-                break;
-        }
-        */
 
         switch($outing->getState()){
             case $this->states['Créée']:
@@ -210,7 +164,7 @@ class OutingUpdator
         $currentState= $outing->getState()->getId();
         $duration = $outing->getDuration();
         $dateEventEnd   = \DateTimeImmutable::createFromMutable($dateEventBegin)->modify("+ $duration day");
-        $outing->setState($this->states['Activité historisée']);
+       // $outing->setState($this->states['Activité historisée']);
 
         if($this->eventShallBeHistorized($dateEventBegin,  $now,  $dateEventEnd, $currentState))
         {
@@ -286,13 +240,15 @@ class OutingUpdator
     private function eventShallBeHistorized(\DateTimeInterface $dateEventBegin, \DateTime $now, \DateTimeImmutable $dateEventEnd, $currentState): bool
     {
         $isHistorized = false;
+
+        $newDateEventBegin= \DateTimeImmutable::createFromMutable($dateEventBegin)->modify("+1 Month") ;
         if($currentState=== 5 && $dateEventEnd->modify("+1 Month") < $now)
         {
             $isHistorized= true;
 
         }
 
-        elseif ($currentState=== 6 && $dateEventBegin->modify("+1 Month") < $now)
+        elseif ($currentState=== 6 && $newDateEventBegin < $now)
         {
             $isHistorized= true;
         }
