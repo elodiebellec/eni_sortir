@@ -70,7 +70,7 @@ inputSearch .loupeForm {
   color: black;
   opacity: 0.8;
 }
-.login-form button, .login-form .nav-btn, .login-form .nav-profile-btn, .login-form .btn-login-form, .login-form .btn-secondary, .login-form .button {
+.login-form button, .login-form .nav-btn-selected, .login-form .nav-profile-btn, .login-form .nav-btn, .login-form .btn-login-form, .login-form .btn-secondary, .login-form .button {
   max-width: inherit;
 }
 
@@ -120,7 +120,7 @@ inputSearch .loupeForm {
     margin: 18px;
   }
 }
-button, .nav-btn, .nav-profile-btn, .btn-login-form, .btn-secondary, .button {
+button, .nav-btn-selected, .nav-profile-btn, .nav-btn, .btn-login-form, .btn-secondary, .button {
   border-radius: 80px;
   border-color: #2d2929;
   opacity: 0.8;
@@ -140,7 +140,7 @@ button, .nav-btn, .nav-profile-btn, .btn-login-form, .btn-secondary, .button {
   cursor: pointer;
   transition: 0.25s;
 }
-button:hover, .nav-btn:hover, .nav-profile-btn:hover, .btn-login-form:hover, .btn-secondary:hover, .button:hover {
+button:hover, .nav-btn-selected:hover, .nav-profile-btn:hover, .nav-btn:hover, .btn-login-form:hover, .btn-secondary:hover, .button:hover {
   /* the "&" refers to the parent element, we  use it to concatenates selectors (= button:hover)*/
   background-color: rgba(41, 44, 45, 0.8);
   transition: 0.25s;
@@ -171,7 +171,7 @@ button:hover, .nav-btn:hover, .nav-profile-btn:hover, .btn-login-form:hover, .bt
 }
 
 /*NAV BUTTONS*/
-.nav-btn, .nav-profile-btn {
+.nav-btn-selected, .nav-profile-btn, .nav-btn {
   font-family: "Signika", sans-serif;
   font-weight: bold;
   font-style: normal;
@@ -190,6 +190,17 @@ button:hover, .nav-btn:hover, .nav-profile-btn:hover, .btn-login-form:hover, .bt
   min-width: 129.6px;
   min-height: 54px;
   max-height: 72px;
+}
+
+.nav-btn {
+  color: black;
+  background-color: transparent;
+  transition: 0.25s;
+}
+.nav-btn:hover {
+  color: white;
+  background-color: #7e7f80;
+  transition: 0.25s;
 }
 
 .nav-profile-btn {

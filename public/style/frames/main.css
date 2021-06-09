@@ -2,17 +2,24 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 html {
   background-color: #FDFCF8;
   color: #232020;
+  width: 100%;
 }
 
 .page-main-grid {
   display: grid;
   grid-template-rows: 20vh auto;
   /* Divide screen between navbar and page-content*/
+  width: 100%;
+}
+
+.page-container {
+  width: 100%;
 }
 
 /*# sourceMappingURL=main.css.map */

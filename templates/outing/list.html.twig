@@ -11,7 +11,7 @@
 {% endblock %}
 {% block body %}
 {{ parent() }}
-<div class="outing-list-page-container">
+<div class="outing-list-page-container page-container">
     <div>
         <p> Date du jour : {{ "now"|date("d/m/Y")  }} </p>
         {% if user is defined and user is not null %}
@@ -217,6 +217,8 @@
 </div>
 
 <script>
-
+const navSelectedButtons = document.getElementById('nav-cities');
+navSelectedButtons.classList.remove('nav-btn');
+navSelectedButtons.classList.add('nav-btn-selected');
 </script>
 {% endblock %}
