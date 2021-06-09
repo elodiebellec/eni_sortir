@@ -192,7 +192,7 @@ inputSearch .loupeForm {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #FDFCF8;
+  background-color: rgba(253, 252, 248, 0.6);
   border-radius: 50%;
   height: 60px;
   width: auto;
