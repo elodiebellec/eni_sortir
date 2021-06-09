@@ -12,7 +12,7 @@ html{
 }
 .page-main-grid{
   display:grid;
-  grid-template-rows: 20vh auto; /* Divide screen between navbar and page-content*/
+  grid-template-rows: 16vh auto; /* Divide screen between navbar and page-content*/
   width:100%;
 }
 .page-container{

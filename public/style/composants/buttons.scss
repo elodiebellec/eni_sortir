@@ -33,7 +33,7 @@ button {
   }
 }
 /*Use it to make other HTML tag look like our beloved buttons*/
-.button{
+.button {
   @extend button;
 }
 
@@ -58,40 +58,61 @@ button {
   max-height: $btn-size-unit * 2.5;
 }
 /*NAV BUTTONS*/
-.nav-btn-selected{
+.nav-btn-selected {
   @extend button;
   @include important-txt-large;
   font-weight: normal;
-  color:white;
+  color: white;
   font-family: $signika;
-  outline:none;
+  outline: none;
   text-decoration: none;
   text-align: center;
-  display:flex;
+  display: flex;
   flex-flow: column nowrap;
   justify-content: center;
   min-width: $btn-size-unit * 3.6;
-  min-height: $btn-size-unit*1.5;
+  min-height: $btn-size-unit * 1.5;
   max-height: $btn-size-unit * 2;
 }
-.nav-btn{
+.nav-btn {
   @extend .nav-btn-selected;
-  color:black;
+  color: black;
   background-color: transparent;
-  transition:0.25s;
-  &:hover{
-    color:white;
+  transition: 0.25s;
+  &:hover {
+    color: white;
     background-color: $btn-primary-color;
-    transition:0.25s;
+    transition: 0.25s;
   }
 }
-.nav-profile-btn{
+.nav-profile-btn {
   @extend .nav-btn-selected;
   @include important-txt-big;
   border-radius: 50%;
-  color:white;
+  color: white;
   min-width: $btn-size-unit * 1.5;
   max-width: $btn-size-unit * 1.5;
-  min-height: $btn-size-unit* 1.5;
+  min-height: $btn-size-unit * 1.5;
   max-height: $btn-size-unit * 1.5;
+}
+/*For Outing List*/
+.checkbox {
+  label {
+    @extend button;
+    @include standard-txt-regular;
+    display: block;
+    text-align: center;
+  }
+  input[type="checkbox"] {
+    color: transparent;
+    background-color: transparent;
+    visibility: hidden;
+    opacity: 0;
+    display: block;
+    padding: 0;
+    margin: 0;
+    border: none;
+    outline: none;
+    width: 0;
+  }
 }
