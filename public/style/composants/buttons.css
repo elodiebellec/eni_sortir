@@ -121,7 +121,7 @@ input::placeholder, .input::placeholder {
   }
 }
 /*------------PANEL-FORM-------------*/
-.panel-form {
+.panel-form-outing {
   background: linear-gradient(123.61deg, rgba(21, 106, 207, 0.36) 17.46%, rgba(214, 130, 53, 0.24) 61.63%, rgba(214, 53, 140, 0.24) 86.37%);
   border-radius: 40px;
   display: grid;
@@ -129,14 +129,23 @@ input::placeholder, .input::placeholder {
   padding: 2%;
   margin: 2% 10%;
 }
-.panel-form .column {
+.panel-form-outing .column {
   padding: 2%;
 }
-.panel-form .left {
+.panel-form-outing .left {
   grid-column: 1;
 }
-.panel-form .right {
+.panel-form-outing .right {
   grid-column: 2;
+}
+
+.panel-form-user {
+  background: linear-gradient(180deg, rgba(25, 224, 237, 0.38) 0%, rgba(240, 158, 34, 0.25) 100%);
+  border-radius: 40px;
+  display: grid;
+  grid-template-columns: 1fr;
+  padding: 2%;
+  margin: 2% 10%;
 }
 
 button, .checkbox label, .nav-btn-selected, .nav-profile-btn, .nav-btn, .btn-login-form, .btn-secondary, .button {
