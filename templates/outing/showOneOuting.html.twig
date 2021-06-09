@@ -67,10 +67,11 @@
 
         {%  set participants = outing.participants %}
         <select >
-            <option value="">--Liste de participants inscrits--</option>
+            <option >--Liste de participants inscrits--</option>
 
             {% for participant in participants  %}
-            <option > {{ participant.firstName }}  {{ participant.lastName }} </option>
+            <option> {{ participant.pseudo }}  <a href="{{ path('participant_profile_show',{'id':participant.id }) }}">  {{ participant.firstName }}  {{ participant.lastName }}</a>  </option>
+
            {% endfor %}
         </select>
 
