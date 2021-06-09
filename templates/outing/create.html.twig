@@ -1,4 +1,12 @@
 {% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('style/composants/headers.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/composants/form.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/composants/buttons.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/composants/checkbox.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/composants/navbar.css') }}">
+{% endblock %}
 
 {% block title %}Créer sortie{% endblock %}
 
@@ -9,12 +17,8 @@
 {% block body %}
     <h1>Créer une sortie</h1>
     <div>
-
-
-
         <p>{{ form_start(outingForm) }}</p>
         <p>{{ form_errors(outingForm) }}</p>
-
         <p>{{ form_row(outingForm.name) }}</p>
         <p>{{ form_row(outingForm.dateBegin) }}</p>
         <p>{{ form_row(outingForm.dateEnd) }}</p>
@@ -33,7 +37,7 @@
         <a href="{{ path('outing') }}" class="button">Annuler</a>
 
 
-{{ form_end(outingForm) }}
+        {{ form_end(outingForm) }}
 
     </div>
 {% endblock %}
