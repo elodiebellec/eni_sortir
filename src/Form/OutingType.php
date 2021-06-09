@@ -39,35 +39,53 @@ class OutingType extends AbstractType
             $citiesNameList[$name] = $name;
         }
 
+
+
         $builder
             ->add('name', textType::class, [
-                'label'=> 'Nom de la sortie'
+                'label'=> false,
+                'attr' => array(
+                    'placeholder' => 'Nom de la sortie'
+                )
             ])
             ->add('dateBegin', DateTimeType::class, [
                 'html5' => true,
                 'widget' => 'single_text',
-                'label'=> 'Date et heure de la sortie'
+                'label'=> false,
+                'attr' => array(
+                    'placeholder' => 'Date et heure de la sortie'
+                )
             ])
             ->add('dateEnd', DateType::class, [
                 'html5' => true,
                 'widget' => 'single_text',
-                'label'=> 'Date limite inscription'
+                'label'=> false
             ])
             ->add('maxRegistration', NumberType::class, [
-                'label'=> 'Nombre de places'
+                'label'=> false,
+                'attr' => array(
+                    'placeholder' => 'Nombre de places'
+                )
             ])
             ->add('duration', NumberType::class, [
                 'html5' => true,
-                'label'=> 'Durée'
+                'label'=> false,
+                'attr' => array(
+                    'placeholder' => 'Durée'
+                )
             ])
 
             ->add('description',TextareaType::class, [
                 'required' => false,
-                'label'=> 'Description et infos'
+                'label'=> false,
+                'attr' => array(
+                    'placeholder' => 'Description et infos'
+                )
             ])
             ->add('location', EntityType::class, [
                 'class' => location::class,
-                'choice_label' => 'name'
+                'choice_label' => 'name',
+
             ])
 
             //I try to add a list of city name with CollectionType but list is not diplayed
@@ -78,7 +96,7 @@ class OutingType extends AbstractType
                 'mapped' => false
             ])
            */
-            ->add('city', ChoiceType::class, ['choices'=>$citiesNameList, 'label'=>'Ville', 'mapped' => false])
+            ->add('city', ChoiceType::class, ['choices'=>$citiesNameList, 'label'=>false, 'mapped' => false])
 
 
             ->add('save', SubmitType::class, ['label' => 'Enregistrer'])
