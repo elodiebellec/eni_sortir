@@ -363,6 +363,27 @@ public function  list ( Request $request,
         ]);
     }
 
+    /**
+     * @Route("/outing/publish", name="outing_publish")
+     */
+    public function publish(Request $request, OutingRepository $repository,  EntityManagerInterface $entityManager): Response
+    {
+
+        $OutingId =(int) $request->query->get('id', 1);
+        $outing = $repository->find($OutingId);
+
+        $outing->setState($entityManager->getRepository(State::class)->getState('Ouverte'));
+
+        $entityManager->persist($outing);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Sortie publiée !');
+
+        return $this->redirectToRoute('outing');
+
+
+    }
+
 
 
 

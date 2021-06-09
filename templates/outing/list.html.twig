@@ -134,13 +134,17 @@
                     <th colspan="2">inscrits/places</th>
                     <th colspan="2">Etat</th>
                     <th colspan="2">Inscrit</th>
-                    <th colspan="2">Organisateurr</th>
+                    <th colspan="2">Organisateur</th>
                 <th colspan="2">Actions</th>
             </tr>
             </thead>
             <tbody>
 
             {% for outing in outings %}
+
+                {% if outing.state.label== "Créée" and app.user.pseudo != outing.planner.pseudo %}
+
+                {% else %}
 
 
 
@@ -167,9 +171,15 @@
 
                     <td colspan="2">
                         <div class="action_buttons">
-                            <a href="{{ path('outing_show', {'id':outing.id}) }}"> afficher </a>
 
-                            {% if app.user.outings.contains(outing) %}
+                            {% if outing.state.label == "Créée" or outing.state.label == "Activité historisée" %}
+
+                                {% else %}
+
+                                    <a href="{{ path('outing_show', {'id':outing.id}) }}"> afficher </a>
+                            {% endif %}
+
+                            {% if app.user.outings.contains(outing) and (outing.state.label == "Ouverte" or outing.state.label == "Clôturée")%}
 
                                 <a href="{{ path('outing_removeParticipant',{'id':outing.id}) }}">
                                     Se desister
@@ -186,6 +196,7 @@
                             {% if (app.user.pseudo == outing.planner.pseudo) and outing.state.label == "Créée" %}
 
                                 <a href="{{ path('outing_update', {'id':outing.id}) }}"> Modifier </a>
+                                <a href="{{ path('outing_publish', {'id':outing.id}) }}"> Publier </a>
 
                             {% endif %}
 
@@ -200,7 +211,7 @@
 
                     </td>
 
-
+                    {% endif %}
                 </tr>
 
             {% endfor %}
