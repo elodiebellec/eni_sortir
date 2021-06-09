@@ -28,6 +28,7 @@ class CityRepository extends ServiceEntityRepository
             ->addSelect('locations')
             ->andWhere('c.name = :name')
             ->setParameter('name', $name)
+            ->orderBy('locations.name')
             ->getQuery()
             ->setMaxResults(10)
             ->getResult()
