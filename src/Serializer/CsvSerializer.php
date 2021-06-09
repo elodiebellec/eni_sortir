@@ -54,11 +54,12 @@ class CsvSerializer
                  * In Case site id is not existant or data field is null
                  */
                 catch (\Exception $e) {
-                    fclose($handle);
+                    //dd($this->siteRepository->find($data[1]));
+                    //fclose($handle);
                     return false;
                 }
             }
-            fclose($handle);
+            //fclose($handle);
 
             /**
              *In case participant data is not conform to integrity constraints
@@ -66,7 +67,8 @@ class CsvSerializer
             try {
                 $this->entityManager->flush();
             } catch (\Exception $e) {
-                fclose($handle);
+                //fclose($handle);
+                dd($e);
                 return false;
             }
 

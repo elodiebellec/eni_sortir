@@ -13,7 +13,7 @@ html {
 
 .page-main-grid {
   display: grid;
-  grid-template-rows: 20vh auto;
+  grid-template-rows: 16vh auto;
   /* Divide screen between navbar and page-content*/
   width: 100%;
 }
