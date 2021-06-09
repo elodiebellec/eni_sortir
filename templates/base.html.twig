@@ -15,11 +15,21 @@
             {#{{ encore_entry_script_tags('app') }}#}
         {% endblock %}
     </head>
+
     <body>
         <div class="page-main-grid">
             {% block body %}
                 {% include('menu/nav.html.twig')%}
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="flash flash-{{ label }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
             {% endblock %}
+
+
         </div>
     </body>
 </html>

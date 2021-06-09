@@ -205,7 +205,7 @@ public function  list ( Request $request,
             $entityManager->persist($outing);
             $entityManager->flush();
 
-            //TODO flash must display on outing page
+            //flash message displaying on outing page
             $this->addFlash('success', 'Sortie ajoutée !');
             return $this->redirectToRoute('outing');
         }
@@ -218,7 +218,8 @@ public function  list ( Request $request,
     //function to get the location when a city is selected in the creation outing form
 
     /**
-     * @Route("outing/ajax-cityData", name="outing_ajax_city")
+     * @Route("outing/ajax-cityData", name="outing_ajax_creation")
+     * @Route("outing/update/ajax-cityData", name="outing_ajax_update")
      */
     public function getCityData(Request $request,
                                 CityRepository $cityRepository): JsonResponse
@@ -277,7 +278,7 @@ public function  list ( Request $request,
             $entityManager->persist($outing);
             $entityManager->flush();
 
-            //TODO flash must display on outing page
+            //flash message displaying on outing page
             $this->addFlash('success', 'Sortie annulée !');
             return $this->redirectToRoute('outing');
         }
@@ -294,8 +295,9 @@ public function  list ( Request $request,
     /**
      * @Route("outing/update/{id}", name="outing_update", requirements={"page"="\d+"})
      */
-    public function update($id, outingRepository $outingRepository, Request $request, EntityManagerInterface $entityManager): Response
+    public function update($id=1, outingRepository $outingRepository, Request $request, EntityManagerInterface $entityManager): Response
     {
+
         $outing = $outingRepository->find($id);
         if(!$outing) {
             throw $this->createNotFoundException("Cette sortie n'existe plus !");
@@ -318,7 +320,7 @@ public function  list ( Request $request,
             $entityManager->persist($outing);
             $entityManager->flush();
 
-            //TODO flash must display on outing page
+            //flash message displaying on outing page
             $this->addFlash('success', 'Sortie modifiée !');
             return $this->redirectToRoute('outing');
         }
@@ -342,7 +344,8 @@ public function  list ( Request $request,
         $outing = $entityManager->find(outing::class, $id);
         $entityManager->remove($outing);
         $entityManager->flush();
-        //TODO flash must display on outing page
+
+        //flash message displaying on outing page
         $this->addFlash('sucess', 'Sortie supprimée !!');
 
         return $this->redirectToRoute('outing');
