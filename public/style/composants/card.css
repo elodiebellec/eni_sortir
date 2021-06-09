@@ -1,4 +1,4 @@
-input {
+input, .input {
   border-radius: 80px;
   border-color: #2d2929;
   opacity: 0.8;
@@ -18,7 +18,7 @@ input {
   font-size: 15px;
   font-family: "Open Sans", sans-serif;
 }
-input::placeholder {
+input::placeholder, .input::placeholder {
   font-family: "Signika", sans-serif;
   font-weight: bold;
   font-style: normal;
@@ -59,14 +59,14 @@ input::placeholder {
   min-width: 50vw;
   margin: auto;
 }
-.login-form input {
+.login-form input, .login-form .input {
   background: none;
   border: 1px solid;
   padding: 18px;
   padding-inline-start: 45px;
   font-size: 23px;
 }
-.login-form input::placeholder {
+.login-form input::placeholder, .login-form .input::placeholder {
   color: black;
   opacity: 0.8;
 }
@@ -92,7 +92,7 @@ input::placeholder {
   opacity: 0.8;
   margin: auto;
 }
-.login-connect .checkbox-container .checkbox input[type=checkbox] {
+.login-connect .checkbox-container .checkbox input[type=checkbox], .login-connect .checkbox-container .checkbox [type=checkbox].input {
   margin-inline-start: 1rem;
 }
 .login-connect .checkbox-container .checkbox .remember-me {

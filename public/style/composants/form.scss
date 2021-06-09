@@ -25,7 +25,9 @@
       @include important-txt-regular;
     }
   }
-
+.input{
+  @extend input;
+}
 /*search bar with magnifying glass*/
   .inputSearch {
 
