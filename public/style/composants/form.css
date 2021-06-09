@@ -1,4 +1,4 @@
-input {
+input, .input {
   border-radius: 80px;
   border-color: #2d2929;
   opacity: 0.8;
@@ -18,13 +18,37 @@ input {
   font-size: 15px;
   font-family: "Open Sans", sans-serif;
 }
-input::placeholder {
-  font-family: "Open Sans", sans-serif;
+input::placeholder, .input::placeholder {
+  font-family: "Signika", sans-serif;
   font-weight: bold;
   font-style: normal;
   font-variant-caps: small-caps;
   color: #232020;
   font-size: 15px;
+}
+
+/*search bar with magnifying glass*/
+.inputSearch .search-field {
+  width: 100%;
+  border: none;
+  outline: none;
+}
+.inputSearch .search-button {
+  background: transparent;
+  border: none;
+  outline: none;
+  margin-left: -33px;
+}
+.inputSearch .search-button img {
+  width: 20px;
+  height: 20px;
+  object-fit: cover;
+}
+.inputSearch .loupeForm {
+  border: 1px solid;
+  border-radius: 2em;
+  padding: 0.5em 2em 0.5em 3em;
+  border-color: silver;
 }
 
 /*------------LOGIN-FORM-------------*/
@@ -35,14 +59,14 @@ input::placeholder {
   min-width: 50vw;
   margin: auto;
 }
-.login-form input {
+.login-form input, .login-form .input {
   background: none;
   border: 1px solid;
   padding: 18px;
   padding-inline-start: 45px;
   font-size: 23px;
 }
-.login-form input::placeholder {
+.login-form input::placeholder, .login-form .input::placeholder {
   color: black;
   opacity: 0.8;
 }
@@ -68,7 +92,7 @@ input::placeholder {
   opacity: 0.8;
   margin: auto;
 }
-.login-connect .checkbox-container .checkbox input[type=checkbox] {
+.login-connect .checkbox-container .checkbox input[type=checkbox], .login-connect .checkbox-container .checkbox [type=checkbox].input {
   margin-inline-start: 1rem;
 }
 .login-connect .checkbox-container .checkbox .remember-me {

@@ -58,36 +58,64 @@ class FilterType extends AbstractType
 
 
         $builder
-            ->add('site',ChoiceType::class,  [ 'choices'=>$listWithName, "label"=>"Site:", "placeholder"=> null, "empty_data" =>" "]) // ligne concernée par la liste à afficher
-            ->add('name',SearchType::class, [ "required"=>false,"label"=>"Le nom de la sortie contient"])
-            ->add('dateBeginFilter', DateType::class, ["required"=>false, "label"=>"Entre","html5"=>true,"empty_data" =>null , 'format' => 'dd-MM-yyyy' ] )
-            ->add('dateEndFilter', DateType::class, ["required"=>false, "label"=>"et","html5"=>true,"empty_data" =>null, 'format' => 'dd-MM-yyyy' ])
+            ->add('site',ChoiceType::class,  [
+                'choices'=>$listWithName,
+                "label"=>" ",
+                "placeholder"=> null,
+                "empty_data" =>" "// ligne concernée par la liste à afficher
+            ])
+            ->add('name',SearchType::class, [
+                "required"=>false,
+                "label"=>" "
+            ])
+            ->add('dateBeginFilter', DateType::class, [
+                "required"=>false,
+                "label"=>"De",
+                "html5"=>true,
+                "empty_data" =>null ,
+                'format' => 'dd-MM-yyyy'
+            ])
+            ->add('dateEndFilter', DateType::class, [
+                "required"=>false,
+                "label"=>"à",
+                "html5"=>true,
+                "empty_data" =>null,
+                'format' => 'dd-MM-yyyy'
+            ])
+            ->add('isPlanner', ChoiceType::class, [
+                "required"=>false,
+                "choices" => ["Je suis l'organisateur/trice "=>"ok"],
+                "multiple"=>true,
+                "expanded"=>true,
+                'attr' => [ 'class' => 'checkbox'],
+                 "label"=> false
+            ])
+            ->add('isRegistered', ChoiceType::class, [
+                "required"=>false,
+                "choices" => ["Je suis inscrit/e"=>"ok"],
+                "multiple"=>true,
+                "expanded"=>true,
+                'attr' => [ 'class' => 'checkbox'],
+                "label"=>  false
+            ])
+            ->add('isNotRegistered', ChoiceType::class, [
+                "required"=>false,
+                "choices" => ["Je ne suis pas inscrit/e"=>"ok"],
+                "multiple"=>true,
+                "expanded"=>true,
+                'attr' => [ 'class' => 'checkbox'],
+                "label"=> false
+            ])
+            ->add('isOutDated', ChoiceType::class, [
+                "required"=>false,
+                "choices" => ["Sorties passées"=>"Activité passée"],
+                "multiple"=>true,
+                "expanded"=>true,
+                'attr' => [ 'class' => 'checkbox'],
+                "label"=> false
+            ])
 
-            ->add('isPlanner', ChoiceType::class, [ "required"=>false,
-                "choices" =>
-                    ["Sorties dont je suis l'organisateur/trice "=>"ok"],
-                    "multiple"=>true, "expanded"=>true,
-                'attr' => [ 'class' => 'checkbox'], "label"=> false] )
-
-            ->add('isRegistered', ChoiceType::class, [ "required"=>false,
-                "choices" =>
-                    ["Sorties auxquelles je suis inscrit/e"=>"ok"],
-                     "multiple"=>true, "expanded"=>true,
-                    'attr' => [ 'class' => 'checkbox'], "label"=>  false] )
-
-            ->add('isNotRegistered', ChoiceType::class, [ "required"=>false,
-                "choices" =>
-                    ["Sorties auxquelles je ne suis pas inscrit/e"=>"ok"],
-                     "multiple"=>true, "expanded"=>true,
-                    'attr' => [ 'class' => 'checkbox'], "label"=> false] )
-
-            ->add('isOutDated', ChoiceType::class, [ "required"=>false,
-                "choices" =>
-                    ["Sorties passées"=>"Activité passée"],
-                    "multiple"=>true, "expanded"=>true,
-                    'attr' => [ 'class' => 'checkbox'], "label"=> false] )
-
-            ->add('Rechercher', SubmitType::class, ["attr"=>["class"=>"send"]])
+            //->add('Rechercher', SubmitType::class, ["attr"=>["class"=>"send"]])
 
 
         ;
