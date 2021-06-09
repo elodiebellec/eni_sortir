@@ -53,11 +53,22 @@ class OutingRepository extends ServiceEntityRepository
 
 
 
-       // $queryBuilder->andWhere("state.label =:created  and planner.id <> $idUser");
-        //$queryBuilder->setParameter('created', 'Créée');
+        $queryBuilder->where("state.label =:created  and planner.id = $idUser");
+        $queryBuilder->setParameter('created', 'Créée');
+        $queryBuilder->orwhere("state.label =:open ");
+        $queryBuilder->setParameter('open', 'Ouverte');
+        $queryBuilder->orwhere("state.label =:closed ");
+        $queryBuilder->setParameter('closed', 'Clôturée');
+        $queryBuilder->orwhere("state.label =:onGoing ");
+        $queryBuilder->setParameter('onGoing', 'Activité en cours');
+        $queryBuilder->orwhere("state.label =:passed ");
+        $queryBuilder->setParameter('passed', 'Activité passée');
+        $queryBuilder->orwhere("state.label =:canceled ");
+        $queryBuilder->setParameter('canceled', 'Activité annulée');
 
-       $queryBuilder->andWhere('state.label <> :historized');
-       $queryBuilder->setParameter('historized', 'Activité historisée');
+
+       //$queryBuilder->andWhere('state.label <> :historized');
+       //$queryBuilder->setParameter('historized', 'Activité historisée');
 
        //die($queryBuilder->getDql());
       // $queryBuilder->setParameters( new ArrayCollection(array( new Parameter('created',$stateLabel), new Parameter('idUser', $idUser))));
