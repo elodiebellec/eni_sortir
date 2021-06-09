@@ -30,7 +30,7 @@ class FileUploader
     public function saveImage($file){
         $directory = $this->params->get('upload_dir_images');
         $newFileName = $this->generateNewFileName($file,'image');
-        $this->registerLastUploadedFile($directory,$newFileName);
+        $this->registerLastUploadedFile($newFileName);
         $file->move($directory, $newFileName);
     }
 
@@ -38,8 +38,8 @@ class FileUploader
     {
         return $prefix.'-'.uniqid().'.'.$file->getClientOriginalExtension();
     }
-    private function registerLastUploadedFile($directory,$fileName): void{
-        FileUploader::$lastFileUploaded = $directory."/".$fileName;
+    private function registerLastUploadedFile($fileName): void{
+        FileUploader::$lastFileUploaded = $fileName;
     }
     public function getLastUploadedFile(): string
     {

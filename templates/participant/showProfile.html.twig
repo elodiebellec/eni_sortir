@@ -4,6 +4,9 @@
 
     <h1> {{ participant.pseudo }}</h1>
 
+    <div>
+        <img src = "{{asset('images/'~participant.photo)}}">
+    </div>
 
     <div>
         <p>Prénom : </p>  <p> {{ participant.firstName }}</p>
