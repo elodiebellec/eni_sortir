@@ -30,7 +30,7 @@ class OutingType extends AbstractType
     }
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $citiesList=$this->repoCity->findAll();
+        $citiesList=$this->repoCity->findBY([],['name'=>'ASC']);
         $citiesNameList=array();
 
         for($i=0; $i<sizeof($citiesList); $i++)
