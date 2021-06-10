@@ -18,21 +18,42 @@
 
     <div class="panel-form-outing">
         <h1>Détail de la sortie</h1>
-        <div class="column left">
-            <p>Nom de la sortie : {{ outing.name }}</p>
-            <p>Date et Heure de la sortie : {{ outing.dateBegin|date('d-m-y') }}</p>
-            <p>Date limite d'inscription : {{ outing.dateEnd|date('d-m-y')}}</p>
-            <p>Nombre de places : {{ outing.maxRegistration}}</p>
-            <p> Durée: {{ outing.duration }}  min</p>
-            <p> Description et infos: {{ outing.description }}</p>
+        <div class="column left doubleInputContainer">
+             <div class="left labelDate">
+                    <h3>Nom de la sortie : </h3>
+                    <h3>Date et Heure de la sortie : </h3>
+                    <h3>Date limite d'inscription : </h3>
+                    <h3>Nombre de places : </h3>
+                    <h3> Durée: </h3>
+                    <h3> Description et infos: </h3>
+                </div>
+                <div class="right">
+                    <h3>{{ outing.name }}</h3>
+                    <h3>{{ outing.dateBegin|date('d-m-y') }}</h3>
+                    <h3>{{ outing.dateEnd|date('d-m-y')}}</h3>
+                    <h3>{{ outing.maxRegistration}}</h3>
+                    <h3>{{ outing.duration }}  min</h3>
+                    <h3>{{ outing.description }}</h3>
+                </div>
         </div>
-        <div class="column right">
-            <p> Ville Organisatrice: {{ outing.site.name }}</p>
-            <p> Lieu: {{ outing.location.name }}</p>
-            <p> Rue: {{ outing.location.street }}</p>
-            <p> Code postal: {{ outing.location.city.postalCode }}</p>
-            <p> Latitude: {{ outing.location.latitude  }}</p>
-            <p> Longitude:  {{ outing.location.longitude  }}</p>
+
+        <div class="column right doubleInputContainer">
+            <div class="left labelDate">
+                <h3> Ville Organisatrice: </h3>
+                <h3> Lieu: </h3>
+                <h3> Rue: </h3>
+                <h3> Code postal: </h3>
+                <h3> Latitude: </h3>
+                <h3> Longitude:  </h3>
+            </div>
+            <div class="right">
+                <h3>{{ outing.site.name }}</h3>
+                <h3>{{ outing.location.name }}</h3>
+                <h3>{{ outing.location.street }}</h3>
+                <h3>{{ outing.location.city.postalCode }}</h3>
+                <h3>{{ outing.location.latitude  }}</h3>
+                <h3>{{ outing.location.longitude  }}</h3>
+            </div>
         </div>
     </div>
 
@@ -47,7 +68,8 @@
             {% endfor %}
         </select>
     </div>
-
-    <a href="{{ path('outing') }}" class="button">Retour</a>
+    <div class="buttonContainerOuting">
+        <a href="{{ path('outing') }}" class="button">Retour</a>
+    </div>
 
 {% endblock %}

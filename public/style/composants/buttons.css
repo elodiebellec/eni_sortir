@@ -41,7 +41,6 @@ input, .input, textarea, select {
   border: none;
   outline: none;
   /*Create a border when selected TODO: decide a style for it */
-  max-width: 400px;
   width: 90%;
   /*Inputs fill all the width of their containers*/
   background-color: rgba(255, 253, 255, 0.7);
@@ -62,8 +61,23 @@ input, .input, select {
   height: 2.6em;
 }
 
-.smallInput {
-  max-width: 10px;
+.labelDate {
+  font-family: "Signika", sans-serif;
+  font-weight: bold;
+  font-style: normal;
+  font-variant-caps: small-caps;
+  color: #232020;
+  font-size: 16px;
+  color: rgba(45, 41, 41, 0.8);
+  padding-left: 2em;
+}
+
+select {
+  padding-right: 40px;
+}
+select .custom-dropdown__select {
+  padding-right: 1em;
+  /* accommodate with the pseudo elements for the dropdown arrow */
 }
 
 textarea {
@@ -178,7 +192,7 @@ textarea {
   background: linear-gradient(123.61deg, rgba(21, 106, 207, 0.36) 17.46%, rgba(214, 130, 53, 0.24) 61.63%, rgba(214, 53, 140, 0.24) 86.37%);
   border-radius: 40px;
   display: grid;
-  grid-template-columns: 1fr, 1fr;
+  grid-template-columns: 1fr 1fr;
   padding: 2%;
   margin: 2% 10%;
 }
@@ -190,6 +204,9 @@ textarea {
 }
 .panel-form-outing .right {
   grid-column: 2;
+}
+.panel-form-outing h1 {
+  Padding-left: 1em;
 }
 
 .panel-form-user {
@@ -203,7 +220,17 @@ textarea {
 
 .doubleInputContainer {
   display: grid;
-  grid-template-columns: 1fr, 1fr;
+  grid-template-columns: 1fr 1fr;
+  width: 95%;
+}
+
+/*------------BUTTON-CONTAINERS-------------*/
+.buttonContainerOuting {
+  margin: 2% 10%;
+  display: flex;
+}
+.buttonContainerOuting button, .buttonContainerOuting .checkbox label, .checkbox .buttonContainerOuting label, .buttonContainerOuting .nav-btn-selected, .buttonContainerOuting .nav-profile-btn, .buttonContainerOuting .nav-btn, .buttonContainerOuting .btn-login-form, .buttonContainerOuting .btn-secondary, .buttonContainerOuting .button {
+  margin-right: 2em;
 }
 
 /*OUTING LIST FORM*/
@@ -246,6 +273,11 @@ button:hover, .checkbox label:hover, .nav-btn-selected:hover, .nav-profile-btn:h
 }
 
 /*Use it to make other HTML tag look like our beloved buttons*/
+.button {
+  text-decoration: none;
+  text-align: center;
+}
+
 .btn-secondary {
   background-color: #d3d4d4;
   color: #232020;

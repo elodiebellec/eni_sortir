@@ -35,6 +35,8 @@ button {
 /*Use it to make other HTML tag look like our beloved buttons*/
 .button {
   @extend button;
+  text-decoration: none;
+  text-align: center;
 }
 
 .btn-secondary {
