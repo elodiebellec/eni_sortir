@@ -5,15 +5,12 @@
             <a href="{{ path('outing') }}" >Sortir.com</a>
         </h1>
     </div>
-    <div class="nav-items">
+    <div class="nav-items nav-items-phone">
 
-            <a href="{{ path('outing') }}" class="nav-btn" id="nav-cities">
-                Villes
+            <a href="{{ path('outing') }}" class="nav-btn" id="nav-home">
+                Accueil
             </a>
 
-            <a href="{{ path('outing') }}" class="nav-btn"id="nav-sites">
-                Sites
-            </a>
         <div class="nav-profile-container">
             <a href="{{ path('participant_profile_update') }}" class="nav-profile-btn" id="nav-profile">
                 {{ app.user.firstName[:1] }}

@@ -223,3 +223,20 @@ $padding-login-form-field   : 18px;
     margin-right: 2em;
   }
 }
+/*OUTING LIST FORM*/
+.form-input{
+  .label{
+    position: absolute;
+    z-index: 5000;
+  }
+  div{
+    input,select{
+      margin:auto;
+      padding:6px;
+      margin-block-start: 12px;
+      width:80%;
+      height: calc(100% - 12px);
+    }
+  }
+}
+

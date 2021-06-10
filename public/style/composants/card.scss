@@ -4,10 +4,11 @@
 @import "form";
 @import "image";
 
-$card-width: 22rem;
-$card-height: 22rem;
+$card-width: 15rem;
+$card-height: 15rem;
 
 .card {
+  margin: 15px;
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-between;
@@ -18,7 +19,7 @@ $card-height: 22rem;
   height: $card-height;
   width: $card-width;
 
-  padding: 20px 40px;
+  padding: 20px 20px;
 }
 .card {
 
@@ -56,12 +57,14 @@ $card-height: 22rem;
     justify-content: space-around;
     margin-inline-end: 10%;
 
-    button {
+    button,a {
       display: inline;
       background-color: transparent;
       min-width: auto;
       margin: auto;
-      @include important-txt-large;
+      text-decoration: none;
+      @include important-txt-regular;
+      outline:none;
     }
   }
   .card-feet {

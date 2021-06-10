@@ -20,75 +20,79 @@ label {
 
 .outing-list-page-container {
   display: grid;
-  grid-template-rows: 20vh auto;
+  grid-template-rows: 25vh auto;
   /* Divide screen between form and outing cards*/
 }
 
 .outing-list-form-section {
-  display: flex;
-  flex-flow: row nowrap;
-  width: 100%;
-}
-
-.outing-list-form-container {
-  margin-inline-start: 5px;
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
-  width: 80%;
-  background: linear-gradient(91.91deg, rgba(48, 206, 227, 0.26) 22.68%, rgba(28, 235, 86, 0.1794) 85.84%);
-  border-radius: 50px;
+  display: grid;
+  grid-template-columns: 80% 20%;
 }
 
 .outing-list-form {
-  display: flex;
-  flex-flow: row nowrap;
-  width: 100%;
+  display: grid;
+  grid-template-rows: 1.25fr 1fr 1fr;
+  background: linear-gradient(91.91deg, rgba(48, 206, 227, 0.26) 22.68%, rgba(28, 235, 86, 0.1794) 85.84%);
+  border-radius: 50px;
+  margin-inline-start: 22px;
 }
 
-.outing-list-search-parameters {
-  height: 80%;
-}
-
-.outing-list-form-fields {
-  display: flex;
-  flex-flow: column nowrap;
-  width: 100%;
-}
-
-.outing-list-form-input-fields {
-  margin-block-start: 20px;
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-evenly;
-  align-items: center;
-}
-
-.outing-list-form-tag-fields {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-evenly;
+.outing-list-search-parameters, .outing-list-form-tag-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
 .outing-list-side-options {
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  grid-template-rows: 2fr 1fr;
+  justify-items: center;
+  width: 80%;
 }
 .outing-list-side-options .user-infos {
-  height: 78%;
+  background: linear-gradient(113.95deg, rgba(250, 27, 27, 0.148) 18.2%, rgba(85, 27, 250, 0.182) 88.4%);
+  border-radius: 40px;
   display: flex;
   flex-flow: column nowrap;
-  text-align: center;
   justify-content: center;
+  align-items: center;
+  font-size: 15px;
+  font-family: "Open Sans", sans-serif;
+  color: #232020;
+  width: 90%;
+  margin-block-end: 10px;
+}
+.outing-list-side-options .outing-list-button-container button {
+  width: 100%;
+  margin: 0;
 }
 
-.outing-list-search-button-container {
+.outing-list-button-container {
   display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
   justify-content: center;
+}
+.outing-list-button-container button {
+  padding: 0;
+  height: 80%;
+  margin: auto;
+}
+
+.outing-list-cards-container {
+  display: flex;
+  flex-flow: row wrap;
+  margin-inline: 20px;
+  margin-block-start: 15px;
+}
+
+/*.label + div{
+    height: 100%;
+}*/
+#filter_dateBeginFilter, #filter_dateEndFilter {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+#filter_dateEndFilter {
+  margin-inline-end: 10px;
 }
 
 /*# sourceMappingURL=outingList.css.map */
