@@ -1,3 +1,18 @@
+h1 {
+  font-size: 30px;
+  font-family: "Open Sans", sans-serif;
+}
+
+h3 {
+  font-family: "Signika", sans-serif;
+  font-weight: bold;
+  font-style: normal;
+  font-variant-caps: small-caps;
+  color: #232020;
+  font-size: 16px;
+  color: rgba(45, 41, 41, 0.9);
+}
+
 label {
   font-size: 15px;
   font-family: "Open Sans", sans-serif;

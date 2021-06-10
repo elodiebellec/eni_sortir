@@ -27,23 +27,24 @@
                 {{ form_row(outingForm.name) }}
                 {{ form_row(outingForm.dateBegin) }}
                 {{ form_row(outingForm.dateEnd) }}
-                {{ form_row(outingForm.maxRegistration) }}
-                {{ form_row(outingForm.duration) }}
-                {{ form_row(outingForm.description) }}
+            <div class="doubleInputContainer">
+                <div class="left smallInput">{{ form_row(outingForm.maxRegistration) }}</div>
+                <div class="right smallInput">{{ form_row(outingForm.duration) }}</div>
             </div>
-            <div class="column right">
-        <p>Ville organisatrice : {{ userSite.name }}</p>
-                <label><input>{{ form_row(outingForm.city) }}</label>
-
-        <p>{{ form_row(outingForm.location) }}</p>
-        <p>Rue : <span id="street"></span></p>
-        <p>Code postal : <span id="postalCode"></span> </p>
-        <p>Latitude : <span id="latitude"></span></p>
-        <p>Longitude : <span id="longitude"></span></p>
-            </div>
+                 {{ form_row(outingForm.description) }}
         </div>
-        <p>{{ form_row(outingForm.save) }}</p>
-        <p>{{ form_row(outingForm.saveAndAdd) }}</p>
+        <div class="column right">
+            <h3 class="primaryInformation">Ville organisatrice : {{ userSite.name }}</h3>
+                    {{ form_row(outingForm.city) }}
+                    {{ form_row(outingForm.location) }}
+            <h3 class="secondaryInformation">Rue : <span id="street"></span></h3>
+            <h3 class="secondaryInformation">Code postal : <span id="postalCode"></span> </h3>
+            <h3 class="secondaryInformation">Latitude : <span id="latitude"></span></h3>
+            <h3 class="secondaryInformation">Longitude : <span id="longitude"></span></h3>
+        </div>
+    </div>
+        {{ form_row(outingForm.save) }}
+        {{ form_row(outingForm.saveAndAdd) }}
         <a href="{{ path('outing') }}" class="button">Annuler</a>
 
 

@@ -3,31 +3,57 @@
 @import "../theme/shape";
 
 
-  input {
+  input, textarea, select {
     @include border-primary;
 
     display    : flex;
     flex-flow  : row nowrap;
     align-items: baseline;
 
-    padding               : 6px;
-    padding-inline-start  : 32px;
+    padding  : 8px 20px;
     margin  : 12px;
 
     border  : none;
     outline : none;/*Create a border when selected TODO: decide a style for it */
 
+    max-width: 400px;
     width: 90%; /*Inputs fill all the width of their containers*/
     background-color: $input-bg-color;
     @include standard-txt-regular;
 
     &::placeholder{
       @include important-txt-regular;
+      color: rgba(45, 41, 41, 0.8);
     }
   }
+input, select{
+  height: 2.6em;
+}
+
 .input{
   @extend input;
 }
+
+.smallInput{
+  max-width: 10px;
+}
+
+textarea {
+  height: 10em;
+  padding-top: 1.4em;
+  border-radius: 30px;
+}
+
+.primaryInformation {
+  padding: 0.5em 0em 0.5em 2em;
+}
+
+.secondaryInformation {
+  padding: 0.5em 0em 0.5em 4em;
+}
+
+
+
 /*search bar with magnifying glass*/
   .inputSearch {
 
@@ -170,6 +196,9 @@ $padding-login-form-field   : 18px;
   grid-template-columns: (1fr);
   padding: 2%;
   margin: 2% 10%;
+}
 
-
+.doubleInputContainer {
+  display: grid;
+  grid-template-columns: (1fr, 1fr);
 }
