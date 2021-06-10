@@ -12,7 +12,32 @@
 
 {% block body %}
     {{ parent() }}
-{{ form(updateForm) }}
+
+    {{ form_start(updateForm) }}
+    {{ form_errors(updateForm) }}
+    <div class="panel-user">
+        <div class="formAvatar">
+            <div class="avatar"></div>
+            {{ form_row(updateForm.photo) }}
+        </div>
+
+        <div class="panel-form-user">
+            {{ form_row(updateForm.pseudo) }}
+            <div class="doubleInputContainer">
+                <div class="left">{{ form_row(updateForm.lastName) }}</div>
+                <div class="right">{{ form_row(updateForm.firstName) }}</div>
+            </div>
+            {{ form_row(updateForm.phone) }}
+            {{ form_row(updateForm.mail) }}
+            {{ form_row(updateForm.plainPassword) }}
+            {{ form_row(updateForm.site) }}
+       </div>
+        <div class="buttonContainerUser">
+            {{ form_row(updateForm.submit) }}
+            <a href="{{ path('outing') }}" class="button btn-secondary">Annuler</a>
+        </div>
+        {{ form_end(updateForm) }}
+    </div>
 {% endblock %}
 
 

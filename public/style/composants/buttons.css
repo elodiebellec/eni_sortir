@@ -61,7 +61,7 @@ input, .input, select {
   height: 2.6em;
 }
 
-.labelDate {
+.labelInput, .panel-form-user label {
   font-family: "Signika", sans-serif;
   font-weight: bold;
   font-style: normal;
@@ -209,15 +209,30 @@ textarea {
   Padding-left: 1em;
 }
 
+.panel-user {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+}
+
+.formAvatar {
+  margin-left: 4em;
+  grid-column: 1;
+}
+.formAvatar .avatar {
+  background-color: #EDDCC3;
+  border-radius: 100%;
+  width: 12em;
+  height: 12em;
+}
+
 .panel-form-user {
+  grid-column: 2;
   background: linear-gradient(180deg, rgba(25, 224, 237, 0.38) 0%, rgba(240, 158, 34, 0.25) 100%);
   border-radius: 40px;
   display: grid;
   grid-template-columns: 1fr;
-  padding: 2%;
-  margin: 2% 10%;
+  padding: 2% 3% 2% 6%;
 }
-
 .doubleInputContainer {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -230,6 +245,15 @@ textarea {
   display: flex;
 }
 .buttonContainerOuting button, .buttonContainerOuting .checkbox label, .checkbox .buttonContainerOuting label, .buttonContainerOuting .nav-btn-selected, .buttonContainerOuting .nav-profile-btn, .buttonContainerOuting .nav-btn, .buttonContainerOuting .btn-login-form, .buttonContainerOuting .btn-secondary, .buttonContainerOuting .button {
+  margin-right: 2em;
+}
+
+.buttonContainerUser {
+  grid-column: 2;
+  margin-top: 5%;
+  display: flex;
+}
+.buttonContainerUser button, .buttonContainerUser .checkbox label, .checkbox .buttonContainerUser label, .buttonContainerUser .nav-btn-selected, .buttonContainerUser .nav-profile-btn, .buttonContainerUser .nav-btn, .buttonContainerUser .btn-login-form, .buttonContainerUser .btn-secondary, .buttonContainerUser .button {
   margin-right: 2em;
 }
 

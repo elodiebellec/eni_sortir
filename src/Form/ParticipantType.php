@@ -60,7 +60,7 @@ class ParticipantType extends AbstractType
                 )
             ]
         ])
-            ->add('submit',SubmitType::class)
+            ->add('submit',SubmitType::class, ['label' => 'Enregistrer'])
         ;
     }
 
