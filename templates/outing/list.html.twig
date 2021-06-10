@@ -117,7 +117,7 @@
                     </div>
                 </div>
                 <div class="outing-list-search-button-container">
-                    <button type="submit" id="filter_Rechercher" name="filter[Rechercher]" class="send">Rechercher</button>
+                    <button type="submit" >Rechercher</button>
                 </div>
             </div>
 
@@ -248,5 +248,35 @@
 const navSelectedButtons = document.getElementById('nav-cities');
 navSelectedButtons.classList.remove('nav-btn');
 navSelectedButtons.classList.add('nav-btn-selected');
+
+/**
+ * Checkboxes are label, (checkboxes are hidden, label command the check and un check)
+ */
+const choices = [...document.getElementsByTagName("input")]
+    .filter(i => i.type === 'checkbox')
+    .map(el => ({
+        checkbox : el,
+        label : el.nextSibling
+    }))
+;
+choices.forEach(choice => {
+    choice.label.classList.add("unselected-filter-checkbox");
+    choice.checkbox.checked = false;
+    choice.checkbox.onclick = () => {
+        //console.log(choice.label.innerText);
+        //console.log(choice.checkbox.checked);
+
+        if(choice.checkbox.checked){
+            choice.label.classList.add("selected-filter-checkbox");
+            choice.label.classList.remove("unselected-filter-checkbox");
+        }
+        else{
+            choice.label.classList.add("unselected-filter-checkbox");
+            choice.label.classList.remove("selected-filter-checkbox");
+        }
+    }
+})
+
+
 </script>
 {% endblock %}
