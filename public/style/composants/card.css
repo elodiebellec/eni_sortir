@@ -241,13 +241,13 @@ textarea {
   font-style: normal;
   font-variant-caps: small-caps;
   color: #232020;
-  font-size: 20px;
+  font-size: 16px;
 }
 .card .card-head .date {
   font-size: 14px;
   font-family: "Open Sans", sans-serif;
   font-style: italic;
-  margin-block-end: 20px;
+  font-size: 10px;
 }
 .card .card-body {
   margin-inline-end: 10%;
@@ -259,6 +259,7 @@ textarea {
 .card .card-body p {
   font-size: 15px;
   font-family: "Open Sans", sans-serif;
+  font-size: 12px;
 }
 .card .btn-group {
   display: flex;
@@ -272,6 +273,7 @@ textarea {
   min-width: auto;
   margin: auto;
   text-decoration: none;
+  padding: 0;
   font-family: "Signika", sans-serif;
   font-weight: bold;
   font-style: normal;
@@ -297,7 +299,7 @@ textarea {
   background-color: rgba(253, 252, 248, 0.6);
   border-radius: 50%;
   height: 60px;
-  width: auto;
+  width: 60px;
 }
 
 /*# sourceMappingURL=card.css.map */
