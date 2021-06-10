@@ -95,8 +95,18 @@ button {
   min-height: $btn-size-unit * 1.5;
   max-height: $btn-size-unit * 1.5;
 }
-/*For Outing List*/
+/*For Outing List (checkbox are styled like button )*/
 .checkbox {
+  .unselected-filter-checkbox{
+    color:$font-primary-color;
+    background-color: $bg-color;
+    transition : 0.25s;
+  }
+  .selected-filter-checkbox,.unselected-filter-checkbox:hover{
+    color:$font-secondary-color;
+    background-color: $btn-primary-color;
+    transition : 0.25s;
+  }
   label {
     @extend button;
     @include standard-txt-regular;
@@ -114,5 +124,7 @@ button {
     border: none;
     outline: none;
     width: 0;
+    padding-inline: 80px;
+    padding: 30px;
   }
 }

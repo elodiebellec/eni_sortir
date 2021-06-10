@@ -304,7 +304,17 @@ button:hover, .checkbox label:hover, .nav-btn-selected:hover, .nav-profile-btn:h
   max-height: 54px;
 }
 
-/*For Outing List*/
+/*For Outing List (checkbox are styled like button )*/
+.checkbox .unselected-filter-checkbox {
+  color: #232020;
+  background-color: rgba(253, 252, 248, 0.6);
+  transition: 0.25s;
+}
+.checkbox .selected-filter-checkbox, .checkbox .unselected-filter-checkbox:hover {
+  color: #ffffff;
+  background-color: #7e7f80;
+  transition: 0.25s;
+}
 .checkbox label {
   font-size: 15px;
   font-family: "Open Sans", sans-serif;
@@ -322,6 +332,8 @@ button:hover, .checkbox label:hover, .nav-btn-selected:hover, .nav-profile-btn:h
   border: none;
   outline: none;
   width: 0;
+  padding-inline: 80px;
+  padding: 30px;
 }
 
 /*# sourceMappingURL=buttons.css.map */
