@@ -29,12 +29,13 @@ $card-height: 15rem;
     h2,
     h3,
     h4 {
-      @include important-txt-big;
+      @include important-txt-regular;
+
     }
 
     .date {
       @include italic-txt-small;
-      margin-block-end: $font-size-big;
+      font-size: 10px;
     }
   }
 
@@ -47,6 +48,18 @@ $card-height: 15rem;
     justify-content: space-evenly;
     p {
       @include standard-txt-regular;
+      font-size: 12px;
+      a{
+        text-decoration: none;
+        font-weight: 600;
+        color:$font-primary-color;
+        transition:0.15s;
+      }
+      a:hover{
+        text-decoration: none;
+        font-weight: 800;
+        transition:0.15s;
+      }
     }
   }
 
@@ -63,6 +76,7 @@ $card-height: 15rem;
       min-width: auto;
       margin: auto;
       text-decoration: none;
+      padding:0;
       @include important-txt-regular;
       outline:none;
     }
@@ -72,7 +86,7 @@ $card-height: 15rem;
     justify-content: flex-end;
     img {
       @include rounded-img;
-      height: 60px;
+      height: 40px;
       width: auto;
       margin-inline-end: 12px;
     }
@@ -82,8 +96,10 @@ $card-height: 15rem;
       justify-content: center;
       background-color: $bg-color;
       border-radius: 50%;
-      height: 60px;
-      width: auto;
+      height: 40px;
+      width: 40px;
+      @include standard-txt-regular;
+      font-size: 8px;
     }
   }
 

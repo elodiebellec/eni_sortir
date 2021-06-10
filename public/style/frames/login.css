@@ -12,4 +12,13 @@ html {
   box-sizing: border-box;
 }
 
+.page-main-grid {
+  display: block;
+}
+
+input {
+  max-width: none;
+  width: 98%;
+}
+
 /*# sourceMappingURL=login.css.map */

@@ -32,7 +32,9 @@ class OutingController extends AbstractController
      */
 
 public function  list ( Request $request,
-                            OutingRepository  $outingRepository, OutingUpdator $updator,  EntityManagerInterface $entityManager): Response
+                        OutingRepository  $outingRepository,
+                        OutingUpdator $updator,
+                        EntityManagerInterface $entityManager): Response
     {
 
         $user= $this->getUser();

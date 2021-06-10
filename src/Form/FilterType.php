@@ -62,12 +62,19 @@ class FilterType extends AbstractType
                 'choices'=>$listWithName,
                 "label"=>" ",
                 "placeholder"=> null,
-                "empty_data" =>" "// ligne concernée par la liste à afficher
+                "empty_data" =>" ",// ligne concernée par la liste à afficher,
+                "attr" => [
+                    'placeholder' => 'Site'
+    ]
             ])
             ->add('name',SearchType::class, [
                 "required"=>false,
                 "label"=>" ",
-                "attr" => ["class"=>"inputSearch"]
+                "attr" => [
+                    "class"=>"inputSearch",
+                    'placeholder' => 'Sortie'
+                ],
+
             ])
             ->add('dateBeginFilter', DateType::class, [
                 "required"=>false,

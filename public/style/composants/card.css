@@ -56,6 +56,11 @@ input::placeholder, .input::placeholder, textarea::placeholder, select::placehol
   font-size: 16px;
   color: rgba(45, 41, 41, 0.8);
 }
+input:hover, .input:hover, input:focus, .input:focus, textarea:hover, textarea:focus, select:hover, select:focus {
+  -webkit-box-shadow: inset 0 0 10px rgba(45, 41, 41, 0.2);
+  -moz-box-shadow: inset 0 0 10px rgba(45, 41, 41, 0.2);
+  box-shadow: inset 0 0 10px rgba(45, 41, 41, 0.2);
+}
 
 input, .input, select {
   height: 2.6em;
@@ -258,9 +263,14 @@ textarea {
 }
 
 /*OUTING LIST FORM*/
+.form-input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .form-input .label {
-  position: absolute;
-  z-index: 5000;
+  margin-top: -50px;
+  z-index: 6000;
 }
 .form-input div input, .form-input div .input, .form-input div select {
   margin: auto;
@@ -268,6 +278,10 @@ textarea {
   margin-block-start: 12px;
   width: 80%;
   height: calc(100% - 12px);
+}
+
+#filter_site, #filter_name {
+  width: 100%;
 }
 
 .card {
@@ -292,13 +306,13 @@ textarea {
   font-style: normal;
   font-variant-caps: small-caps;
   color: #232020;
-  font-size: 20px;
+  font-size: 16px;
 }
 .card .card-head .date {
   font-size: 14px;
   font-family: "Open Sans", sans-serif;
   font-style: italic;
-  margin-block-end: 20px;
+  font-size: 10px;
 }
 .card .card-body {
   margin-inline-end: 10%;
@@ -310,6 +324,18 @@ textarea {
 .card .card-body p {
   font-size: 15px;
   font-family: "Open Sans", sans-serif;
+  font-size: 12px;
+}
+.card .card-body p a {
+  text-decoration: none;
+  font-weight: 600;
+  color: #232020;
+  transition: 0.15s;
+}
+.card .card-body p a:hover {
+  text-decoration: none;
+  font-weight: 800;
+  transition: 0.15s;
 }
 .card .btn-group {
   display: flex;
@@ -323,6 +349,7 @@ textarea {
   min-width: auto;
   margin: auto;
   text-decoration: none;
+  padding: 0;
   font-family: "Signika", sans-serif;
   font-weight: bold;
   font-style: normal;
@@ -337,7 +364,7 @@ textarea {
 }
 .card .card-feet img {
   border-radius: 50%;
-  height: 60px;
+  height: 40px;
   width: auto;
   margin-inline-end: 12px;
 }
@@ -347,8 +374,11 @@ textarea {
   justify-content: center;
   background-color: rgba(253, 252, 248, 0.6);
   border-radius: 50%;
-  height: 60px;
-  width: auto;
+  height: 40px;
+  width: 40px;
+  font-size: 15px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 8px;
 }
 
 /*# sourceMappingURL=card.css.map */
