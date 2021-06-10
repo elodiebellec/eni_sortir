@@ -66,7 +66,7 @@ input, .input, select {
   height: 2.6em;
 }
 
-.labelDate {
+.labelInput, .panel-form-user label {
   font-family: "Signika", sans-serif;
   font-weight: bold;
   font-style: normal;
@@ -142,7 +142,7 @@ textarea {
   color: black;
   opacity: 0.8;
 }
-.login-form button, .login-form .checkbox label, .checkbox .login-form label, .login-form .nav-btn-selected, .login-form .nav-profile-btn, .login-form .nav-btn, .login-form .btn-login-form, .login-form .btn-secondary, .login-form .button {
+.login-form button, .login-form .checkbox label, .checkbox .login-form label, .login-form .nav-btn-selected, .login-form .nav-profile-btn, .login-form .nav-btn, .login-form .btn-login-form, .login-form .btn-secondary, .login-form .button, .login-form ::-webkit-file-upload-button {
   max-width: inherit;
 }
 
@@ -214,15 +214,38 @@ textarea {
   Padding-left: 1em;
 }
 
+.panel-user {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+}
+
+.formAvatar {
+  padding: 0 20%;
+  grid-column: 1;
+}
+.formAvatar .avatar {
+  background-color: #EDDCC3;
+  border-radius: 100%;
+  width: 12em;
+  height: 12em;
+}
+.formAvatar .avatar img {
+  border-radius: 100%;
+  width: 12em;
+  height: 12em;
+}
+
 .panel-form-user {
+  grid-column: 2;
   background: linear-gradient(180deg, rgba(25, 224, 237, 0.38) 0%, rgba(240, 158, 34, 0.25) 100%);
   border-radius: 40px;
   display: grid;
   grid-template-columns: 1fr;
-  padding: 2%;
-  margin: 2% 10%;
+  padding: 2% 3% 6% 6%;
 }
-
+.panel-form-user h1 {
+  Padding: 0 0 0.5em 0.5em;
+}
 .doubleInputContainer {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -234,8 +257,24 @@ textarea {
   margin: 2% 10%;
   display: flex;
 }
-.buttonContainerOuting button, .buttonContainerOuting .checkbox label, .checkbox .buttonContainerOuting label, .buttonContainerOuting .nav-btn-selected, .buttonContainerOuting .nav-profile-btn, .buttonContainerOuting .nav-btn, .buttonContainerOuting .btn-login-form, .buttonContainerOuting .btn-secondary, .buttonContainerOuting .button {
+.buttonContainerOuting button, .buttonContainerOuting .checkbox label, .checkbox .buttonContainerOuting label, .buttonContainerOuting .nav-btn-selected, .buttonContainerOuting .nav-profile-btn, .buttonContainerOuting .nav-btn, .buttonContainerOuting .btn-login-form, .buttonContainerOuting .btn-secondary, .buttonContainerOuting ::-webkit-file-upload-button, .buttonContainerOuting .button {
   margin-right: 2em;
+}
+
+.buttonContainerUser {
+  grid-column: 2;
+  margin-top: 5%;
+  display: flex;
+}
+.buttonContainerUser button, .buttonContainerUser .checkbox label, .checkbox .buttonContainerUser label, .buttonContainerUser .nav-btn-selected, .buttonContainerUser .nav-profile-btn, .buttonContainerUser .nav-btn, .buttonContainerUser .btn-login-form, .buttonContainerUser .btn-secondary, .buttonContainerUser ::-webkit-file-upload-button, .buttonContainerUser .button {
+  margin-right: 2em;
+}
+
+/*button file upload under user avatar*/
+#participant_photo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /*OUTING LIST FORM*/
@@ -260,7 +299,7 @@ textarea {
   width: 100%;
 }
 
-button, .checkbox label, .nav-btn-selected, .nav-profile-btn, .nav-btn, .btn-login-form, .btn-secondary, .button {
+button, .checkbox label, .nav-btn-selected, .nav-profile-btn, .nav-btn, .btn-login-form, .btn-secondary, .button, ::-webkit-file-upload-button {
   border-radius: 80px;
   border-color: #2d2929;
   opacity: 0.8;
@@ -280,14 +319,14 @@ button, .checkbox label, .nav-btn-selected, .nav-profile-btn, .nav-btn, .btn-log
   cursor: pointer;
   transition: 0.25s;
 }
-button:hover, .checkbox label:hover, .nav-btn-selected:hover, .nav-profile-btn:hover, .nav-btn:hover, .btn-login-form:hover, .btn-secondary:hover, .button:hover {
+button:hover, .checkbox label:hover, .nav-btn-selected:hover, .nav-profile-btn:hover, .nav-btn:hover, .btn-login-form:hover, .btn-secondary:hover, .button:hover, :hover::-webkit-file-upload-button {
   /* the "&" refers to the parent element, we  use it to concatenates selectors (= button:hover)*/
   background-color: rgba(41, 44, 45, 0.8);
   transition: 0.25s;
 }
 
 /*Use it to make other HTML tag look like our beloved buttons*/
-.button {
+.button, ::-webkit-file-upload-button {
   text-decoration: none;
   text-align: center;
 }

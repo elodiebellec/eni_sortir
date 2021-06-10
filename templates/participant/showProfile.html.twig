@@ -1,24 +1,45 @@
 {% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('style/composants/headers.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/composants/form.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/composants/buttons.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/composants/checkbox.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/composants/navbar.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/composants/card.css') }}">
+{% endblock %}
 
 {% block body %}
     {{ parent() }}
-    <div>
-        <div>
-            <img src = "{{asset('images/'~participant.photo)}}">
+    <div class="panel-user">
+        <div class="formAvatar">
+            <div class="avatar">
+                <img src = "{{asset('images/'~participant.photo)}}">
+            </div>
         </div>
+
         <div class="panel-form-user">
-            <h1> {{ participant.pseudo }}</h1>
-                <div>
-                    <div>Prénom : {{ participant.firstName }}</div>
-                    <div>Nom : {{ participant.lastName }}</div>
+            <h1>{{ participant.pseudo }}</h1>
+            <div class="doubleInputContainer">
+                <div class="left">
+                    <h3>Prénom :</h3>
+                    <h3>Nom :</h3>
+                    <h3>Téléphone :</h3>
+                    <h3>E mail :</h3>
+                    <h3>Ville de rattachement :</h3>
                 </div>
-                <div>Téléphone : {{ participant.phone }}</div>
-                <div>Email : {{ participant.mail }}</div>
-                <div>Ville de rattachement : {{ participant.site.name }}</div>
+                <div class="right">
+                    <h3>{{ participant.firstName }}</h3>
+                    <h3>{{ participant.lastName }}</h3>
+                    <h3>{{ participant.phone }}</h3>
+                    <h3>{{ participant.mail }}</h3>
+                    <h3>{{ participant.site.name }}</h3>
+                </div>
+            </div>
         </div>
-            <a href="{{ path('outing') }}" class="button">Retour</a>
+        <div class="buttonContainerUser">
+            <a href="{{ path('outing') }}" class="button btn-secondary">Annuler</a>
+        </div>
+
     </div>
-
 {% endblock %}
-
-
