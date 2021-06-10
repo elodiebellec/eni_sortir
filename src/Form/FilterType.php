@@ -66,21 +66,23 @@ class FilterType extends AbstractType
             ])
             ->add('name',SearchType::class, [
                 "required"=>false,
-                "label"=>" "
+                "label"=>" ",
+                "attr" => ["class"=>"inputSearch"]
             ])
             ->add('dateBeginFilter', DateType::class, [
                 "required"=>false,
-                "label"=>"De",
+                "label"=>"Du",
                 "html5"=>true,
                 "empty_data" =>null ,
-                'format' => 'dd-MM-yyyy'
+                /*"widget" => "single_text"*/
+                'format' => 'dd MM yyyy'
             ])
             ->add('dateEndFilter', DateType::class, [
                 "required"=>false,
-                "label"=>"à",
+                "label"=>"au",
                 "html5"=>true,
                 "empty_data" =>null,
-                'format' => 'dd-MM-yyyy'
+                'format' => 'dd MM yyyy'
             ])
             ->add('isPlanner', ChoiceType::class, [
                 "required"=>false,
