@@ -36,16 +36,32 @@
         </div>
     </div>
 
-    <div>
+    <div class = "single-outing-participants">
         {%  set participants = outing.participants %}
-        <select >
-            <option >--Liste de participants inscrits--</option>
+        <div style="width:30%;height:200px;overflow:scroll;">
 
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="2">Pseudo</th>
+                    <th colspan="2"> Nom </th>
+                </tr>
+            </thead>
+            <tbody>
+
+
+            <tr>
             {% for participant in participants  %}
-                <option> {{ participant.pseudo }}  <a href="{{ path('participant_profile_show',{'id':participant.id }) }}">  {{ participant.firstName }}  {{ participant.lastName }}</a>  </option>
-
+                <td colspan="2"> {{ participant.pseudo }}</td>
+                <td colspan="2">  <a href="{{ path('participant_profile_show',{'id':participant.id }) }}">  {{ participant.firstName }}  {{ participant.lastName }}</a></td>
+            </tr>
             {% endfor %}
-        </select>
+
+            </tbody>
+        </table>
+
+    </div>
+
     </div>
 
     <a href="{{ path('outing') }}" class="button">Retour</a>

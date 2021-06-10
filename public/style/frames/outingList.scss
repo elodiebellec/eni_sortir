@@ -68,3 +68,11 @@ label {
   align-items: center;
   justify-content: center;
 }
+
+@media  (max-width: 400px){
+
+  .outing-list-form-section-phone {
+    visibility: hidden;
+
+  }
+}

@@ -125,7 +125,7 @@ input::placeholder, .input::placeholder {
   background: linear-gradient(123.61deg, rgba(21, 106, 207, 0.36) 17.46%, rgba(214, 130, 53, 0.24) 61.63%, rgba(214, 53, 140, 0.24) 86.37%);
   border-radius: 40px;
   display: grid;
-  grid-template-columns: 1fr, 1fr;
+  grid-template-columns: 1fr 1fr;
   padding: 2%;
   margin: 2% 10%;
 }
@@ -138,5 +138,6 @@ input::placeholder, .input::placeholder {
 .panel-form .right {
   grid-column: 2;
 }
+
 
 /*# sourceMappingURL=form.css.map */

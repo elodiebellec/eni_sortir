@@ -97,7 +97,7 @@ h3 {
     align-items: center;
   }
 }
-@media (max-device-width: 400px) {
+@media (max-device-width: 450px) {
   .nav-items-phone {
     visibility: hidden;
   }

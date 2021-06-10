@@ -91,4 +91,10 @@ label {
   justify-content: center;
 }
 
+@media (max-width: 400px) {
+  .outing-list-form-section-phone {
+    visibility: hidden;
+  }
+}
+
 /*# sourceMappingURL=outingList.css.map */
