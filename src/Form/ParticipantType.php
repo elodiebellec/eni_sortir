@@ -37,17 +37,18 @@ class ParticipantType extends AbstractType
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter a password',
+                        'message' => 'Merci d\'entrer un mot de passe',
                     ]),
                     new Length([
                         'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        'minMessage' => 'Votre mot de passe doit contenir au moins {{ limit }} caractères',
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),
                 ],
             ])
             ->add('photo', FileType::class, [
+
             'mapped' => false,
             'required'=>false,
                 'label'=> false,
@@ -55,7 +56,7 @@ class ParticipantType extends AbstractType
                 new Image(
                     [
                         'maxSize' => '7024k',
-                        'mimeTypesMessage' => "Image format not allowed !"
+                        'mimeTypesMessage' => "Erreur de format !"
                     ]
 
                 )

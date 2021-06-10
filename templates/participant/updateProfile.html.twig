@@ -22,15 +22,27 @@
         </div>
 
         <div class="panel-form-user">
+            <h1>Mon profil</h1>
+
             {{ form_row(updateForm.pseudo) }}
             <div class="doubleInputContainer">
-                <div class="left">{{ form_row(updateForm.lastName) }}</div>
-                <div class="right">{{ form_row(updateForm.firstName) }}</div>
+                <div class="left">
+                    <h3 class="labelInput">Nom</h3>
+                    {{ form_row(updateForm.lastName, {'label':false}) }}
+                </div>
+                <div class="right">
+                    <h3 class="labelInput">Prénom</h3>
+                    {{ form_row(updateForm.firstName, {'label':false}) }}
+                </div>
             </div>
-            {{ form_row(updateForm.phone) }}
-            {{ form_row(updateForm.mail) }}
-            {{ form_row(updateForm.plainPassword) }}
-            {{ form_row(updateForm.site) }}
+            <h3 class="labelInput">Numéro de téléphone</h3>
+            {{ form_row(updateForm.phone, {'label':false}) }}
+            <h3 class="labelInput">E mail</h3>
+            {{ form_row(updateForm.mail, {'label':false}) }}
+            <h3 class="labelInput">Mot de passe</h3>
+            {{ form_row(updateForm.plainPassword, {'label':false}) }}
+            <h3 class="labelInput">Ville de rattachement</h3>
+            {{ form_row(updateForm.site, {'label':false}) }}
        </div>
         <div class="buttonContainerUser">
             {{ form_row(updateForm.submit) }}

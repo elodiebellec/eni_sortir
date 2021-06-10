@@ -209,7 +209,7 @@ $padding-login-form-field   : 18px;
 }
 
 .formAvatar{
-  margin-left: 6em;
+  padding: 0 20%;
   grid-column: 1;
   .avatar{
     background-color: #EDDCC3;
@@ -225,7 +225,9 @@ $padding-login-form-field   : 18px;
   display: grid;
   grid-template-columns: 1fr;
   padding: 2% 3% 6% 6%;
-
+  h1{
+    Padding: 0 0 0.5em 0.5em;
+  }
 
   label{
     @extend .labelInput;
@@ -256,6 +258,14 @@ $padding-login-form-field   : 18px;
     margin-right: 2em;
   }
 }
+
+/*button file upload under user avatar*/
+#participant_photo{
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /*OUTING LIST FORM*/
 .form-input{
   display:flex;

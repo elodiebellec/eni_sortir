@@ -220,7 +220,7 @@ textarea {
 }
 
 .formAvatar {
-  margin-left: 6em;
+  padding: 0 20%;
   grid-column: 1;
 }
 .formAvatar .avatar {
@@ -237,6 +237,9 @@ textarea {
   display: grid;
   grid-template-columns: 1fr;
   padding: 2% 3% 6% 6%;
+}
+.panel-form-user h1 {
+  Padding: 0 0 0.5em 0.5em;
 }
 .doubleInputContainer {
   display: grid;
@@ -260,6 +263,13 @@ textarea {
 }
 .buttonContainerUser button, .buttonContainerUser .button {
   margin-right: 2em;
+}
+
+/*button file upload under user avatar*/
+#participant_photo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /*OUTING LIST FORM*/
