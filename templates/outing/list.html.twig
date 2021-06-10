@@ -8,168 +8,197 @@
     <link rel="stylesheet" href="{{ asset('style/composants/buttons.css') }}">
     <link rel="stylesheet" href="{{ asset('style/composants/navbar.css') }}">
     <link rel="stylesheet" href="{{ asset('style/frames/outingList.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/composants/card.css') }}">
 {% endblock %}
 {% block body %}
-{{ parent() }}
-<div class="outing-list-page-container page-container">
+    {{ parent() }}
+    <div class="outing-list-page-container page-container">
 
-    <section class="outing-list-form-section outing-list-form-section-phone">
+        <section class="outing-list-form-section outing-list-form-section-phone">
 
-
-
-
-        <div class="outing-list-form-container">
 
             {{ form_start(formulaire, {'attr': {'class':'outing-list-form'}}) }}
 
             <div class="outing-form-pagination" style="display:none"><!-- Désactivé provisoirement-->
                 {% if currentPage > 1 %}
-                <input type="submit" name="pageButtton" value="{{ currentPage-1 }} ">
+                    <input type="submit" name="pageButtton" value="{{ currentPage-1 }} ">
                 {% endif %}
 
-        {% if currentPage < maxPage %}
-            {% if currentPage == 1 %}
-            <div></div>
-            {% endif %}
-
-
-                <input type="submit" name="pageButtton" value="{{ currentPage+1 }} ">
-            {% endif %}
-            </div>
-
-            <div class = "outing-list-form-fields">
-                <div class = "outing-list-search-parameters">
-                    <div class = "outing-list-form-input-fields">
-                        <div class = "form-entry">
-                            <div class ="form-input">
-                                <div class=" label"> {{ form_label(formulaire.site) }} </div>
-                                <div > {{ form_widget(formulaire.site)}} </div>
-                            </div >
-                            <div class = "error"> {{ form_errors(formulaire.site) }} </div>
-                        </div>
-
-                        <div class = "form-entry">
-                            <div class ="form-input">
-                                <div class="label"> {{ form_label(formulaire.name) }} </div>
-                                <div > {{ form_widget(formulaire.name)}} </div>
-                            </div >
-
-                            <div class = "error"> {{ form_errors(formulaire.name) }} </div>
-                        </div>
-
-
-                        <div class = "form-entry">
-                            <div class = "form-input">
-                                <div class = "label"> {{ form_label(formulaire.dateBeginFilter) }} </div>
-                                <div > {{ form_widget(formulaire.dateBeginFilter)}} </div>
-                            </div >
-
-                            <div class = "error"> {{ form_errors(formulaire.dateBeginFilter) }} </div>
-                        </div>
-
-                        <div class = "form-entry">
-                            <div class = "form-input">
-                                <div class="label"> {{ form_label(formulaire.dateEndFilter) }} </div>
-                                <div > {{ form_widget(formulaire.dateEndFilter)}} </div>
-                            </div >
-
-                            <div class = "error"> {{ form_errors(formulaire.dateEndFilter) }} </div>
-                        </div>
-                    </div>
-                    <div class = "outing-list-form-tag-fields">
-                        <div class = "form-entry">
-                            <div class = "form-input">
-                                <div> {{ form_widget(formulaire.isPlanner)}} </div>
-                                <div class = "label"> {{ form_label(formulaire.isPlanner) }} </div>
-
-                            </div >
-
-                            <div class = "error"> {{ form_errors(formulaire.isPlanner) }} </div>
-                        </div>
-
-
-                        <div class = "form-entry">
-                            <div class = "form-input">
-                                <div class = "label"> {{ form_label(formulaire.isRegistered) }} </div>
-                                <div> {{ form_widget(formulaire.isRegistered)}} </div>
-                            </div >
-
-                            <div class = "error"> {{ form_errors(formulaire.isRegistered) }} </div>
-                        </div>
-
-                        <div class = "form-entry">
-                            <div class = "form-input">
-                                <div class = "label"> {{ form_label(formulaire.isNotRegistered) }} </div>
-                                <div> {{ form_widget(formulaire.isNotRegistered)}} </div>
-                            </div >
-
-                            <div class = "error"> {{ form_errors(formulaire.isNotRegistered) }} </div>
-                        </div>
-
-                        <div class = "form-entry" >
-                            <div class = "form-input">
-                                <div class = "label"> {{ form_label(formulaire.isOutDated) }}    </div>
-                                <div>  {{ form_widget(formulaire.isOutDated)}}   </div>
-                            </div >
-
-                            <div class = "error">  {{ form_errors(formulaire.isOutDated)}}  </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="outing-list-search-button-container">
-                    <button type="submit" >Rechercher</button>
-                </div>
-            </div>
-
-            {{  form_end (formulaire)}}
-        </div>
-        <div class="outing-list-side-options">
-            <div class="user-infos">
-                <p> Date du jour : {{ "now"|date("d/m/Y")  }} </p>
-                {% if user is defined and user is not null %}
-                    <p> Participant: {{ user.firstname }} </p>
+                {% if currentPage < maxPage %}
+                    {% if currentPage == 1 %}
+                        <div></div>
+                    {% endif %}
+                    <input type="submit" name="pageButtton" value="{{ currentPage+1 }} ">
                 {% endif %}
             </div>
 
-            <div class="create-outing">
-                <button>Créer une sortie</button>
+
+            <div class="outing-list-search-parameters">
+
+                <div class="form-input">
+                    <div class=" label"> {{ form_label(formulaire.site) }} </div>
+                    <div> {{ form_widget(formulaire.site) }} </div>
+                    <div class="error"> {{ form_errors(formulaire.site) }} </div>
+                </div>
+
+
+                <div class="form-input">
+                    <div class="label"> {{ form_label(formulaire.name) }} </div>
+                    <div> {{ form_widget(formulaire.name) }} </div>
+                    <div class="error"> {{ form_errors(formulaire.name) }} </div>
+                </div>
+
+
+                <div class="form-input">
+                    <div class="label"> {{ form_label(formulaire.dateBeginFilter) }} </div>
+                    <div> {{ form_widget(formulaire.dateBeginFilter) }} </div>
+                    <div class="error"> {{ form_errors(formulaire.dateBeginFilter) }} </div>
+                </div>
+
+
+                <div class="form-input">
+                    <div class="label"> {{ form_label(formulaire.dateEndFilter) }} </div>
+                    <div> {{ form_widget(formulaire.dateEndFilter) }} </div>
+                    <div class="error"> {{ form_errors(formulaire.dateEndFilter) }} </div>
+                </div>
+
             </div>
-        </div>
-    </section>
 
-    <section class="outing-list-cards-section">
-        <div>
+            <div class="outing-list-form-tag-fields">
+                <div class="form-input">
+                    <div> {{ form_widget(formulaire.isPlanner) }} </div>
+                    <div class="label"> {{ form_label(formulaire.isPlanner) }} </div>
+                    <div class="error"> {{ form_errors(formulaire.isPlanner) }} </div>
+                </div>
 
-                <table>
-                    <thead>
-                    <tr>
-                        <th colspan="2">Nom de la sortie</th>
-                        <th colspan="2">Date de la sortie</th>
-                        <th colspan="2">Clôture</th>
-                        <th colspan="2">inscrits/places</th>
-                        <th colspan="2">Etat</th>
-                        <th colspan="2">Inscrit</th>
-                        <th colspan="2">Organisateur</th>
-                    <th colspan="2">Actions</th>
-                </tr>
-                </thead>
-                <tbody>
 
-            {% for outing in outings %}
+                <div class="form-input">
+                    <div class="label"> {{ form_label(formulaire.isRegistered) }} </div>
+                    <div> {{ form_widget(formulaire.isRegistered) }} </div>
+                    <div class="error"> {{ form_errors(formulaire.isRegistered) }} </div>
+                </div>
+
+                <div class="form-input">
+                    <div class="label"> {{ form_label(formulaire.isNotRegistered) }} </div>
+                    <div> {{ form_widget(formulaire.isNotRegistered) }} </div>
+                    <div class="error"> {{ form_errors(formulaire.isNotRegistered) }} </div>
+                </div>
+
+                <div class="form-input">
+                    <div class="label"> {{ form_label(formulaire.isOutDated) }}    </div>
+                    <div>  {{ form_widget(formulaire.isOutDated) }}   </div>
+                    <div class="error">  {{ form_errors(formulaire.isOutDated) }}  </div>
+                </div>
+            </div>
+
+
+            <div class="outing-list-button-container">
+                <button type="submit">Rechercher</button>
+            </div>
+
+            {{ form_end (formulaire) }}
+
+
+            <div class="outing-list-side-options">
+                <div class="user-infos">
+                    <p> {{ "now"|date("d/m/Y") }} </p>
+                    {% if user is defined and user is not null %}
+                        <p> {{ user.firstname }} </p>
+                    {% endif %}
+                </div>
+
+                <div class="outing-list-button-container">
+                    <a href="{{ path('outing_create') }}">
+                        <button>Créer une sortie</button>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="outing-list-cards-section">
+            <div class="outing-list-cards-container">
+                {% for outing in outings %}
 
                 {% if outing.state.label== "Créée" and app.user.pseudo != outing.planner.pseudo %}
 
                 {% else %}
 
+                    <div class="card">
+
+                        <div class="card-head" title="{{ outing.name }}">
+                            <h1>{{ outing.name }}</h1>
+                            <div class="date">{{ outing.dateBegin|date ('d/m/y') }}</div>
+                        </div>
+
+                        <div class="card-body" title=".card-body">
+                            <p> {{ outing.state.label }}</p>
+                            <p> {{ outing.planner.firstName }}</p>
+                            {% if app.user.outings.contains(outing) %}
+                                <p>Inscrit</p>
+                            {% else %}
+                                <p>Non-inscrit</p>
+                            {% endif %}
+                        </div>
+
+                        <div class="btn-group" title=".btn-group">
+
+                            {% if outing.state.label == "Créée" or outing.state.label == "Activité historisée" %}
+
+                            {% else %}
+
+                                <a href="{{ path('outing_show', {'id':outing.id}) }}">
+                                    <button>Afficher</button>
+                                </a>
+                            {% endif %}
+
+                            {% if app.user.outings.contains(outing) and (outing.state.label == "Ouverte" or outing.state.label == "Clôturée") %}
+
+                                <a href="{{ path('outing_removeParticipant',{'id':outing.id}) }}">
+                                    <button>Se desister</button>
+                                </a>
+
+                            {% elseif outing.state.label == "Ouverte" and outing.planner != app.user %}
+
+                                <a href="{{ path('outing_addParticipant',{'id':outing.id}) }}">
+                                    <button>S'inscrire</button>
+                                </a>
+
+                            {% endif %}
+
+                            {% if (app.user.pseudo == outing.planner.pseudo) and outing.state.label == "Créée" %}
+
+                                <a href="{{ path('outing_update', {'id':outing.id}) }}">
+                                    <button>Modifier </button>
+                                </a>
+                                <a href="{{ path('outing_publish', {'id':outing.id}) }}">
+                                    <button>Publier </button>
+                                </a>
+
+                            {% endif %}
+
+                            {% if ((app.user.pseudo == outing.planner.pseudo) or ('ROLE_ADMIN' in app.user.roles))and (outing.state.label == "Ouverte" or outing.state.label == "Clôturée") %}
 
 
+                                <a href="{{ path('outing_cancel', {'id':outing.id}) }}">
+                                    <button>Annuler </button>
+                                </a>
 
-                    <tr>
-                        <td colspan="2">{{ outing.name}}</td>
-                        <td colspan="2">{{ outing.dateBegin|date ('d/m/y')}}</td>
-                        <td colspan="2">{{ outing.dateEnd|date ('d/m/y')}}</td>
-                        <td colspan="2">{{ outing.participants|length}} / {{ outing.maxRegistration }}</td>
-                        <td colspan="2">{{ outing.state.label}}</td>
+                            {% endif %}
+                        </div>
+
+                        <div class="card-feet" title=".card-feet">
+                            <img class="participant-photo-small" src="{{ asset('images/'~outing.planner.photo) }}">
+                            <div class="participant-count">{{ outing.participants|length }}/ {{ outing.maxRegistration }}</div>
+                        </div>
+                    </div>
+
+{#
+                        <tr>
+                        <td colspan="2">{{ outing.name }}</td>
+                        <td colspan="2">{{ outing.dateBegin|date ('d/m/y') }}</td>
+                        <td colspan="2">{{ outing.dateEnd|date ('d/m/y') }}</td>
+                        <td colspan="2">{{ outing.participants|length }} / {{ outing.maxRegistration }}</td>
+                        <td colspan="2">{{ outing.state.label }}</td>
 
 
                         <td colspan="2">
@@ -181,46 +210,48 @@
                             {% endif %}
                         </td>
 
-                    <td colspan="2">  <a href="{{ path('participant_profile_show',{'id':outing.planner.id }) }}">{{ outing.planner.lastName }} </a> </td>
+                        <td colspan="2"><a
+                                    href="{{ path('participant_profile_show',{'id':outing.planner.id }) }}">{{ outing.planner.lastName }} </a>
+                        </td>
 
 
-                    <td colspan="2">
-                        <div class="action_buttons">
+                        <td colspan="2">
+                            <div class="action_buttons">
 
-                            {% if outing.state.label == "Créée" or outing.state.label == "Activité historisée" %}
+                                {% if outing.state.label == "Créée" or outing.state.label == "Activité historisée" %}
 
                                 {% else %}
 
                                     <a href="{{ path('outing_show', {'id':outing.id}) }}"> afficher </a>
-                            {% endif %}
+                                {% endif %}
 
-                            {% if app.user.outings.contains(outing) and (outing.state.label == "Ouverte" or outing.state.label == "Clôturée")%}
+                                {% if app.user.outings.contains(outing) and (outing.state.label == "Ouverte" or outing.state.label == "Clôturée") %}
 
-                                <a href="{{ path('outing_removeParticipant',{'id':outing.id}) }}">
-                                    Se desister
-                                </a>
+                                    <a href="{{ path('outing_removeParticipant',{'id':outing.id}) }}">
+                                        Se desister
+                                    </a>
 
-                            {% elseif outing.state.label == "Ouverte" and outing.planner != app.user %}
+                                {% elseif outing.state.label == "Ouverte" and outing.planner != app.user %}
 
-                                <a href="{{ path('outing_addParticipant',{'id':outing.id}) }}">
-                                    S'inscrire
-                                </a>
+                                    <a href="{{ path('outing_addParticipant',{'id':outing.id}) }}">
+                                        S'inscrire
+                                    </a>
 
-                            {% endif %}
+                                {% endif %}
 
-                            {% if (app.user.pseudo == outing.planner.pseudo) and outing.state.label == "Créée" %}
+                                {% if (app.user.pseudo == outing.planner.pseudo) and outing.state.label == "Créée" %}
 
-                                <a href="{{ path('outing_update', {'id':outing.id}) }}"> Modifier </a>
-                                <a href="{{ path('outing_publish', {'id':outing.id}) }}"> Publier </a>
+                                    <a href="{{ path('outing_update', {'id':outing.id}) }}"> Modifier </a>
+                                    <a href="{{ path('outing_publish', {'id':outing.id}) }}"> Publier </a>
 
-                            {% endif %}
+                                {% endif %}
 
-                            {% if ((app.user.pseudo == outing.planner.pseudo) or ('ROLE_ADMIN' in app.user.roles))and (outing.state.label == "Ouverte" or outing.state.label == "Clôturée") %}
+                                {% if ((app.user.pseudo == outing.planner.pseudo) or ('ROLE_ADMIN' in app.user.roles))and (outing.state.label == "Ouverte" or outing.state.label == "Clôturée") %}
 
 
-                                <a href="{{ path('outing_cancel', {'id':outing.id}) }}"> Annuler </a>
+                                    <a href="{{ path('outing_cancel', {'id':outing.id}) }}"> Annuler </a>
 
-                            {% endif %}
+                                {% endif %}
 
                             </div>
 
@@ -229,54 +260,54 @@
                     {% endif %}
                     </tr>
 
-                {% endfor %}
+
                 </tbody>
-            </table>
+                </table>
+
+        #}          {% endif %}
+            {% endfor %}
+            </div>
 
 
-        </div>
+            <p> Page n° {{ currentPage }} sur {{ maxPage }}</p>
 
-        <p> <a href="{{ path('outing_create') }}"> Créer une sortie </a></p>
+            <div> {{ maxOutings }} résultats</div>
 
-        <p> Page n° {{ currentPage }} sur {{ maxPage }}</p>
+        </section>
+    </div>
 
-        <div> {{ maxOutings }} résultats</div>
+    <script>
+        /* const navSelectedButtons = document.getElementById('nav-cities');
+         navSelectedButtons.classList.remove('nav-btn');
+         navSelectedButtons.classList.add('nav-btn-selected');*/
 
-    </section>
-</div>
-<script>
-const navSelectedButtons = document.getElementById('nav-home');
-navSelectedButtons.classList.remove('nav-btn');
-navSelectedButtons.classList.add('nav-btn-selected');
-
-/**
- * Checkboxes are label, (checkboxes are hidden, label command the check and un check)
- */
-const choices = [...document.getElementsByTagName("input")]
-    .filter(i => i.type === 'checkbox')
-    .map(el => ({
-        checkbox : el,
-        label : el.nextSibling
-    }))
-;
-choices.forEach(choice => {
-    choice.label.classList.add("unselected-filter-checkbox");
-    choice.checkbox.checked = false;
-    choice.checkbox.onclick = () => {
-        //console.log(choice.label.innerText);
-        //console.log(choice.checkbox.checked);
-
-        if(choice.checkbox.checked){
-            choice.label.classList.add("selected-filter-checkbox");
-            choice.label.classList.remove("unselected-filter-checkbox");
-        }
-        else{
+        /**
+         * Checkboxes are label, (checkboxes are hidden, label command the check and un check)
+         */
+        const choices = [...document.getElementsByTagName("input")]
+            .filter(i => i.type === 'checkbox')
+            .map(el => ({
+                checkbox: el,
+                label: el.nextSibling
+            }))
+        ;
+        choices.forEach(choice => {
             choice.label.classList.add("unselected-filter-checkbox");
-            choice.label.classList.remove("selected-filter-checkbox");
-        }
-    }
-})
+            choice.checkbox.checked = false;
+            choice.checkbox.onclick = () => {
+                //console.log(choice.label.innerText);
+                //console.log(choice.checkbox.checked);
+
+                if (choice.checkbox.checked) {
+                    choice.label.classList.add("selected-filter-checkbox");
+                    choice.label.classList.remove("unselected-filter-checkbox");
+                } else {
+                    choice.label.classList.add("unselected-filter-checkbox");
+                    choice.label.classList.remove("selected-filter-checkbox");
+                }
+            }
+        })
 
 
-</script>
+    </script>
 {% endblock %}

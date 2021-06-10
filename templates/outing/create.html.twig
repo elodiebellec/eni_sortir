@@ -25,28 +25,38 @@
         <div class="column left">
 
                 {{ form_row(outingForm.name) }}
-                {{ form_row(outingForm.dateBegin) }}
-                {{ form_row(outingForm.dateEnd) }}
             <div class="doubleInputContainer">
-                <div class="left smallInput">{{ form_row(outingForm.maxRegistration) }}</div>
-                <div class="right smallInput">{{ form_row(outingForm.duration) }}</div>
+                <div class="left">
+                <h3 class="labelDate">Date et heure de la sortie : </h3>
+                    {{ form_row(outingForm.dateBegin) }}
+                </div>
+                <div class="right">
+
+                <h3 class="labelDate">Date limite d'inscription : </h3>
+               {{ form_row(outingForm.dateEnd) }}
+                </div>
+            </div>
+            <div class="doubleInputContainer">
+                <div class="left">{{ form_row(outingForm.maxRegistration) }}</div>
+                <div class="right">{{ form_row(outingForm.duration) }}</div>
             </div>
                  {{ form_row(outingForm.description) }}
         </div>
         <div class="column right">
             <h3 class="primaryInformation">Ville organisatrice : {{ userSite.name }}</h3>
                     {{ form_row(outingForm.city) }}
-                    {{ form_row(outingForm.location) }}
+                    {{ form_row(outingForm.location, {'label':false}) }}
             <h3 class="secondaryInformation">Rue : <span id="street"></span></h3>
             <h3 class="secondaryInformation">Code postal : <span id="postalCode"></span> </h3>
             <h3 class="secondaryInformation">Latitude : <span id="latitude"></span></h3>
             <h3 class="secondaryInformation">Longitude : <span id="longitude"></span></h3>
         </div>
     </div>
+    <div class="buttonContainerOuting">
         {{ form_row(outingForm.save) }}
         {{ form_row(outingForm.saveAndAdd) }}
-        <a href="{{ path('outing') }}" class="button">Annuler</a>
-
+       <a href="{{ path('outing') }}" class="button btn-secondary">Annuler</a>
+    </div>
 
         {{ form_end(outingForm) }}
 

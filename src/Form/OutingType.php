@@ -51,10 +51,7 @@ class OutingType extends AbstractType
             ->add('dateBegin', DateTimeType::class, [
                 'html5' => true,
                 'widget' => 'single_text',
-                'label'=> false,
-                'attr' => array(
-                    'placeholder' => 'Date et heure de la sortie'
-                )
+                'label'=> false
             ])
             ->add('dateEnd', DateType::class, [
                 'html5' => true,
@@ -85,22 +82,14 @@ class OutingType extends AbstractType
             ->add('location', EntityType::class, [
                 'class' => location::class,
                 'choice_label' => 'name',
-
+                'placeholder' => 'Sélectionner une localisation'
             ])
 
-            //I try to add a list of city name with CollectionType but list is not diplayed
-            /*
-            ->add('city', CollectionType::class, [
-                'entry_type' => TextType::class,
-                'entry_options' => ['attr' => ['class' => 'name']],
-                'mapped' => false
-            ])
-           */
-            ->add('city', ChoiceType::class, ['choices'=>$citiesNameList, 'label'=>false, 'mapped' => false])
+            ->add('city', ChoiceType::class, ['choices'=>$citiesNameList, 'label'=>false, 'mapped' => false, 'placeholder' => 'Sélectionner une ville'])
 
 
             ->add('save', SubmitType::class, ['label' => 'Enregistrer'])
-            ->add('saveAndAdd', SubmitType::class, ['label'=>'Publier'])
+            ->add('saveAndAdd', SubmitType::class, ['label'=>'Publier', 'attr' => ['class' => 'btn-secondary']])
             ->getForm();
 
 

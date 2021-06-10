@@ -16,7 +16,6 @@
     border  : none;
     outline : none;/*Create a border when selected TODO: decide a style for it */
 
-    max-width: 400px;
     width: 90%; /*Inputs fill all the width of their containers*/
     background-color: $input-bg-color;
     @include standard-txt-regular;
@@ -30,13 +29,23 @@ input, select{
   height: 2.6em;
 }
 
+.labelDate{
+   @include important-txt-regular;
+   color: rgba(45, 41, 41, 0.8);
+  padding-left: 2em;
+ }
+
+select{
+  padding-right: 40px;
+  .custom-dropdown__select {
+    padding-right: 1em; /* accommodate with the pseudo elements for the dropdown arrow */
+  }
+}
+
 .input{
   @extend input;
 }
 
-.smallInput{
-  max-width: 10px;
-}
 
 textarea {
   height: 10em;
@@ -172,12 +181,11 @@ $padding-login-form-field   : 18px;
   background: linear-gradient(123.61deg, rgba(21, 106, 207, 0.36) 17.46%, rgba(214, 130, 53, 0.24) 61.63%, rgba(214, 53, 140, 0.24) 86.37%);
   border-radius: 40px;
   display: grid;
-  grid-template-columns: (1fr, 1fr);
+  grid-template-columns: 1fr 1fr;
   padding: 2%;
   margin: 2% 10%;
     .column{
       padding: 2%;
-
     }
 
   .left{
@@ -186,21 +194,49 @@ $padding-login-form-field   : 18px;
   .right{
     grid-column: 2;
   }
-
+  h1{
+    Padding-left: 1em;
+  }
 }
 
 .panel-form-user {
   background: linear-gradient(180deg, rgba(25, 224, 237, 0.38) 0%, rgba(240, 158, 34, 0.25) 100%);;
   border-radius: 40px;
   display: grid;
-  grid-template-columns: (1fr);
+  grid-template-columns: 1fr;
   padding: 2%;
   margin: 2% 10%;
 }
 
 .doubleInputContainer {
   display: grid;
-  grid-template-columns: (1fr, 1fr);
+  grid-template-columns: 1fr 1fr;
+  width: 95%;
 }
 
+/*------------BUTTON-CONTAINERS-------------*/
+
+.buttonContainerOuting {
+  margin: 2% 10%;
+  display: flex;
+  button, .button{
+    margin-right: 2em;
+  }
+}
+/*OUTING LIST FORM*/
+.form-input{
+  .label{
+    position: absolute;
+    z-index: 5000;
+  }
+  div{
+    input,select{
+      margin:auto;
+      padding:6px;
+      margin-block-start: 12px;
+      width:80%;
+      height: calc(100% - 12px);
+    }
+  }
+}
 

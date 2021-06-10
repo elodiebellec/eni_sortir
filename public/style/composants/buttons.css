@@ -41,7 +41,6 @@ input, .input, textarea, select {
   border: none;
   outline: none;
   /*Create a border when selected TODO: decide a style for it */
-  max-width: 400px;
   width: 90%;
   /*Inputs fill all the width of their containers*/
   background-color: rgba(255, 253, 255, 0.7);
@@ -62,8 +61,23 @@ input, .input, select {
   height: 2.6em;
 }
 
-.smallInput {
-  max-width: 10px;
+.labelDate {
+  font-family: "Signika", sans-serif;
+  font-weight: bold;
+  font-style: normal;
+  font-variant-caps: small-caps;
+  color: #232020;
+  font-size: 16px;
+  color: rgba(45, 41, 41, 0.8);
+  padding-left: 2em;
+}
+
+select {
+  padding-right: 40px;
+}
+select .custom-dropdown__select {
+  padding-right: 1em;
+  /* accommodate with the pseudo elements for the dropdown arrow */
 }
 
 textarea {
@@ -178,7 +192,7 @@ textarea {
   background: linear-gradient(123.61deg, rgba(21, 106, 207, 0.36) 17.46%, rgba(214, 130, 53, 0.24) 61.63%, rgba(214, 53, 140, 0.24) 86.37%);
   border-radius: 40px;
   display: grid;
-  grid-template-columns: 1fr, 1fr;
+  grid-template-columns: 1fr 1fr;
   padding: 2%;
   margin: 2% 10%;
 }
@@ -190,6 +204,9 @@ textarea {
 }
 .panel-form-outing .right {
   grid-column: 2;
+}
+.panel-form-outing h1 {
+  Padding-left: 1em;
 }
 
 .panel-form-user {
@@ -203,7 +220,30 @@ textarea {
 
 .doubleInputContainer {
   display: grid;
-  grid-template-columns: 1fr, 1fr;
+  grid-template-columns: 1fr 1fr;
+  width: 95%;
+}
+
+/*------------BUTTON-CONTAINERS-------------*/
+.buttonContainerOuting {
+  margin: 2% 10%;
+  display: flex;
+}
+.buttonContainerOuting button, .buttonContainerOuting .checkbox label, .checkbox .buttonContainerOuting label, .buttonContainerOuting .nav-btn-selected, .buttonContainerOuting .nav-profile-btn, .buttonContainerOuting .nav-btn, .buttonContainerOuting .btn-login-form, .buttonContainerOuting .btn-secondary, .buttonContainerOuting .button {
+  margin-right: 2em;
+}
+
+/*OUTING LIST FORM*/
+.form-input .label {
+  position: absolute;
+  z-index: 5000;
+}
+.form-input div input, .form-input div .input, .form-input div select {
+  margin: auto;
+  padding: 6px;
+  margin-block-start: 12px;
+  width: 80%;
+  height: calc(100% - 12px);
 }
 
 button, .checkbox label, .nav-btn-selected, .nav-profile-btn, .nav-btn, .btn-login-form, .btn-secondary, .button {
@@ -233,6 +273,11 @@ button:hover, .checkbox label:hover, .nav-btn-selected:hover, .nav-profile-btn:h
 }
 
 /*Use it to make other HTML tag look like our beloved buttons*/
+.button {
+  text-decoration: none;
+  text-align: center;
+}
+
 .btn-secondary {
   background-color: #d3d4d4;
   color: #232020;
@@ -318,8 +363,16 @@ button:hover, .checkbox label:hover, .nav-btn-selected:hover, .nav-profile-btn:h
 .checkbox label {
   font-size: 15px;
   font-family: "Open Sans", sans-serif;
+  font-size: 13px;
   display: block;
   text-align: center;
+  padding: 4px;
+  margin: auto;
+  width: auto;
+  min-width: 0;
+  min-height: 0;
+  max-width: 80%;
+  height: calc(100% - 12px);
 }
 .checkbox input[type=checkbox], .checkbox [type=checkbox].input {
   color: transparent;
@@ -327,13 +380,12 @@ button:hover, .checkbox label:hover, .nav-btn-selected:hover, .nav-profile-btn:h
   visibility: hidden;
   opacity: 0;
   display: block;
-  padding: 0;
   margin: 0;
   border: none;
   outline: none;
   width: 0;
-  padding-inline: 80px;
   padding: 30px;
+  padding-inline: 80px;
 }
 
 /*# sourceMappingURL=buttons.css.map */
