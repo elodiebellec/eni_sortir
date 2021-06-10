@@ -302,7 +302,7 @@ class Participant implements UserInterface
 
     public function getPhoto(): ?string
     {
-        return $this->photo;
+        return $this->photo ?? "test_avatar.png";
     }
 
     public function setPhoto(?string $photo): self
