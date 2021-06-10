@@ -25,11 +25,20 @@
         <div class="column left">
 
                 {{ form_row(outingForm.name) }}
-                {{ form_row(outingForm.dateBegin) }}
-                {{ form_row(outingForm.dateEnd) }}
             <div class="doubleInputContainer">
-                <div class="left smallInput">{{ form_row(outingForm.maxRegistration) }}</div>
-                <div class="right smallInput">{{ form_row(outingForm.duration) }}</div>
+                <div class="left">
+                <h3 class="labelDate">Date et heure de la sortie : </h3>
+                    {{ form_row(outingForm.dateBegin) }}
+                </div>
+                <div class="right">
+
+                <h3 class="labelDate">Date limite d'inscription : </h3>
+               {{ form_row(outingForm.dateEnd) }}
+                </div>
+            </div>
+            <div class="doubleInputContainer">
+                <div class="left">{{ form_row(outingForm.maxRegistration) }}</div>
+                <div class="right">{{ form_row(outingForm.duration) }}</div>
             </div>
                  {{ form_row(outingForm.description) }}
         </div>

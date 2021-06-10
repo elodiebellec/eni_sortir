@@ -29,6 +29,12 @@ input, select{
   height: 2.6em;
 }
 
+.labelDate{
+   @include important-txt-regular;
+   color: rgba(45, 41, 41, 0.8);
+  padding-left: 2em;
+ }
+
 select{
   padding-right: 40px;
   .custom-dropdown__select {
@@ -188,7 +194,9 @@ $padding-login-form-field   : 18px;
   .right{
     grid-column: 2;
   }
-
+  h1{
+    Padding-left: 1em;
+  }
 }
 
 .panel-form-user {

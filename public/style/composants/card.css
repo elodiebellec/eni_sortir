@@ -61,6 +61,17 @@ input, .input, select {
   height: 2.6em;
 }
 
+.labelDate {
+  font-family: "Signika", sans-serif;
+  font-weight: bold;
+  font-style: normal;
+  font-variant-caps: small-caps;
+  color: #232020;
+  font-size: 16px;
+  color: rgba(45, 41, 41, 0.8);
+  padding-left: 2em;
+}
+
 select {
   padding-right: 40px;
 }
@@ -193,6 +204,9 @@ textarea {
 }
 .panel-form-outing .right {
   grid-column: 2;
+}
+.panel-form-outing h1 {
+  Padding-left: 1em;
 }
 
 .panel-form-user {
