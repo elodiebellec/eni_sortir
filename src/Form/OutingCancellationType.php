@@ -30,7 +30,7 @@ class OutingCancellationType extends AbstractType
         $builder
             ->add('cancellationReason', textType::class, [
                 'required' => false,
-                'label'=> 'Motif'
+                'label'=> false,
             ])
 
             ->add('save', SubmitType::class, ['label' => 'Enregistrer'])
