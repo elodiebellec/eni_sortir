@@ -24,6 +24,11 @@
       @include important-txt-regular;
       color: rgba(45, 41, 41, 0.8);
     }
+    &:hover,&:focus{
+      -webkit-box-shadow:inset 0 0 10px rgba(45, 41, 41, 0.2);
+      -moz-box-shadow:inset 0 0 10px rgba(45, 41, 41, 0.2);
+      box-shadow:inset 0 0 10px rgba(45, 41, 41, 0.2);
+    }
   }
 input, select{
   height: 2.6em;
