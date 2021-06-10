@@ -29,12 +29,13 @@ $card-height: 15rem;
     h2,
     h3,
     h4 {
-      @include important-txt-big;
+      @include important-txt-regular;
+
     }
 
     .date {
       @include italic-txt-small;
-      margin-block-end: $font-size-big;
+      font-size: 10px;
     }
   }
 
@@ -47,6 +48,7 @@ $card-height: 15rem;
     justify-content: space-evenly;
     p {
       @include standard-txt-regular;
+      font-size: 12px;
     }
   }
 
@@ -63,6 +65,7 @@ $card-height: 15rem;
       min-width: auto;
       margin: auto;
       text-decoration: none;
+      padding:0;
       @include important-txt-regular;
       outline:none;
     }
@@ -83,7 +86,7 @@ $card-height: 15rem;
       background-color: $bg-color;
       border-radius: 50%;
       height: 60px;
-      width: auto;
+      width: 60px;
     }
   }
 
