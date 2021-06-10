@@ -206,6 +206,19 @@ textarea {
   grid-template-columns: 1fr, 1fr;
 }
 
+/*OUTING LIST FORM*/
+.form-input .label {
+  position: absolute;
+  z-index: 5000;
+}
+.form-input div input, .form-input div .input, .form-input div select {
+  margin: auto;
+  padding: 6px;
+  margin-block-start: 12px;
+  width: 80%;
+  height: calc(100% - 12px);
+}
+
 .card {
   display: flex;
   flex-flow: column nowrap;
