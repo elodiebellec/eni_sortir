@@ -68,12 +68,14 @@ class OutingUpdator
 
     private function opened(Outing $outing)
     {
-
         $participantsCount       = $outing->getParticipants()->count();
+
         $registrationsLimit      = $outing->getMaxRegistration();
 
         $dateRegistrationEnd     = $outing->getDateEnd();
         $now                     = new \DateTime;
+
+
 
         if($this->eventIsCancelled())
         {
@@ -85,6 +87,8 @@ class OutingUpdator
                                 $dateRegistrationEnd,
                                             $now))
         {
+
+
             $outing->setState($this->states['Clôturée']);
         }
     }
@@ -187,8 +191,8 @@ class OutingUpdator
                                            \DateTimeInterface $dateRegistrationEnd,
                                            \DateTime $now): bool
     {
-        return $participantsCount >= $registrationsLimit
-            || $dateRegistrationEnd < $now;
+        return ($participantsCount >= $registrationsLimit)
+            || ($dateRegistrationEnd < $now);
     }
 
     /**
@@ -214,7 +218,7 @@ class OutingUpdator
      */
     private function registrationAreOpened(int $participantsCount, int $registrationsLimit,\DateTimeInterface $dateEventBegin, \DateTime $now, \DateTimeInterface $dateRegistrationEnd, \DateTimeImmutable $dateEventEnd): bool
     {
-        return $participantsCount <= $registrationsLimit
+        return $participantsCount < $registrationsLimit
             && $dateEventBegin > $now
             && $dateRegistrationEnd > $now
             && $dateEventEnd > $now;

@@ -51,6 +51,11 @@ public function  list ( Request $request,
 
         foreach ($updateOutingStatus as $value)
         {
+            if($value->getPlanner()->getPseudo() == $user->getUsername() && ! ($value->getParticipants()->contains($user) ) )
+            {
+                $value->addParticipant($user);
+
+            }
 
             $updatedOuting= $updator->updateState($value);
             $entityManager->persist($updatedOuting);
@@ -75,6 +80,10 @@ public function  list ( Request $request,
 
         $outingsQuantity =  sizeof($results);
         $maxPage= ceil($outingsQuantity/10);
+        if($maxPage<1)
+        {
+            $maxPage=1;
+        }
 
 
         return $this->render('outing/list.html.twig',
@@ -185,6 +194,11 @@ public function  list ( Request $request,
          */
         $user = $this->getUser();
         $outing->setPlanner($user);
+        /**
+         * systematicaly adds the planner into participant list
+         */
+        $outing->addParticipant($user);
+
 
         //Display user School Site
         $userSite = $user->getSite();
@@ -196,6 +210,8 @@ public function  list ( Request $request,
 
         $outingForm->handleRequest($request);
 
+
+
         if ($outingForm->isSubmitted() && $outingForm->isValid()) {
 
             //If the button 'saveAndAdd' ('publier la sortie') is cliked, set the form state to open ("ouverte")
@@ -203,6 +219,8 @@ public function  list ( Request $request,
             if ($outingForm->getClickedButton() && 'saveAndAdd' === $outingForm->getClickedButton()->getName()) {
                 $outing->setState($entityManager->getRepository(State::class)->getState('Ouverte'));
             }
+
+            // liste des partcipants
 
             $entityManager->persist($outing);
             $entityManager->flush();
@@ -362,6 +380,7 @@ public function  list ( Request $request,
         $OutingId =(int) $request->query->get('id', 1);
 
         $outing = $repository->find($OutingId);
+        //dd($outing->getParticipants()->count());
 
         return $this->render('outing/showOneOuting.html.twig', [
             'outing' => $outing
