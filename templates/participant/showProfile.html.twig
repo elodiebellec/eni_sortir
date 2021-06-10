@@ -22,11 +22,11 @@
             <h1>{{ participant.pseudo }}</h1>
             <div class="doubleInputContainer">
                 <div class="left">
-                    <h3>Prénom : </h3>
-                    <h3>Nom : </h3>
+                    <h3>Prénom :</h3>
+                    <h3>Nom :</h3>
                     <h3>Téléphone :</h3>
-                    <h3>E mail : </h3>
-                    <h3>Ville de rattachement</h3>
+                    <h3>E mail :</h3>
+                    <h3>Ville de rattachement :</h3>
                 </div>
                 <div class="right">
                     <h3>{{ participant.firstName }}</h3>
@@ -35,7 +35,8 @@
                     <h3>{{ participant.mail }}</h3>
                     <h3>{{ participant.site.name }}</h3>
                 </div>
-
+            </div>
+        </div>
         <div class="buttonContainerUser">
             <a href="{{ path('outing') }}" class="button btn-secondary">Annuler</a>
         </div>

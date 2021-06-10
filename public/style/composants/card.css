@@ -229,6 +229,11 @@ textarea {
   width: 12em;
   height: 12em;
 }
+.formAvatar .avatar img {
+  border-radius: 100%;
+  width: 12em;
+  height: 12em;
+}
 
 .panel-form-user {
   grid-column: 2;
