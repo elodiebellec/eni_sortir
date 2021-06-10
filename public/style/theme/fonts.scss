@@ -4,9 +4,10 @@ $opensans : 'Open Sans', sans-serif;
 $signika  : 'Signika', sans-serif;
 $poiret   : 'Poiret One', cursive  ;
 
-$font-size-very-big: 23px;
+$font-size-very-big: 30px;
 $font-size-big: 20px;
 $font-size-large: 18px;
+$font-size-regular-plus: 16px;
 $font-size-regular: 15px;
 $font-size-small: 14px;
 $font-size-very-small: 12px;
@@ -23,7 +24,7 @@ $font-size-secondary  : 0.9rem;
 
 @mixin important-txt-regular{
   @include important-txt;
-  font-size : $font-size-regular;
+  font-size : $font-size-regular-plus;
 }
 @mixin important-txt-big{
   @include important-txt;
@@ -58,5 +59,15 @@ $font-size-secondary  : 0.9rem;
   font-size : $font-size-small;
   font-family: $opensans;
   font-style: italic;
+}
+
+h1{
+  font-size: $font-size-very-big;
+  font-family: $opensans;
+}
+
+h3{
+  @include important-txt-regular;
+  color: rgba(45, 41, 41, 0.9);
 }
 
