@@ -126,19 +126,33 @@
                     <div class="card">
 
                         <div class="card-head" title="{{ outing.name }}">
-                            <h1>{{ outing.name }}</h1>
+
+                    {% if outing.state.label == "Créée" or outing.state.label == "Activité historisée" %}
+                        <h1>  {{ outing.name }} </h1>
+
+                    {% else %}
+
+                        <h1><a href="{{ path('outing_show', {'id':outing.id}) }}">
+                                {{ outing.name }}
+                            </a>
+                        </h1>
+                    {% endif %}
+                            <p class = "show-for-phone"> {{ outing.site.name }}</p>
                             <div class="date">{{ outing.dateBegin|date ('d/m/y') }}</div>
                         </div>
 
                         <div class="card-body" title=".card-body">
-                            <p> {{ outing.state.label }}</p>
-                            <p> {{ outing.planner.firstName }}</p>
+                            <p class = "hide-for-phone"> {{ outing.state.label }}</p>
+                            <p class="hide-for-phone"> {{ outing.planner.firstName }}</p>
+
                             {% if app.user.outings.contains(outing) %}
-                                <p>Inscrit</p>
+                                <p class="hide-for-phone">Inscrit</p>
                             {% else %}
-                                <p>Non-inscrit</p>
+                                <p class="hide-for-phone">Non-inscrit</p>
                             {% endif %}
+
                         </div>
+
 
                         <div class="btn-group" title=".btn-group">
 
@@ -185,6 +199,7 @@
 
                             {% endif %}
                         </div>
+
 
                         <div class="card-feet" title=".card-feet">
                             <img class="participant-photo-small" src="{{ asset('images/'~outing.planner.photo) }}">
