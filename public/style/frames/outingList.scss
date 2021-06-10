@@ -28,7 +28,7 @@ $left-margin:22px;
 }
 .outing-list-side-options{
   display:grid;
-  grid-template-rows: 2fr 1fr;
+  grid-template-rows: 2.25fr 1fr;
   justify-items: center;
   width:80%;
   .user-infos{
@@ -54,6 +54,7 @@ $left-margin:22px;
 .outing-list-button-container{
   display:flex;
   justify-content: center;
+  align-items: center;
   button{
     padding:0;
     height:80%;
@@ -61,12 +62,15 @@ $left-margin:22px;
   }
 }
 .outing-list-cards-container{
-display:flex;
+  display:flex;
   flex-flow: row wrap;
   margin-inline:20px;
   margin-block-start: 15px;
 }
-
+.outing-form-pagination{
+  display:flex;
+  justify-content: center;
+}
 .show-for-phone{
   visibility: hidden;
 

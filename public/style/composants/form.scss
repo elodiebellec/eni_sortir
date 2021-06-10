@@ -24,6 +24,11 @@
       @include important-txt-regular;
       color: rgba(45, 41, 41, 0.8);
     }
+    &:hover,&:focus{
+      -webkit-box-shadow:inset 0 0 10px rgba(45, 41, 41, 0.2);
+      -moz-box-shadow:inset 0 0 10px rgba(45, 41, 41, 0.2);
+      box-shadow:inset 0 0 10px rgba(45, 41, 41, 0.2);
+    }
   }
 input, select{
   height: 2.6em;
@@ -225,9 +230,12 @@ $padding-login-form-field   : 18px;
 }
 /*OUTING LIST FORM*/
 .form-input{
+  display:flex;
+  align-items: center;
+  justify-content: center;
   .label{
-    position: absolute;
-    z-index: 5000;
+    margin-top: -50px;
+    z-index:6000;
   }
   div{
     input,select{
@@ -239,4 +247,6 @@ $padding-login-form-field   : 18px;
     }
   }
 }
-
+#filter_site,#filter_name{
+  width:100%;
+}

@@ -49,6 +49,17 @@ $card-height: 15rem;
     p {
       @include standard-txt-regular;
       font-size: 12px;
+      a{
+        text-decoration: none;
+        font-weight: 600;
+        color:$font-primary-color;
+        transition:0.15s;
+      }
+      a:hover{
+        text-decoration: none;
+        font-weight: 800;
+        transition:0.15s;
+      }
     }
   }
 
@@ -75,7 +86,7 @@ $card-height: 15rem;
     justify-content: flex-end;
     img {
       @include rounded-img;
-      height: 60px;
+      height: 40px;
       width: auto;
       margin-inline-end: 12px;
     }
@@ -85,8 +96,10 @@ $card-height: 15rem;
       justify-content: center;
       background-color: $bg-color;
       border-radius: 50%;
-      height: 60px;
-      width: 60px;
+      height: 40px;
+      width: 40px;
+      @include standard-txt-regular;
+      font-size: 8px;
     }
   }
 
