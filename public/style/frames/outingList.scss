@@ -4,12 +4,13 @@ label {
 }
 .outing-list-page-container {
   display: grid;
-  grid-template-rows: 20vh auto; /* Divide screen between form and outing cards*/
+  grid-template-rows: 25vh auto; /* Divide screen between form and outing cards*/
 }
 .outing-list-form-section {
   display: grid;
   grid-template-columns: 80% 20%;
 }
+$left-margin:22px;
 .outing-list-form {
   display:grid;
   grid-template-rows: 1.25fr 1fr 1fr;
@@ -19,6 +20,7 @@ label {
     rgba(28, 235, 86, 0.1794) 85.84%
   );
   border-radius: 50px;
+  margin-inline-start: $left-margin;
 }
 .outing-list-search-parameters,.outing-list-form-tag-fields {
   display:grid;
@@ -28,6 +30,7 @@ label {
   display:grid;
   grid-template-rows: 2fr 1fr;
   justify-items: center;
+  width:80%;
   .user-infos{
     background: linear-gradient(113.95deg, rgba(250, 27, 27, 0.148) 18.2%, rgba(85, 27, 250, 0.182) 88.4%);
     border-radius: 40px;
@@ -37,12 +40,14 @@ label {
     align-items: center;
     @include standard-txt-regular;
     color: $font-primary-color;
-    width:80%;
+    width: 90%;
+    margin-block-end: 10px;
   }
   .outing-list-button-container{
 
     button{
-      width:80%;
+      width:100%;
+      margin:0;
     }
   }
 }
@@ -55,6 +60,15 @@ label {
     margin:auto;
   }
 }
+.outing-list-cards-container{
+display:flex;
+  flex-flow: row wrap;
+  margin-inline:20px;
+  margin-block-start: 15px;
+}
+/*.label + div{
+    height: 100%;
+}*/
 #filter_dateBeginFilter, #filter_dateEndFilter{
   display:grid;
   grid-template-columns: 1fr 1fr 1fr;

@@ -110,6 +110,7 @@ button {
   label {
     @extend button;
     @include standard-txt-regular;
+    font-size: 13px;
     display: block;
     text-align: center;
     padding:4px;

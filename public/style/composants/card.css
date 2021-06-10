@@ -220,15 +220,16 @@ textarea {
 }
 
 .card {
+  margin: 15px;
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-between;
   background-color: rgba(170, 73, 216, 0.29);
   border-radius: 40px;
   border: none;
-  height: 22rem;
-  width: 22rem;
-  padding: 20px 40px;
+  height: 15rem;
+  width: 15rem;
+  padding: 20px 20px;
 }
 
 .card .card-head h1,
@@ -265,17 +266,19 @@ textarea {
   justify-content: space-around;
   margin-inline-end: 10%;
 }
-.card .btn-group button {
+.card .btn-group button, .card .btn-group a {
   display: inline;
   background-color: transparent;
   min-width: auto;
   margin: auto;
+  text-decoration: none;
   font-family: "Signika", sans-serif;
   font-weight: bold;
   font-style: normal;
   font-variant-caps: small-caps;
   color: #232020;
-  font-size: 20px;
+  font-size: 16px;
+  outline: none;
 }
 .card .card-feet {
   display: flex;

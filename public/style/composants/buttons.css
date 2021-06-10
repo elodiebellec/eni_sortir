@@ -331,6 +331,7 @@ button:hover, .checkbox label:hover, .nav-btn-selected:hover, .nav-profile-btn:h
 .checkbox label {
   font-size: 15px;
   font-family: "Open Sans", sans-serif;
+  font-size: 13px;
   display: block;
   text-align: center;
   padding: 4px;

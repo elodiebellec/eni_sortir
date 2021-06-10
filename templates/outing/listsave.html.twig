@@ -1,0 +1,259 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('style/composants/headers.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/composants/form.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/composants/buttons.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/composants/navbar.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/frames/outingList.css') }}">
+{% endblock %}
+{% block body %}
+    {{ parent() }}
+    <div class="outing-list-page-container page-container">
+
+        <section class="outing-list-form-section">
+
+
+            {{ form_start(formulaire, {'attr': {'class':'outing-list-form'}}) }}
+
+            <div class="outing-form-pagination" style="display:none"><!-- Désactivé provisoirement-->
+                {% if currentPage > 1 %}
+                    <input type="submit" name="pageButtton" value="{{ currentPage-1 }} ">
+                {% endif %}
+
+                {% if currentPage < maxPage %}
+                    {% if currentPage == 1 %}
+                        <div></div>
+                    {% endif %}
+                    <input type="submit" name="pageButtton" value="{{ currentPage+1 }} ">
+                {% endif %}
+            </div>
+
+
+            <div class="outing-list-search-parameters">
+
+                <div class="form-input">
+                    <div class=" label"> {{ form_label(formulaire.site) }} </div>
+                    <div> {{ form_widget(formulaire.site) }} </div>
+                    <div class="error"> {{ form_errors(formulaire.site) }} </div>
+                </div>
+
+
+                <div class="form-input">
+                    <div class="label"> {{ form_label(formulaire.name) }} </div>
+                    <div> {{ form_widget(formulaire.name) }} </div>
+                    <div class="error"> {{ form_errors(formulaire.name) }} </div>
+                </div>
+
+
+                <div class="form-input">
+                    <div class="label"> {{ form_label(formulaire.dateBeginFilter) }} </div>
+                    <div> {{ form_widget(formulaire.dateBeginFilter) }} </div>
+                    <div class="error"> {{ form_errors(formulaire.dateBeginFilter) }} </div>
+                </div>
+
+
+                <div class="form-input">
+                    <div class="label"> {{ form_label(formulaire.dateEndFilter) }} </div>
+                    <div> {{ form_widget(formulaire.dateEndFilter) }} </div>
+                    <div class="error"> {{ form_errors(formulaire.dateEndFilter) }} </div>
+                </div>
+
+            </div>
+
+            <div class="outing-list-form-tag-fields">
+                <div class="form-input">
+                    <div> {{ form_widget(formulaire.isPlanner) }} </div>
+                    <div class="label"> {{ form_label(formulaire.isPlanner) }} </div>
+                    <div class="error"> {{ form_errors(formulaire.isPlanner) }} </div>
+                </div>
+
+
+                <div class="form-input">
+                    <div class="label"> {{ form_label(formulaire.isRegistered) }} </div>
+                    <div> {{ form_widget(formulaire.isRegistered) }} </div>
+                    <div class="error"> {{ form_errors(formulaire.isRegistered) }} </div>
+                </div>
+
+                <div class="form-input">
+                    <div class="label"> {{ form_label(formulaire.isNotRegistered) }} </div>
+                    <div> {{ form_widget(formulaire.isNotRegistered) }} </div>
+                    <div class="error"> {{ form_errors(formulaire.isNotRegistered) }} </div>
+                </div>
+
+                <div class="form-input">
+                    <div class="label"> {{ form_label(formulaire.isOutDated) }}    </div>
+                    <div>  {{ form_widget(formulaire.isOutDated) }}   </div>
+                    <div class="error">  {{ form_errors(formulaire.isOutDated) }}  </div>
+                </div>
+            </div>
+
+
+            <div class="outing-list-button-container">
+                <button type="submit">Rechercher</button>
+            </div>
+
+            {{ form_end (formulaire) }}
+
+
+            <div class="outing-list-side-options">
+                <div class="user-infos">
+                    <p> Date du jour : {{ "now"|date("d/m/Y") }} </p>
+                    {% if user is defined and user is not null %}
+                        <p> Participant: {{ user.firstname }} </p>
+                    {% endif %}
+                </div>
+
+                <div class="outing-list-button-container">
+                    <button>Créer une sortie</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="outing-list-cards-section">
+            <div>
+
+                <table>
+                    <thead>
+                    <tr>
+                        <th colspan="2">Nom de la sortie</th>
+                        <th colspan="2">Date de la sortie</th>
+                        <th colspan="2">Clôture</th>
+                        <th colspan="2">inscrits/places</th>
+                        <th colspan="2">Etat</th>
+                        <th colspan="2">Inscrit</th>
+                        <th colspan="2">Organisateur</th>
+                        <th colspan="2">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {% for outing in outings %}
+
+                        {% if outing.state.label== "Créée" and app.user.pseudo != outing.planner.pseudo %}
+
+                        {% else %}
+
+
+
+
+                            <tr>
+                            <td colspan="2">{{ outing.name }}</td>
+                            <td colspan="2">{{ outing.dateBegin|date ('d/m/y') }}</td>
+                            <td colspan="2">{{ outing.dateEnd|date ('d/m/y') }}</td>
+                            <td colspan="2">{{ outing.participants|length }} / {{ outing.maxRegistration }}</td>
+                            <td colspan="2">{{ outing.state.label }}</td>
+
+
+                            <td colspan="2">
+
+                                {% if app.user.outings.contains(outing) %}
+                                    Oui
+                                {% else %}
+                                    Non
+                                {% endif %}
+                            </td>
+
+                            <td colspan="2"><a
+                                        href="{{ path('participant_profile_show',{'id':outing.planner.id }) }}">{{ outing.planner.lastName }} </a>
+                            </td>
+
+
+                            <td colspan="2">
+                                <div class="action_buttons">
+
+                                    {% if outing.state.label == "Créée" or outing.state.label == "Activité historisée" %}
+
+                                    {% else %}
+
+                                        <a href="{{ path('outing_show', {'id':outing.id}) }}"> afficher </a>
+                                    {% endif %}
+
+                                    {% if app.user.outings.contains(outing) and (outing.state.label == "Ouverte" or outing.state.label == "Clôturée") %}
+
+                                        <a href="{{ path('outing_removeParticipant',{'id':outing.id}) }}">
+                                            Se desister
+                                        </a>
+
+                                    {% elseif outing.state.label == "Ouverte" and outing.planner != app.user %}
+
+                                        <a href="{{ path('outing_addParticipant',{'id':outing.id}) }}">
+                                            S'inscrire
+                                        </a>
+
+                                    {% endif %}
+
+                                    {% if (app.user.pseudo == outing.planner.pseudo) and outing.state.label == "Créée" %}
+
+                                        <a href="{{ path('outing_update', {'id':outing.id}) }}"> Modifier </a>
+                                        <a href="{{ path('outing_publish', {'id':outing.id}) }}"> Publier </a>
+
+                                    {% endif %}
+
+                                    {% if ((app.user.pseudo == outing.planner.pseudo) or ('ROLE_ADMIN' in app.user.roles))and (outing.state.label == "Ouverte" or outing.state.label == "Clôturée") %}
+
+
+                                        <a href="{{ path('outing_cancel', {'id':outing.id}) }}"> Annuler </a>
+
+                                    {% endif %}
+
+                                </div>
+
+                            </td>
+
+                        {% endif %}
+                        </tr>
+
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+
+            </div>
+
+            <p><a href="{{ path('outing_create') }}"> Créer une sortie </a></p>
+
+            <p> Page n° {{ currentPage }} sur {{ maxPage }}</p>
+
+            <div> {{ maxOutings }} résultats</div>
+
+        </section>
+    </div>
+
+    <script>
+       /* const navSelectedButtons = document.getElementById('nav-cities');
+        navSelectedButtons.classList.remove('nav-btn');
+        navSelectedButtons.classList.add('nav-btn-selected');*/
+
+        /**
+         * Checkboxes are label, (checkboxes are hidden, label command the check and un check)
+         */
+        const choices = [...document.getElementsByTagName("input")]
+            .filter(i => i.type === 'checkbox')
+            .map(el => ({
+                checkbox: el,
+                label: el.nextSibling
+            }))
+        ;
+        choices.forEach(choice => {
+            choice.label.classList.add("unselected-filter-checkbox");
+            choice.checkbox.checked = false;
+            choice.checkbox.onclick = () => {
+                //console.log(choice.label.innerText);
+                //console.log(choice.checkbox.checked);
+
+                if (choice.checkbox.checked) {
+                    choice.label.classList.add("selected-filter-checkbox");
+                    choice.label.classList.remove("unselected-filter-checkbox");
+                } else {
+                    choice.label.classList.add("unselected-filter-checkbox");
+                    choice.label.classList.remove("selected-filter-checkbox");
+                }
+            }
+        })
+
+
+    </script>
+{% endblock %}
