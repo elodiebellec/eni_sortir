@@ -41,11 +41,32 @@ label {
   grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
-.outing-list-search-button-container {
+.outing-list-side-options {
+  display: grid;
+  grid-template-rows: 2fr 1fr;
+  justify-items: center;
+}
+.outing-list-side-options .user-infos {
+  background: linear-gradient(113.95deg, rgba(250, 27, 27, 0.148) 18.2%, rgba(85, 27, 250, 0.182) 88.4%);
+  border-radius: 40px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+  font-family: "Open Sans", sans-serif;
+  color: #232020;
+  width: 80%;
+}
+.outing-list-side-options .outing-list-button-container button {
+  width: 80%;
+}
+
+.outing-list-button-container {
   display: flex;
   justify-content: center;
 }
-.outing-list-search-button-container button {
+.outing-list-button-container button {
   padding: 0;
   height: 80%;
   margin: auto;

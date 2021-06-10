@@ -24,7 +24,29 @@ label {
   display:grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
 }
-.outing-list-search-button-container{
+.outing-list-side-options{
+  display:grid;
+  grid-template-rows: 2fr 1fr;
+  justify-items: center;
+  .user-infos{
+    background: linear-gradient(113.95deg, rgba(250, 27, 27, 0.148) 18.2%, rgba(85, 27, 250, 0.182) 88.4%);
+    border-radius: 40px;
+    display:flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    @include standard-txt-regular;
+    color: $font-primary-color;
+    width:80%;
+  }
+  .outing-list-button-container{
+
+    button{
+      width:80%;
+    }
+  }
+}
+.outing-list-button-container{
   display:flex;
   justify-content: center;
   button{
