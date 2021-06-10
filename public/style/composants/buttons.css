@@ -215,7 +215,7 @@ textarea {
 }
 
 .formAvatar {
-  margin-left: 4em;
+  margin-left: 6em;
   grid-column: 1;
 }
 .formAvatar .avatar {
@@ -231,7 +231,7 @@ textarea {
   border-radius: 40px;
   display: grid;
   grid-template-columns: 1fr;
-  padding: 2% 3% 2% 6%;
+  padding: 2% 3% 6% 6%;
 }
 .doubleInputContainer {
   display: grid;
