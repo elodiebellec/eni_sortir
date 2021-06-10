@@ -7,6 +7,8 @@ use App\Model\OutingsFilter;
 
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Query\Parameter;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -27,6 +29,7 @@ class OutingRepository extends ServiceEntityRepository
     public function findAllOutings($page, $filter,$user )
     {
         $idUser = $user->getId();
+
         $tabNotRegistered = $this->findNotRegistered($user);
         $tableRegistered = $this->findRegistered($user);
 
@@ -48,8 +51,27 @@ class OutingRepository extends ServiceEntityRepository
         $queryBuilder->addSelect('site');
         $queryBuilder->addSelect('location');
 
-        $queryBuilder->andWhere('state.label <> :historized');
-        $queryBuilder->setParameter('historized', 'Activité historisée');
+
+
+        $queryBuilder->where("state.label =:created  and planner.id = $idUser");
+        $queryBuilder->setParameter('created', 'Créée');
+        $queryBuilder->orwhere("state.label =:open ");
+        $queryBuilder->setParameter('open', 'Ouverte');
+        $queryBuilder->orwhere("state.label =:closed ");
+        $queryBuilder->setParameter('closed', 'Clôturée');
+        $queryBuilder->orwhere("state.label =:onGoing ");
+        $queryBuilder->setParameter('onGoing', 'Activité en cours');
+        $queryBuilder->orwhere("state.label =:passed ");
+        $queryBuilder->setParameter('passed', 'Activité passée');
+        $queryBuilder->orwhere("state.label =:canceled ");
+        $queryBuilder->setParameter('canceled', 'Activité annulée');
+
+
+       //$queryBuilder->andWhere('state.label <> :historized');
+       //$queryBuilder->setParameter('historized', 'Activité historisée');
+
+       //die($queryBuilder->getDql());
+      // $queryBuilder->setParameters( new ArrayCollection(array( new Parameter('created',$stateLabel), new Parameter('idUser', $idUser))));
 
         /**
          * @var  OutingsFilter $filter

@@ -3,6 +3,9 @@
 {% block body %}
     {{ parent() }}
     <div>
+        <div>
+            <img src = "{{asset('images/'~participant.photo)}}">
+        </div>
         <div class="panel-form-user">
             <h1> {{ participant.pseudo }}</h1>
                 <div>
