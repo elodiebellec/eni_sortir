@@ -36,17 +36,18 @@
         <div class="column right">
             <h3 class="primaryInformation">Ville organisatrice : {{ userSite.name }}</h3>
                     {{ form_row(outingForm.city) }}
-                    {{ form_row(outingForm.location) }}
+                    {{ form_row(outingForm.location, {'label':false}) }}
             <h3 class="secondaryInformation">Rue : <span id="street"></span></h3>
             <h3 class="secondaryInformation">Code postal : <span id="postalCode"></span> </h3>
             <h3 class="secondaryInformation">Latitude : <span id="latitude"></span></h3>
             <h3 class="secondaryInformation">Longitude : <span id="longitude"></span></h3>
         </div>
     </div>
+    <div class="buttonContainerOuting">
         {{ form_row(outingForm.save) }}
         {{ form_row(outingForm.saveAndAdd) }}
-        <a href="{{ path('outing') }}" class="button">Annuler</a>
-
+       <a href="{{ path('outing') }}" class="button btn-secondary">Annuler</a>
+    </div>
 
         {{ form_end(outingForm) }}
 

@@ -100,7 +100,7 @@ class OutingType extends AbstractType
 
 
             ->add('save', SubmitType::class, ['label' => 'Enregistrer'])
-            ->add('saveAndAdd', SubmitType::class, ['label'=>'Publier'])
+            ->add('saveAndAdd', SubmitType::class, ['label'=>'Publier', 'attr' => ['class' => 'btn-secondary']])
             ->getForm();
 
 

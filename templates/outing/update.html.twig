@@ -35,7 +35,7 @@
                 <p>Ville organisatrice : {{ userSite.name }}</p>
                 <label><input>{{ form_row(outingForm.city) }}</label>
 
-                <p>{{ form_row(outingForm.location) }}</p>
+                <p>{{ form_row(outingForm.location, {'label':false}) }}</p>
                 <p>Rue : <span id="street"></span></p>
                 <p>Code postal : <span id="postalCode"></span> </p>
                 <p>Latitude : <span id="latitude"></span></p>
