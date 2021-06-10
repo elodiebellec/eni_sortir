@@ -34,7 +34,7 @@ input, select{
   height: 2.6em;
 }
 
-.labelDate{
+.labelInput{
    @include important-txt-regular;
    color: rgba(45, 41, 41, 0.8);
   padding-left: 2em;
@@ -203,14 +203,35 @@ $padding-login-form-field   : 18px;
     Padding-left: 1em;
   }
 }
+.panel-user{
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+}
 
+.formAvatar{
+  padding: 0 20%;
+  grid-column: 1;
+  .avatar{
+    background-color: #EDDCC3;
+    border-radius: 100%;
+    width: 12em;
+    height: 12em;
+  }
+}
 .panel-form-user {
+  grid-column: 2;
   background: linear-gradient(180deg, rgba(25, 224, 237, 0.38) 0%, rgba(240, 158, 34, 0.25) 100%);;
   border-radius: 40px;
   display: grid;
   grid-template-columns: 1fr;
-  padding: 2%;
-  margin: 2% 10%;
+  padding: 2% 3% 6% 6%;
+  h1{
+    Padding: 0 0 0.5em 0.5em;
+  }
+
+  label{
+    @extend .labelInput;
+  }
 }
 
 .doubleInputContainer {
@@ -228,6 +249,23 @@ $padding-login-form-field   : 18px;
     margin-right: 2em;
   }
 }
+
+.buttonContainerUser{
+  grid-column: 2;
+  margin-top: 5%;
+  display: flex;
+  button, .button{
+    margin-right: 2em;
+  }
+}
+
+/*button file upload under user avatar*/
+#participant_photo{
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /*OUTING LIST FORM*/
 .form-input{
   display:flex;

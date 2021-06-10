@@ -66,7 +66,7 @@ input, .input, select {
   height: 2.6em;
 }
 
-.labelDate {
+.labelInput, .panel-form-user label {
   font-family: "Signika", sans-serif;
   font-weight: bold;
   font-style: normal;
@@ -214,15 +214,33 @@ textarea {
   Padding-left: 1em;
 }
 
+.panel-user {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+}
+
+.formAvatar {
+  padding: 0 20%;
+  grid-column: 1;
+}
+.formAvatar .avatar {
+  background-color: #EDDCC3;
+  border-radius: 100%;
+  width: 12em;
+  height: 12em;
+}
+
 .panel-form-user {
+  grid-column: 2;
   background: linear-gradient(180deg, rgba(25, 224, 237, 0.38) 0%, rgba(240, 158, 34, 0.25) 100%);
   border-radius: 40px;
   display: grid;
   grid-template-columns: 1fr;
-  padding: 2%;
-  margin: 2% 10%;
+  padding: 2% 3% 6% 6%;
 }
-
+.panel-form-user h1 {
+  Padding: 0 0 0.5em 0.5em;
+}
 .doubleInputContainer {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -236,6 +254,22 @@ textarea {
 }
 .buttonContainerOuting button, .buttonContainerOuting .button {
   margin-right: 2em;
+}
+
+.buttonContainerUser {
+  grid-column: 2;
+  margin-top: 5%;
+  display: flex;
+}
+.buttonContainerUser button, .buttonContainerUser .button {
+  margin-right: 2em;
+}
+
+/*button file upload under user avatar*/
+#participant_photo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /*OUTING LIST FORM*/
