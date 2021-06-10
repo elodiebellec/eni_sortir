@@ -68,7 +68,7 @@ class OutingType extends AbstractType
                 'html5' => true,
                 'label'=> false,
                 'attr' => array(
-                    'placeholder' => 'Durée'
+                    'placeholder' => 'Durée en mn'
                 )
             ])
 
