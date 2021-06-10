@@ -225,9 +225,12 @@ $padding-login-form-field   : 18px;
 }
 /*OUTING LIST FORM*/
 .form-input{
+  display:flex;
+  align-items: center;
+  justify-content: center;
   .label{
-    position: absolute;
-    z-index: 5000;
+    margin-top: -50px;
+    z-index:6000;
   }
   div{
     input,select{
@@ -239,4 +242,6 @@ $padding-login-form-field   : 18px;
     }
   }
 }
-
+#filter_site,#filter_name{
+  width:100%;
+}

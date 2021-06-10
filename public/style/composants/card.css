@@ -234,9 +234,14 @@ textarea {
 }
 
 /*OUTING LIST FORM*/
+.form-input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .form-input .label {
-  position: absolute;
-  z-index: 5000;
+  margin-top: -50px;
+  z-index: 6000;
 }
 .form-input div input, .form-input div .input, .form-input div select {
   margin: auto;
@@ -244,6 +249,10 @@ textarea {
   margin-block-start: 12px;
   width: 80%;
   height: calc(100% - 12px);
+}
+
+#filter_site, #filter_name {
+  width: 100%;
 }
 
 .card {

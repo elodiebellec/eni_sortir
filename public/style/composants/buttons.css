@@ -234,9 +234,14 @@ textarea {
 }
 
 /*OUTING LIST FORM*/
+.form-input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .form-input .label {
-  position: absolute;
-  z-index: 5000;
+  margin-top: -50px;
+  z-index: 6000;
 }
 .form-input div input, .form-input div .input, .form-input div select {
   margin: auto;
@@ -244,6 +249,10 @@ textarea {
   margin-block-start: 12px;
   width: 80%;
   height: calc(100% - 12px);
+}
+
+#filter_site, #filter_name {
+  width: 100%;
 }
 
 button, .checkbox label, .nav-btn-selected, .nav-profile-btn, .nav-btn, .btn-login-form, .btn-secondary, .button {
@@ -366,12 +375,12 @@ button:hover, .checkbox label:hover, .nav-btn-selected:hover, .nav-profile-btn:h
   font-size: 13px;
   display: block;
   text-align: center;
-  padding: 4px;
+  padding: 1vh;
   margin: auto;
   width: auto;
   min-width: 0;
   min-height: 0;
-  max-width: 80%;
+  max-width: 100%;
   height: calc(100% - 12px);
 }
 .checkbox input[type=checkbox], .checkbox [type=checkbox].input {

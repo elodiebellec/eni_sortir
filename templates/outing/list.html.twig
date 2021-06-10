@@ -269,9 +269,9 @@
             </div>
 
 
-            <p> Page n° {{ currentPage }} sur {{ maxPage }}</p>
+           {#  <p> Page n° {{ currentPage }} sur {{ maxPage }}</p>
 
-            <div> {{ maxOutings }} résultats</div>
+            <div> {{ maxOutings }} résultats</div>#}
 
         </section>
     </div>
@@ -307,7 +307,19 @@
                 }
             }
         })
-
+        ;
+        let cardscolor = [
+            "rgba(73, 199, 216, 0.29)",
+            "rgba(223, 115, 115, 0.28)",
+            "rgba(216, 184, 73, 0.25)",
+            "rgba(73, 87, 216, 0.29)",
+            "rgba(73, 216, 79, 0.29)",
+            "rgba(170, 73, 216, 0.29)"
+        ]
+         document.querySelectorAll(".card")
+             .forEach(c =>
+                 c.style.backgroundColor = cardscolor[Math.round(Math.random()*cardscolor.length)]
+             );
 
     </script>
 {% endblock %}

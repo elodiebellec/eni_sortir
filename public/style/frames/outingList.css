@@ -44,7 +44,7 @@ label {
 
 .outing-list-side-options {
   display: grid;
-  grid-template-rows: 2fr 1fr;
+  grid-template-rows: 2.25fr 1fr;
   justify-items: center;
   width: 80%;
 }
@@ -69,6 +69,7 @@ label {
 .outing-list-button-container {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 .outing-list-button-container button {
   padding: 0;
