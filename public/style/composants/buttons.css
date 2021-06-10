@@ -3,6 +3,11 @@ h1 {
   font-family: "Open Sans", sans-serif;
 }
 
+h2 {
+  font-size: 20px;
+  font-family: "Open Sans", sans-serif;
+}
+
 h3 {
   font-family: "Signika", sans-serif;
   font-weight: bold;
@@ -15,6 +20,11 @@ h3 {
 
 h1 {
   font-size: 30px;
+  font-family: "Open Sans", sans-serif;
+}
+
+h2 {
+  font-size: 20px;
   font-family: "Open Sans", sans-serif;
 }
 
@@ -193,6 +203,35 @@ textarea {
   }
 }
 /*------------PANEL-FORM-------------*/
+.single-outing-participants {
+  background: linear-gradient(123.61deg, rgba(172, 191, 241, 0.28) 17.46%, rgba(136, 239, 233, 0.24) 49.47%, rgba(134, 237, 157, 0.24) 81.13%);
+  border-radius: 40px;
+  display: grid;
+  grid-template-columns: 1fr;
+  padding: 2%;
+  margin: 2% 10%;
+  width: 40%;
+  overflow: scroll;
+  max-height: 15em;
+}
+.single-outing-participants h2 {
+  Padding: 0 0 0 0.8em;
+}
+.single-outing-participants table {
+  padding-top: 1em;
+  margin: 0 auto;
+}
+.single-outing-participants table th, .single-outing-participants table td {
+  text-align: left;
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+}
+.single-outing-participants table a {
+  text-decoration: none;
+  color: black;
+  font-style: italic;
+}
+
 .panel-form-outing {
   background: linear-gradient(123.61deg, rgba(21, 106, 207, 0.36) 17.46%, rgba(214, 130, 53, 0.24) 61.63%, rgba(214, 53, 140, 0.24) 86.37%);
   border-radius: 40px;
@@ -246,6 +285,11 @@ textarea {
 .panel-form-user h1 {
   Padding: 0 0 0.5em 0.5em;
 }
+.panel-form-user #registration_form_isActive {
+  max-width: 1em;
+  max-height: 1em;
+}
+
 .doubleInputContainer {
   display: grid;
   grid-template-columns: 1fr 1fr;
