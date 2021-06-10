@@ -397,4 +397,8 @@ button:hover, .checkbox label:hover, .nav-btn-selected:hover, .nav-profile-btn:h
   padding-inline: 80px;
 }
 
+.page-navigation {
+  cursor: pointer;
+}
+
 /*# sourceMappingURL=buttons.css.map */

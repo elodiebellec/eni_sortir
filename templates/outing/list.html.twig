@@ -19,20 +19,6 @@
 
             {{ form_start(formulaire, {'attr': {'class':'outing-list-form'}}) }}
 
-            <div class="outing-form-pagination" style="display:none"><!-- Désactivé provisoirement-->
-                {% if currentPage > 1 %}
-                    <input type="submit" name="pageButtton" value="{{ currentPage-1 }} ">
-                {% endif %}
-
-                {% if currentPage < maxPage %}
-                    {% if currentPage == 1 %}
-                        <div></div>
-                    {% endif %}
-                    <input type="submit" name="pageButtton" value="{{ currentPage+1 }} ">
-                {% endif %}
-            </div>
-
-
             <div class="outing-list-search-parameters">
 
                 <div class="form-input">
@@ -93,7 +79,20 @@
 
 
             <div class="outing-list-button-container">
+
                 <button type="submit">Rechercher</button>
+
+                <div class="outing-form-pagination"><!-- Désactivé provisoirement-->
+                    {% if currentPage > 1 %}
+                        <input type="submit" name="pageButtton" class="page-navigation" value="{{ currentPage-1 }} ">
+                    {% endif %}
+                    {% if currentPage < maxPage %}
+                        {% if currentPage == 1 %}
+                            <div></div>
+                        {% endif %}
+                        <input type="submit" name="pageButtton" class="page-navigation" value="{{ currentPage+1 }} ">
+                    {% endif %}
+                </div>
             </div>
 
             {{ form_end (formulaire) }}
@@ -122,156 +121,79 @@
                     {% if outing.state.label== "Créée" and app.user.pseudo != outing.planner.pseudo %}
 
                     {% else %}
+                {# <a href="{{ path('outing_show', {'id':outing.id}) }}"> #}
+                        <div class="card">
+                            <div class="card-head" title="{{ outing.name }}">
+                                <h1>{{ outing.name }}</h1>
+                                <div class="date">{{ outing.dateBegin|date ('d/m/y') }}</div>
+                            </div>
 
-                    <div class="card">
+                            <div class="card-body" title=".card-body">
+                                <p> <a href="{{ path('participant_profile_show',{'id':outing.planner.id }) }}">{{ outing.planner.firstName }}</a></p>
+                                <p> {{ outing.state.label }}</p>
+                                {% if app.user.outings.contains(outing) %}
+                                    <p>Inscrit</p>
+                                {% else %}
+                                    <p>Non-inscrit</p>
+                                {% endif %}
+                            </div>
 
-                        <div class="card-head" title="{{ outing.name }}">
-                            <h1>{{ outing.name }}</h1>
-                            <div class="date">{{ outing.dateBegin|date ('d/m/y') }}</div>
-                        </div>
-
-                        <div class="card-body" title=".card-body">
-                            <p> {{ outing.state.label }}</p>
-                            <p> {{ outing.planner.firstName }}</p>
-                            {% if app.user.outings.contains(outing) %}
-                                <p>Inscrit</p>
-                            {% else %}
-                                <p>Non-inscrit</p>
-                            {% endif %}
-                        </div>
-
-                        <div class="btn-group" title=".btn-group">
+                            <div class="btn-group" title=".btn-group">
 
                             {% if outing.state.label == "Créée" or outing.state.label == "Activité historisée" %}
 
-                            {% else %}
-
-                                <a href="{{ path('outing_show', {'id':outing.id}) }}">
-                                    <button>Afficher</button>
-                                </a>
-                            {% endif %}
-
-                            {% if app.user.outings.contains(outing) and (outing.state.label == "Ouverte" or outing.state.label == "Clôturée") %}
-
-                                <a href="{{ path('outing_removeParticipant',{'id':outing.id}) }}">
-                                    <button>Se desister</button>
-                                </a>
-
-                            {% elseif outing.state.label == "Ouverte" and outing.planner != app.user %}
-
-                                <a href="{{ path('outing_addParticipant',{'id':outing.id}) }}">
-                                    <button>S'inscrire</button>
-                                </a>
-
-                            {% endif %}
-
-                            {% if (app.user.pseudo == outing.planner.pseudo) and outing.state.label == "Créée" %}
-
-                                <a href="{{ path('outing_update', {'id':outing.id}) }}">
-                                    <button>Modifier </button>
-                                </a>
-                                <a href="{{ path('outing_publish', {'id':outing.id}) }}">
-                                    <button>Publier </button>
-                                </a>
-
-                            {% endif %}
-
-                            {% if ((app.user.pseudo == outing.planner.pseudo) or ('ROLE_ADMIN' in app.user.roles))and (outing.state.label == "Ouverte" or outing.state.label == "Clôturée") %}
-
-
-                                <a href="{{ path('outing_cancel', {'id':outing.id}) }}">
-                                    <button>Annuler </button>
-                                </a>
-
-                            {% endif %}
-                        </div>
-
-                        <div class="card-feet" title=".card-feet">
-                            <img class="participant-photo-small" src="{{ asset('images/'~outing.planner.photo) }}">
-                            <div class="participant-count">{{ outing.participants|length }}/ {{ outing.maxRegistration }}</div>
-                        </div>
-                    </div>
-
-{#
-                        <tr>
-                        <td colspan="2">{{ outing.name }}</td>
-                        <td colspan="2">{{ outing.dateBegin|date ('d/m/y') }}</td>
-                        <td colspan="2">{{ outing.dateEnd|date ('d/m/y') }}</td>
-                        <td colspan="2">{{ outing.participants|length }} / {{ outing.maxRegistration }}</td>
-                        <td colspan="2">{{ outing.state.label }}</td>
-
-
-                        <td colspan="2">
-
-                            {% if app.user.outings.contains(outing) %}
-                                Oui
-                            {% else %}
-                                Non
-                            {% endif %}
-                        </td>
-
-                        <td colspan="2"><a
-                                    href="{{ path('participant_profile_show',{'id':outing.planner.id }) }}">{{ outing.planner.lastName }} </a>
-                        </td>
-
-
-                        <td colspan="2">
-                            <div class="action_buttons">
-
-                                {% if outing.state.label == "Créée" or outing.state.label == "Activité historisée" %}
-
                                 {% else %}
 
-                                    <a href="{{ path('outing_show', {'id':outing.id}) }}"> afficher </a>
+                                    <a href="{{ path('outing_show', {'id':outing.id}) }}">
+                                        <button>Afficher</button>
+                                    </a>
                                 {% endif %}
 
                                 {% if app.user.outings.contains(outing) and (outing.state.label == "Ouverte" or outing.state.label == "Clôturée") %}
 
                                     <a href="{{ path('outing_removeParticipant',{'id':outing.id}) }}">
-                                        Se desister
+                                        <button>Se desister</button>
                                     </a>
 
                                 {% elseif outing.state.label == "Ouverte" and outing.planner != app.user %}
 
                                     <a href="{{ path('outing_addParticipant',{'id':outing.id}) }}">
-                                        S'inscrire
+                                        <button>S'inscrire</button>
                                     </a>
 
                                 {% endif %}
 
                                 {% if (app.user.pseudo == outing.planner.pseudo) and outing.state.label == "Créée" %}
 
-                                    <a href="{{ path('outing_update', {'id':outing.id}) }}"> Modifier </a>
-                                    <a href="{{ path('outing_publish', {'id':outing.id}) }}"> Publier </a>
+                                    <a href="{{ path('outing_update', {'id':outing.id}) }}">
+                                        <button>Modifier</button>
+                                    </a>
+                                    <a href="{{ path('outing_publish', {'id':outing.id}) }}">
+                                        <button>Publier</button>
+                                    </a>
 
                                 {% endif %}
 
                                 {% if ((app.user.pseudo == outing.planner.pseudo) or ('ROLE_ADMIN' in app.user.roles))and (outing.state.label == "Ouverte" or outing.state.label == "Clôturée") %}
 
 
-                                    <a href="{{ path('outing_cancel', {'id':outing.id}) }}"> Annuler </a>
+                                    <a href="{{ path('outing_cancel', {'id':outing.id}) }}">
+                                        <button>Annuler</button>
+                                    </a>
 
                                 {% endif %}
-
                             </div>
 
-                        </td>
-
+                            <div class="card-feet" title=".card-feet">
+                                <img class="participant-photo-small" src="{{ asset('images/'~outing.planner.photo) }}"
+                                     alt="La photo de {{ outing.planner.firstname }}">
+                                <div class="participant-count">{{ outing.participants|length }}/ {{ outing.maxRegistration }}</div>
+                            </div>
+                        </div>
+{# </a>#}
                     {% endif %}
-                    </tr>
-
-
-                </tbody>
-                </table>
-
-        #}          {% endif %}
-            {% endfor %}
+                {% endfor %}
             </div>
-
-
-           {#  <p> Page n° {{ currentPage }} sur {{ maxPage }}</p>
-
-            <div> {{ maxOutings }} résultats</div>#}
 
         </section>
     </div>
@@ -316,10 +238,10 @@
             "rgba(73, 216, 79, 0.29)",
             "rgba(170, 73, 216, 0.29)"
         ]
-         document.querySelectorAll(".card")
-             .forEach(c =>
-                 c.style.backgroundColor = cardscolor[Math.round(Math.random()*cardscolor.length)]
-             );
+        document.querySelectorAll(".card")
+            .forEach(c =>
+                c.style.backgroundColor = cardscolor[Math.round(Math.random() * cardscolor.length)]
+            );
 
     </script>
 {% endblock %}

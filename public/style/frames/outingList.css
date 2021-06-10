@@ -84,6 +84,11 @@ label {
   margin-block-start: 15px;
 }
 
+.outing-form-pagination {
+  display: flex;
+  justify-content: center;
+}
+
 /*.label + div{
     height: 100%;
 }*/
