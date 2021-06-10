@@ -2,23 +2,30 @@
 
     <div class="nav-logo">
         <h1 class="logo">
-            Sortir.com
+            <a href="{{ path('outing') }}" >Sortir.com</a>
         </h1>
     </div>
     <div class="nav-items">
 
-            <a href="{{ path('outing') }}" class="nav-btn">
+            <a href="{{ path('outing') }}" class="nav-btn" id="nav-cities">
                 Villes
             </a>
 
-            <a href="{{ path('outing') }}" class="nav-btn">
+            <a href="{{ path('outing') }}" class="nav-btn"id="nav-sites">
                 Sites
             </a>
-
-
-            <a href="{{ path('participant_profile_update') }}" class="nav-profile-btn">
+        <div class="nav-profile-container">
+            <a href="{{ path('participant_profile_update') }}" class="nav-profile-btn" id="nav-profile">
                 {{ app.user.firstName[:1] }}
             </a>
 
+            <div class="dropdown">
+                <div class="dropdown-arrow"><img src="{{ asset('icon/Stroke 1.png') }}"></div>
+                <div class="dropdown-content">
+                    <a href="{{ path('app_logout') }}">Se déconnecter</a>
+                    <a href="{{ path('participant_profile_update') }}">Modifier mon profil</a>
+                </div>
+            </div>
+        </div>
     </div>
 </nav>

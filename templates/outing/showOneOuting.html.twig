@@ -1,90 +1,53 @@
 {% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('style/composants/headers.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/composants/form.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/composants/buttons.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/composants/checkbox.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/composants/navbar.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/composants/card.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/outing-create.js') }}"></script>
+{% endblock %}
 
 {% block body %}
+    {{ parent() }}
 
-    <h1> Afficher une sortie</h1>
-
-
-    <div>
-        <p>Nom de la sortie : </p>  <p> {{ outing.name }}</p>
+    <div class="panel-form">
+        <h1>Détail de la sortie</h1>
+        <div class="column left">
+            <p>Nom de la sortie : {{ outing.name }}</p>
+            <p>Date et Heure de la sortie : {{ outing.dateBegin|date('d-m-y') }}</p>
+            <p>Date limite d'inscription : {{ outing.dateEnd|date('d-m-y')}}</p>
+            <p>Nombre de places : {{ outing.maxRegistration}}</p>
+            <p> Durée: {{ outing.duration }}  min</p>
+            <p> Description et infos: {{ outing.description }}</p>
+        </div>
+        <div class="column right">
+            <p> Ville Organisatrice: {{ outing.site.name }}</p>
+            <p> Lieu: {{ outing.location.name }}</p>
+            <p> Rue: {{ outing.location.street }}</p>
+            <p> Code postal: {{ outing.location.city.postalCode }}</p>
+            <p> Latitude: {{ outing.location.latitude  }}</p>
+            <p> Longitude:  {{ outing.location.longitude  }}</p>
+        </div>
     </div>
 
     <div>
-        <p>Date et Heure de la sortie :  </p>   <p> {{ outing.dateBegin|date('d-m-y') }}  </p>
-
-    </div>
-
-    <div>
-        <p>Date limite d'inscription :  </p>   <p> {{ outing.dateEnd|date('d-m-y')}}  </p>
-
-    </div>
-
-    <div>
-        <p>Nombre de places :  </p>   <p> {{ outing.maxRegistration}} </p>
-
-    </div>
-
-    <div>
-        <p> Durée:  </p>  <p> {{ outing.duration }}  min </p>
-
-    </div>
-
-    <div>
-        <p> Description et infos:  </p>  <p> {{ outing.description }} </p>
-
-    </div>
-
-    <div>
-        <p> Ville Organisatrice:  </p>  <p> {{ outing.site.name }} </p>
-
-    </div>
-
-    <div>
-        <p> Lieu:  </p>  <p> {{ outing.location.name }} </p>
-
-    </div>
-
-    <div>
-        <p> Rue:  </p>  <p> {{ outing.location.street }} </p>
-
-    </div>
-
-    <div>
-        <p> Code postal:  </p>  <p> {{ outing.location.city.postalCode }} </p>
-
-    </div>
-    <div>
-        <p> Latitude:  </p>  <p> {{ outing.location.latitude  }} </p>
-    </div>
-    <div>
-        <p> Longitude:  </p>  <p> {{ outing.location.longitude  }} </p>
-
-    </div>
-
-    <div>
-
-
-
         {%  set participants = outing.participants %}
         <select >
             <option >--Liste de participants inscrits--</option>
 
             {% for participant in participants  %}
-            <option> {{ participant.pseudo }}  <a href="{{ path('participant_profile_show',{'id':participant.id }) }}">  {{ participant.firstName }}  {{ participant.lastName }}</a>  </option>
+                <option> {{ participant.pseudo }}  <a href="{{ path('participant_profile_show',{'id':participant.id }) }}">  {{ participant.firstName }}  {{ participant.lastName }}</a>  </option>
 
-           {% endfor %}
+            {% endfor %}
         </select>
-
-
-
     </div>
 
-
-    <a href="{{ path('outing') }}"> RETOUR </a>
-
-
-{% endblock %}
-
-{% block title %}
+    <a href="{{ path('outing') }}" class="button">Retour</a>
 
 {% endblock %}

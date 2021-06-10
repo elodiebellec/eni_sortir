@@ -13,7 +13,7 @@
 {% block title %}Components{% endblock %}
 
 {% block body %}
-
+    {{ parent() }}
     <div style="display:flex; flex-flow: column; justify-content: space-around; align-items:center;height:100vh; width: 100vw">
         <button>Default button</button>
         <button>Default button with long txt inside</button>

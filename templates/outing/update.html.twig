@@ -1,40 +1,54 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Modifier sortie{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('style/composants/headers.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/composants/form.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/composants/buttons.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/composants/checkbox.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/composants/navbar.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/composants/card.css') }}">
+{% endblock %}
 
 {% block javascripts %}
     <script src="{{ asset('js/outing-create.js') }}"></script>
 {% endblock %}
 
 {% block body %}
-    <h1>Modifier une sortie</h1>
-    <div>
+    {{ parent() }}
 
 
 
-        <p>{{ form_start(outingForm) }}</p>
-        <p>{{ form_errors(outingForm) }}</p>
+        {{ form_start(outingForm) }}
+        {{ form_errors(outingForm) }}
+        <div class="panel-form">
+            <h1>Modifier une sortie</h1>
+            <div class="column left">
 
-        <p>{{ form_row(outingForm.name) }}</p>
-        <p>{{ form_row(outingForm.dateBegin) }}</p>
-        <p>{{ form_row(outingForm.dateEnd) }}</p>
-        <p>{{ form_row(outingForm.maxRegistration) }}</p>
-        <p>{{ form_row(outingForm.duration) }}</p>
-        <p>{{ form_row(outingForm.description) }}</p>
-        <p>Ville organisatrice : {{ userSite.name }}</p>
-        <p>{{ form_row(outingForm.city) }}</p>
-        <p>{{ form_row(outingForm.location) }}</p>
-        <p>Rue : {{ userSite.name }}</p>
-        <p>Code postal : {{ userSite.name }}</p>
-        <p>Latitude : {{ userSite.name }}</p>
-        <p>Longitude : {{ userSite.name }}</p>
+                {{ form_row(outingForm.name) }}
+                {{ form_row(outingForm.dateBegin) }}
+                {{ form_row(outingForm.dateEnd) }}
+                {{ form_row(outingForm.maxRegistration) }}
+                {{ form_row(outingForm.duration) }}
+                {{ form_row(outingForm.description) }}
+            </div>
+            <div class="column right">
+                <p>Ville organisatrice : {{ userSite.name }}</p>
+                <label><input>{{ form_row(outingForm.city) }}</label>
+
+                <p>{{ form_row(outingForm.location) }}</p>
+                <p>Rue : <span id="street"></span></p>
+                <p>Code postal : <span id="postalCode"></span> </p>
+                <p>Latitude : <span id="latitude"></span></p>
+                <p>Longitude : <span id="longitude"></span></p>
+            </div>
+        </div>
         <p>{{ form_row(outingForm.save) }}</p>
         <p>{{ form_row(outingForm.saveAndAdd) }}</p>
         <a href="{{ path('outing_delete', {'id' : outing.id}) }}" class="button">Supprimer</a>
         <a href="{{ path('outing') }}" class="button">Annuler</a>
 
-
         {{ form_end(outingForm) }}
 
-    </div>
+
 {% endblock %}
+
