@@ -285,6 +285,11 @@ textarea {
 .panel-form-user h1 {
   Padding: 0 0 0.5em 0.5em;
 }
+.panel-form-user #registration_form_isActive {
+  max-width: 1em;
+  max-height: 1em;
+}
+
 .doubleInputContainer {
   display: grid;
   grid-template-columns: 1fr 1fr;

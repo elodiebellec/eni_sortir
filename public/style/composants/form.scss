@@ -266,6 +266,10 @@ $padding-login-form-field   : 18px;
   label{
     @extend .labelInput;
   }
+  #registration_form_isActive{
+    max-width: 1em;
+    max-height: 1em;
+  }
 }
 
 .doubleInputContainer {
