@@ -28,28 +28,25 @@ use function Sodium\add;
  */
 class FilterType extends AbstractType
 {
-    protected  $repoSite; // attribut de classe
-    public function __construct( SiteRepository  $siteRepository) // constructeur à generer
+    protected  $repoSite;
+    public function __construct( SiteRepository  $siteRepository)
     {
-        $this->repoSite= $siteRepository; // initialisation de l'attribut de classe avec la valeur du repository de l'entity Site
+        $this->repoSite= $siteRepository;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
 
-        $listSites= $this->repoSite->findAllSite();// Recherche des sites en BDD
+        $listSites= $this->repoSite->findAllSite();
         $listWithName=array();
 
 
         for ($i=0; $i< sizeof($listSites); $i++)
         {
-            //Boucle dans la liste de sites pour recuperer uniquement les noms
-            $name=  $listSites[$i]->getName();
-            $listWithName[$name] = $name; // creation d'une autre table qui ne contiendra que les noms des sites
-                                          // name est en clé et valeur ici parce que dans twig ce qui est affiché c'est uniquement la clé
-                                        // voir surement une autre solution
 
+            $name=  $listSites[$i]->getName();
+            $listWithName[$name] = $name;
         }
 
         /* Set the last value of the array at null,

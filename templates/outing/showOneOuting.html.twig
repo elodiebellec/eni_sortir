@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="{{ asset('style/composants/checkbox.css') }}">
     <link rel="stylesheet" href="{{ asset('style/composants/navbar.css') }}">
     <link rel="stylesheet" href="{{ asset('style/composants/card.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/frames/outingList.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/frames/outingDetails.css') }}">
+
 {% endblock %}
 
 {% block javascripts %}
@@ -57,16 +60,33 @@
         </div>
     </div>
 
-    <div>
+    <div class = "single-outing-participants">
         {%  set participants = outing.participants %}
-        <select >
-            <option >--Liste de participants inscrits--</option>
+        <div class = "table" style="width:40%;height:200px;overflow:scroll;">
 
+        <table>
+            <thead>
+                <tr>
+                    <th class = "hide-for-phone" colspan="2">Pseudo</th>
+                    <th colspan="2"> Nom </th>
+                    <th class = "show-for-phone" colspan="2"> Ville </th>
+                </tr>
+            </thead>
+            <tbody>
+
+            <tr>
             {% for participant in participants  %}
-                <option> {{ participant.pseudo }}  <a href="{{ path('participant_profile_show',{'id':participant.id }) }}">  {{ participant.firstName }}  {{ participant.lastName }}</a>  </option>
-
+                <td class = "hide-for-phone" colspan="2"> {{ participant.pseudo }}</td>
+                <td colspan="2">  <a href="{{ path('participant_profile_show',{'id':participant.id }) }}">  {{ participant.firstName }}  {{ participant.lastName }}</a></td>
+                <td class = "show-for-phone" colspan="2"> {{ participant.site.name }}</td>
+            </tr>
             {% endfor %}
-        </select>
+
+            </tbody>
+        </table>
+
+    </div>
+
     </div>
     <div class="buttonContainerOuting">
         <a href="{{ path('outing') }}" class="button">Retour</a>

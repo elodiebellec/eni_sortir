@@ -71,6 +71,8 @@
     }
   }
 }
+
+
 @media (max-width:600px){
   .navbar {
     display: flex;
@@ -84,7 +86,7 @@
 }
 
 
-@media  (max-device-width: 400px){
+@media  (max-device-width: 450px){
 
     .nav-items-phone {
       visibility: hidden;

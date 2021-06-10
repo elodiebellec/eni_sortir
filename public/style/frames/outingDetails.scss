@@ -1,0 +1,11 @@
+@import "../theme/fonts";
+label {
+  @include standard-txt-regular;
+}
+
+.table
+{
+  padding-top: 1.4em;
+  border-radius: 30px;
+
+}

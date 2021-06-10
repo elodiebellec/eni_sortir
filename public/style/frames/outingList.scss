@@ -71,6 +71,14 @@ $left-margin:22px;
   display:flex;
   justify-content: center;
 }
+.show-for-phone{
+  visibility: hidden;
+
+}
+
+.date{
+  height: 3em;
+}
 /*.label + div{
     height: 100%;
 }*/
@@ -80,4 +88,19 @@ $left-margin:22px;
 }
 #filter_dateEndFilter{
   margin-inline-end: 10px;
+}
+
+@media  (max-device-width: 400px){
+
+  .outing-list-form-section-phone , .hide-for-phone {
+    visibility: hidden;
+  }
+
+  .show-for-phone{
+    visibility: visible;
+
+  }
+
+
+
 }
