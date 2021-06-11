@@ -17,7 +17,9 @@
     {{ form_errors(updateForm) }}
     <div class="panel-user">
         <div class="formAvatar">
-            <div class="avatar"></div>
+            <div class="avatar">
+                <img src = "{{asset('images/'~participant.photo)}}">
+            </div>
             {{ form_row(updateForm.photo) }}
         </div>
 

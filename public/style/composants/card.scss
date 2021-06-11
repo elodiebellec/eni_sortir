@@ -120,6 +120,18 @@ $card-height: 15rem;
   }
 
 
+
+
+}
+
+.pagination{
+  padding: 0 0 1em 4em;
+  p{
+    @include important-txt;
+    font-size : $font-size-large;
+    color: #444D51;
+  }
+
 }
 
 
