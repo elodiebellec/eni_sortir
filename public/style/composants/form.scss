@@ -138,10 +138,9 @@ $padding-login-form-field   : 18px;
   .checkbox-container{
     min-width: 50%;
     margin-inline-start: 54px;
-
     .checkbox{
-      display:flex;
-      align-items: center;
+     display:flex;
+      align-items: flex-start;
       font-family: $opensans;
       color: $font-primary-color;
       opacity:0.8;

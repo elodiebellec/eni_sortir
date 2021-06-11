@@ -168,7 +168,7 @@ textarea {
 }
 .login-connect .checkbox-container .checkbox {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   font-family: "Open Sans", sans-serif;
   color: #232020;
   opacity: 0.8;
