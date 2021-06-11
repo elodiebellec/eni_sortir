@@ -33,8 +33,6 @@ class OutingRepository extends ServiceEntityRepository
         $tabNotRegistered = $this->findNotRegistered($user);
         $tableRegistered = $this->findRegistered($user);
 
-
-
         $queryBuilder = $this->createQueryBuilder('o');
 
 
@@ -51,7 +49,9 @@ class OutingRepository extends ServiceEntityRepository
         $queryBuilder->addSelect('site');
         $queryBuilder->addSelect('location');
 
-
+        /**
+         * query outings with state label created only if the planner is the one connected
+         */
 
         $queryBuilder->where("state.label =:created  and planner.id = $idUser");
         $queryBuilder->setParameter('created', 'Créée');
@@ -66,12 +66,6 @@ class OutingRepository extends ServiceEntityRepository
         $queryBuilder->orwhere("state.label =:canceled ");
         $queryBuilder->setParameter('canceled', 'Activité annulée');
 
-
-       //$queryBuilder->andWhere('state.label <> :historized');
-       //$queryBuilder->setParameter('historized', 'Activité historisée');
-
-       //die($queryBuilder->getDql());
-      // $queryBuilder->setParameters( new ArrayCollection(array( new Parameter('created',$stateLabel), new Parameter('idUser', $idUser))));
 
         /**
          * @var  OutingsFilter $filter

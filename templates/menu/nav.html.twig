@@ -7,11 +7,11 @@
     </div>
     <div class="nav-items nav-items-phone">
 
-            <a href="{{ path('outing') }}" class="nav-btn" id="nav-home">
+            <a href="{{ path('outing') }}" class="nav-btn nav-item" id="nav-home">
                 Accueil
             </a>
 
-        <div class="nav-profile-container">
+        <div class="nav-profile-container nav-item">
             <a href="{{ path('participant_profile_update') }}" class="nav-profile-btn" id="nav-profile">
                 {{ app.user.firstName[:1] }}
             </a>
@@ -21,6 +21,9 @@
                 <div class="dropdown-content">
                     <a href="{{ path('app_logout') }}">Se déconnecter</a>
                     <a href="{{ path('participant_profile_update') }}">Modifier mon profil</a>
+                    {% if  is_granted('ROLE_ADMIN')  %}
+                    <a href="{{ path('app_register') }}">Ajouter des utilisateurs</a>
+                    {% endif %}
                 </div>
             </div>
         </div>

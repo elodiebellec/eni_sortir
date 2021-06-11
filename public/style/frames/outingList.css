@@ -82,6 +82,10 @@ label {
   margin: auto;
 }
 
+.search-button-container {
+  margin-inline-start: 10vw;
+}
+
 .outing-list-cards-container {
   display: flex;
   flex-flow: row wrap;
@@ -92,19 +96,41 @@ label {
 .outing-form-pagination {
   display: flex;
   justify-content: center;
+  margin: 0 5vw 0 0;
 }
 
 .show-for-phone {
   visibility: hidden;
+  display: none;
 }
 
 .date {
   height: 3em;
 }
 
-/*.label + div{
-    height: 100%;
-}*/
+.page-navigation {
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  font-family: "Open Sans", sans-serif;
+  font-size: 15px;
+  font-weight: bold;
+  font-size: 30px;
+  color: #232020;
+  width: 5vw;
+  min-width: 0;
+  max-width: none;
+}
+.page-navigation:hover {
+  font-size: 35px;
+  box-shadow: none;
+  background-color: transparent;
+  width: 5vw;
+  color: black;
+}
+
 #filter_dateBeginFilter, #filter_dateEndFilter {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;

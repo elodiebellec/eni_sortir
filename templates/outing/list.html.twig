@@ -78,18 +78,22 @@
             </div>
 
 
-            <div class="outing-list-button-container">
+            <div class="outing-list-button-container search-button-container">
                 <button type="submit">Rechercher</button>
 
                 <div class="outing-form-pagination"><!-- Désactivé provisoirement-->
                     {% if currentPage > 1 %}
-                        <input type="submit" name="pageButtton" class="page-navigation" value="{{ currentPage-1 }} ">
+                        <button type="submit" name="pageButtton" class="page-navigation" value="{{ currentPage-1 }}">←
+                        </button>
                     {% endif %}
+
                     {% if currentPage < maxPage %}
                         {% if currentPage == 1 %}
                             <div></div>
                         {% endif %}
-                        <input type="submit" name="pageButtton" class="page-navigation" value="{{ currentPage+1 }} ">
+                        <button type="submit" name="pageButtton" class="page-navigation" value="{{ currentPage+1 }}">→
+                        </button>
+
                     {% endif %}
                 </div>
             </div>
@@ -117,30 +121,33 @@
             <div class="outing-list-cards-container">
                 {% for outing in outings %}
 
-                {% if outing.state.label== "Créée" and app.user.pseudo != outing.planner.pseudo %}
-
-                {% else %}
-{# <a href="{{ path('outing_show', {'id':outing.id}) }}"> #}
-                    <div class="card">
-
-                        <div class="card-head" title="{{ outing.name }}">
-
-                    {% if outing.state.label == "Créée" or outing.state.label == "Activité historisée" %}
-                        <h1>  {{ outing.name }} </h1>
+                    {% if outing.state.label== "Créée" and app.user.pseudo != outing.planner.pseudo %}
 
                     {% else %}
 
-                        <h1><a href="{{ path('outing_show', {'id':outing.id}) }}">
-                                {{ outing.name }}
-                            </a>
-                        </h1>
-                    {% endif %}
-                            <p class = "show-for-phone"> {{ outing.site.name }}</p>
+                        <div class="card">
+
+                            <div class="card-head" title="{{ outing.name }}">
+
+                                {% if outing.state.label == "Créée" or outing.state.label == "Activité historisée" %}
+                                    <h1>  {{ outing.name }} </h1>
+
+                                {% else %}
+
+                                    <h1>
+                                        <a href="{{ path('outing_show', {'id':outing.id}) }}" class="outing-name">
+                                            {{ outing.name }}
+                                        </a>
+                                    </h1>
+                                {% endif %}
+                                <p class="show-for-phone"> {{ outing.site.name }}</p>
                                 <div class="date">{{ outing.dateBegin|date ('d/m/y') }}</div>
                             </div>
 
                             <div class="card-body" title=".card-body">
-                                <p class = "hide-for-phone"> <a href="{{ path('participant_profile_show',{'id':outing.planner.id }) }}">{{ outing.planner.firstName }}</a></p>
+                                <p class="hide-for-phone"><a
+                                            href="{{ path('participant_profile_show',{'id':outing.planner.id }) }}">{{ outing.planner.firstName }}</a>
+                                </p>
                                 <p class="hide-for-phone"> {{ outing.state.label }}</p>
 
                                 {% if app.user.outings.contains(outing) %}
@@ -152,16 +159,7 @@
                             </div>
 
 
-                        <div class="btn-group" title=".btn-group">
-
-                            {% if outing.state.label == "Créée" or outing.state.label == "Activité historisée" %}
-
-                                {% else %}
-
-                                    <a href="{{ path('outing_show', {'id':outing.id}) }}">
-                                        <button>Afficher</button>
-                                    </a>
-                                {% endif %}
+                            <div class="btn-group" title=".btn-group">
 
                                 {% if app.user.outings.contains(outing) and (outing.state.label == "Ouverte" or outing.state.label == "Clôturée") %}
 
@@ -201,18 +199,19 @@
                             <div class="card-feet" title=".card-feet">
                                 <img class="participant-photo-small" src="{{ asset('images/'~outing.planner.photo) }}"
                                      alt="La photo de {{ outing.planner.firstname }}">
-                                <div class="participant-count">{{ outing.participants|length }}/ {{ outing.maxRegistration }}</div>
+                                <div class="participant-count">{{ outing.participants|length }}
+                                    / {{ outing.maxRegistration }}</div>
                             </div>
                         </div>
-{# </a>#}
+
                     {% endif %}
                 {% endfor %}
             </div>
 
 
-            <p> Page n° {{ currentPage }} sur {{ maxPage }}</p>
+            {# <p> Page n° {{ currentPage }} sur {{ maxPage }}</p>
 
-            <div> {{ maxOutings }} résultats</div>
+            <div> {{ maxOutings }} résultats</div> #}
 
         </section>
     </div>

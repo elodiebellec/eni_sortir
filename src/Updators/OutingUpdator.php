@@ -158,7 +158,6 @@ class OutingUpdator
         $currentState= $outing->getState()->getId();
         $duration = $outing->getDuration();
         $dateEventEnd   = \DateTimeImmutable::createFromMutable($dateEventBegin)->modify("+ $duration day");
-       // $outing->setState($this->states['Activité historisée']);
 
         if($this->eventShallBeHistorized($dateEventBegin,  $now,  $dateEventEnd, $currentState))
         {

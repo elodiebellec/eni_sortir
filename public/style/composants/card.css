@@ -397,6 +397,31 @@ textarea {
   color: #232020;
   font-size: 16px;
 }
+.card .card-head h1 a,
+.card .card-head h2 a,
+.card .card-head h3 a,
+.card .card-head h4 a {
+  text-decoration: none;
+  color: #232020;
+}
+.card .card-head h1 .outing-name,
+.card .card-head h2 .outing-name,
+.card .card-head h3 .outing-name,
+.card .card-head h4 .outing-name {
+  transition: 0.25s;
+}
+.card .card-head h1 .outing-name:hover,
+.card .card-head h2 .outing-name:hover,
+.card .card-head h3 .outing-name:hover,
+.card .card-head h4 .outing-name:hover {
+  transition: 0.25s;
+  font-family: "Signika", sans-serif;
+  font-weight: bold;
+  font-style: normal;
+  font-variant-caps: small-caps;
+  color: #232020;
+  font-size: 20px;
+}
 .card .card-head .date {
   font-size: 14px;
   font-family: "Open Sans", sans-serif;
@@ -446,6 +471,11 @@ textarea {
   color: #232020;
   font-size: 16px;
   outline: none;
+  transition: 0.2s;
+}
+.card .btn-group button:hover, .card .btn-group a:hover {
+  color: black;
+  transition: 0.2s;
 }
 .card .card-feet {
   display: flex;
