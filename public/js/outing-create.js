@@ -68,10 +68,13 @@ async function fetchLocationsOptions() {
                 .keys(data['locations'])
                 .map(index => {
                     const optionElement = document.createElement('option');
+
                     optionElement.text = data['locations'][index]['name'];
+                    optionElement.innerText = data['locations'][index]['name'];
+
                     optionElement.id = data['locations'][index]['id'];
                     optionElement.value = data['locations'][index]['id'];
-                    optionElement.innerText = data['locations'][index]['name'];
+
                     return optionElement;
                 })
                 .forEach(option => {
