@@ -496,7 +496,7 @@ textarea {
 .card .card-feet img {
   border-radius: 50%;
   height: 40px;
-  width: auto;
+  width: 40px;
   margin-inline-end: 12px;
 }
 .card .card-feet .participant-count {

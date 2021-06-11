@@ -103,7 +103,7 @@ $card-height: 15rem;
     img {
       @include rounded-img;
       height: 40px;
-      width: auto;
+      width: 40px;
       margin-inline-end: 12px;
     }
     .participant-count {
