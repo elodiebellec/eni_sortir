@@ -10,8 +10,8 @@ window.onload = init;
 
 function init() {
     /**
-     * We reference all the HTML fields we will need by affecting the global variables declared
-     * at the beginning of the file.
+     * We reference all the HTML fields we'll need by affecting the global variables
+     * declared at the beginning of the file.
      */
     function captureRequiredDomElements() {
         /**
@@ -32,12 +32,13 @@ function init() {
     captureRequiredDomElements();
 
     /**
-     * Initialize the data when page is loaded :
+     * Initialize the data when the page is loaded :
      * We fetch locations options relative to the selected city,
      * then, we wait for the ajax data arrival to update the
      * location fields (street, coordinates etc...)
      */
     async function fetchLocationsOptions() {
+
         const cityData = {"cityName": citySelectElement.value};
 
         function generateOptionElement(location) {
@@ -52,10 +53,15 @@ function init() {
             return optionElement;
         }
 
-        return fetch('ajax-cityData', {method: 'POST', body: JSON.stringify(cityData)})
+        return fetch('ajax-cityData', {
+            method: 'POST',
+            body: JSON.stringify(cityData)
+        })
             .then(response => response.json())
             .then(data => {
+
                 currentAjaxData = data;
+
                 /**
                  * Erase previous location options
                  * @param selectElement
@@ -67,6 +73,7 @@ function init() {
                     }
                 }
                 clearOptionsElements(locationSelectElement);
+
                 /**
                  * Create array of <option> "location name" </option> from JSON Data.
                  */
@@ -114,7 +121,6 @@ function init() {
     citySelectElement.onchange = () => {
         fetchLocationsOptions().then(_ => updateLocationsFields(currentAjaxData));
     }
-
     locationSelectElement.onchange = () => {
         updateLocationsFields(currentAjaxData);
     }
