@@ -211,6 +211,22 @@ $padding-login-form-field   : 18px;
 
   }
 }
+.panel-form-cancel{
+  background: linear-gradient(123.61deg, rgba(21, 106, 207, 0.36) 17.46%, rgba(214, 130, 53, 0.24) 61.63%, rgba(214, 53, 140, 0.24) 86.37%);
+  border-radius: 40px;
+  display: grid;
+  grid-template-columns: 1fr;
+  padding: 2%;
+  margin: 2% 10%;
+  h1{
+    Padding-left: 0.6em;
+    Padding-bottom: 0.5em;
+  }
+  h3{
+    Padding-left: 1em;
+    Padding-bottom: 0.5em;
+  }
+}
 .panel-form-outing {
   background: linear-gradient(123.61deg, rgba(21, 106, 207, 0.36) 17.46%, rgba(214, 130, 53, 0.24) 61.63%, rgba(214, 53, 140, 0.24) 86.37%);
   border-radius: 40px;

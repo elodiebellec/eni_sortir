@@ -1,18 +1,31 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Annuler sortie{% endblock %}
-
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('style/composants/headers.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/composants/form.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/composants/buttons.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/composants/checkbox.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/composants/navbar.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/composants/card.css') }}">
+{% endblock %}
 
 {% block body %}
+    {{ parent() }}
+<div class="panel-form-cancel">
     <h1>Annuler une sortie</h1>
-    <div>
-        <p>Nom de la sortie : {{ outing.name }}</p>
-        <p>Date de la sortie : {{ outing.dateBegin|date("d.m.Y") }}</p>
-        <p>Ville organisatrice : {{ userSite.name }}</p>
-        <p>Lieu : {{ outingLocation }}</p>
+
+        <h3>Nom de la sortie : {{ outing.name }}</h3>
+        <h3>Date de la sortie : {{ outing.dateBegin|date("d.m.Y") }}</h3>
+        <h3>Ville organisatrice : {{ userSite.name }}</h3>
+        <h3>Lieu : {{ outingLocation }}</h3>
+    <h3>Saisissez un motif d'annulation : </h3>
         {{ form_start(outingCancellationForm) }}
-        {{ form_widget(outingCancellationForm) }}
-        {{ form_end(outingCancellationForm) }}
-        <a href="{{ path('outing') }}" class="button">Annuler</a>
+    {{ form_row(outingCancellationForm.cancellationReason) }}
     </div>
+<div class="buttonContainerOuting">
+    {{ form_row(outingCancellationForm.save) }}
+    {{ form_end(outingCancellationForm) }}
+        <a href="{{ path('outing') }}" class="button">Annuler</a>
+</div>
+
 {% endblock %}
