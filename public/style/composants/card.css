@@ -284,11 +284,13 @@ textarea {
   border-radius: 100%;
   width: 12em;
   height: 12em;
+  overflow-y: hidden;
+  display: flex;
+  align-items: center;
 }
 .formAvatar .avatar img {
   border-radius: 100%;
   width: 12em;
-  height: 12em;
 }
 
 .panel-form-user {

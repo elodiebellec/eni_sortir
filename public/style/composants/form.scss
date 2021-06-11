@@ -260,10 +260,12 @@ $padding-login-form-field   : 18px;
     border-radius: 100%;
     width: 12em;
     height: 12em;
+    overflow-y: hidden;
+    display: flex;
+    align-items: center;
     img{
       border-radius: 100%;
       width: 12em;
-      height: 12em;
     }
   }
 }
