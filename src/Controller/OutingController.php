@@ -47,7 +47,7 @@ public function  list ( Request $request,
 
         $countOutingsFromBDD= sizeof($updateOutingStatus);
 
-        $maxPagesForAllResearch = ceil($countOutingsFromBDD/10);
+        $maxPagesForAllResearch = ceil($countOutingsFromBDD/14);
 
         foreach ($updateOutingStatus as $value)
         {
@@ -79,7 +79,7 @@ public function  list ( Request $request,
 
 
         $outingsQuantity =  sizeof($results);
-        $maxPage= ceil($outingsQuantity/10);
+        $maxPage= ceil($outingsQuantity/14);
         if($maxPage<1)
         {
             $maxPage=1;

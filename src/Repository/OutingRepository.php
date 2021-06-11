@@ -149,9 +149,9 @@ class OutingRepository extends ServiceEntityRepository
 
 
         $query = $queryBuilder->getQuery();
-        $offset = ($page -1) *10;
+        $offset = ($page -1) *14;
         $query->setFirstResult($offset);
-        $query->setMaxResults(10);
+        $query->setMaxResults(14);
 
         $paginator = new Paginator($query);
 
