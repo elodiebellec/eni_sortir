@@ -30,8 +30,10 @@ class CsvSerializer
     public function convertToUsers($filePath)
     {
         $row = 1;
-
-        if (($handle = fopen($filePath, "r")) !== FALSE) {
+//dd($filePath);
+        $toto = "C:\\wamp64\\www\\Projet-eni-sortir\\eni_sortir\\public\\csv\\csv-example.csv";
+        if (($handle = fopen($toto, "r")) !== FALSE) {
+        //if (($handle = fopen($filePath, "r")) !== FALSE) {
 
             while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
                 $row++;
