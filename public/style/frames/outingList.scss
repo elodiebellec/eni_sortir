@@ -67,7 +67,8 @@ $left-margin:22px;
 .outing-list-cards-container{
   display:flex;
   flex-flow: row wrap;
-  margin-inline:20px;
+  justify-content: space-between;
+  margin-inline: 2.5vw;
   margin-block-start: 15px;
 }
 .outing-form-pagination{

@@ -168,7 +168,7 @@ textarea {
 }
 .login-connect .checkbox-container .checkbox {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   font-family: "Open Sans", sans-serif;
   color: #232020;
   opacity: 0.8;
@@ -276,7 +276,7 @@ textarea {
 }
 
 .formAvatar {
-  padding: 0 20%;
+  padding: 0 0 0 20%;
   grid-column: 1;
 }
 .formAvatar .avatar {
@@ -307,6 +307,13 @@ textarea {
   max-height: 1em;
 }
 
+.csv {
+  margin-top: 2em;
+}
+.csv #csv_file {
+  min-height: 4em;
+}
+
 .doubleInputContainer {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -332,10 +339,16 @@ textarea {
 }
 
 /*button file upload under user avatar*/
-#participant_photo {
+#participant_photo, #registration_form_photo {
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 0;
+  padding: 0;
+  margin: 1em 0 0 0;
+  min-height: 4em;
+  background-color: white;
+  width: 100%;
 }
 
 /*OUTING LIST FORM*/
@@ -358,6 +371,18 @@ textarea {
 
 #filter_site, #filter_name {
   width: 100%;
+}
+
+/*FLASH MESSAGE AFTER SUBMIT*/
+.flash {
+  padding: 0 0 1em 4em;
+  font-family: "Signika", sans-serif;
+  font-weight: bold;
+  font-style: normal;
+  font-variant-caps: small-caps;
+  color: #232020;
+  font-size: 18px;
+  color: deeppink;
 }
 
 button, .checkbox label, .nav-btn-selected, .nav-profile-btn, .nav-btn, .btn-login-form, .btn-secondary, .button, ::-webkit-file-upload-button {
