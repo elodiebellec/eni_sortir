@@ -356,3 +356,11 @@ $padding-login-form-field   : 18px;
 #filter_site,#filter_name{
   width:100%;
 }
+/*FLASH MESSAGE AFTER SUBMIT*/
+.flash{
+  padding: 0 0 1em 4em;
+  @include important-txt;
+  font-size : $font-size-large;
+  color: deeppink;
+}
+

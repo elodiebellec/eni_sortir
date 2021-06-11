@@ -373,6 +373,18 @@ textarea {
   width: 100%;
 }
 
+/*FLASH MESSAGE AFTER SUBMIT*/
+.flash {
+  padding: 0 0 1em 4em;
+  font-family: "Signika", sans-serif;
+  font-weight: bold;
+  font-style: normal;
+  font-variant-caps: small-caps;
+  color: #232020;
+  font-size: 18px;
+  color: deeppink;
+}
+
 button, .checkbox label, .nav-btn-selected, .nav-profile-btn, .nav-btn, .btn-login-form, .btn-secondary, .button, ::-webkit-file-upload-button {
   border-radius: 80px;
   border-color: #2d2929;
