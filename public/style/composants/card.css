@@ -307,6 +307,13 @@ textarea {
   max-height: 1em;
 }
 
+.csv {
+  margin-top: 2em;
+}
+.csv #csv_file {
+  min-height: 4em;
+}
+
 .doubleInputContainer {
   display: grid;
   grid-template-columns: 1fr 1fr;

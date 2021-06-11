@@ -286,6 +286,14 @@ $padding-login-form-field   : 18px;
     max-width: 1em;
     max-height: 1em;
   }
+
+}
+
+.csv{
+  margin-top: 2em;
+  #csv_file{
+    min-height: 4em;
+  }
 }
 
 .doubleInputContainer {

@@ -61,20 +61,20 @@
 
         {{ form_end(registrationForm) }}
 
+
+
+            <div class="panel-form-user csv">
+                {{ form_start(csvForm) }}
+                {{ form_errors(csvForm) }}
+                <h1>Register with CSV</h1>
+                {{ form_row(csvForm.file, {'label':false}) }}
+            </div>
+            <div class="buttonContainerUser">
+                {{ form_row(csvForm.submit) }}
+            </div>
+            {{ form_end(csvForm) }}
+
+
     </div>
 
-    <div>
-        <h1>Register with CSV</h1>
-        {{form(csvForm)}}
-    </div>
-
-
-
-
-
-
-
-
-
-    
 {% endblock %}
