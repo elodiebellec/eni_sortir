@@ -1,8 +1,11 @@
 let citySelectElement;
-let locationSelectElement;
-let currentAjaxData;
-let locationFields;
 let postalCodeField;
+
+let locationSelectElement;
+let locationFields;
+
+let currentAjaxData;
+
 window.onload = init;
 
 function init() {
@@ -14,13 +17,13 @@ function init() {
 
     /**
      * We fetch locations options relative to the selected city,
-     * then we wait the ajax data arrival to update the
-     * fields related to the current selected location
+     * then, we wait for the ajax data arrival to update the
+     * location fields (street, coordinates etc...)
      */
     fetchLocationsOptions().then(_ => updateLocationsFields(currentAjaxData));
 
     /**
-     * We run the update functions every time the selectors values change
+     * We run the update functions every time the city value change
      */
     citySelectElement.onchange = () => {
         fetchLocationsOptions().then(_ => updateLocationsFields(currentAjaxData));
@@ -59,16 +62,16 @@ async function fetchLocationsOptions() {
             clearOptionsElements(locationSelectElement);
 
             /**
-             * Create array of <option> "location name" </option> from JSON File.
+             * Create array of <option> "location name" </option> from JSON Data.
              */
             Object
                 .keys(data['locations'])
-                .map(loc => {
+                .map(index => {
                     const optionElement = document.createElement('option');
-                    optionElement.text = data['locations'][loc]['name'];
-                    optionElement.id = data['locations'][loc]['id'];
-                    optionElement.value = data['locations'][loc]['id'];
-                    optionElement.innerText = data['locations'][loc]['name'];
+                    optionElement.text = data['locations'][index]['name'];
+                    optionElement.id = data['locations'][index]['id'];
+                    optionElement.value = data['locations'][index]['id'];
+                    optionElement.innerText = data['locations'][index]['name'];
                     return optionElement;
                 })
                 .forEach(option => {

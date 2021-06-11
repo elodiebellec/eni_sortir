@@ -30,7 +30,18 @@ $card-height: 15rem;
     h3,
     h4 {
       @include important-txt-regular;
+      a{
+        text-decoration: none;
+        color : $font-primary-color;
+      }
+      .outing-name{
+        transition:0.25s;
 
+        &:hover{
+          transition:0.25s;
+          @include important-txt-big;
+        }
+      }
     }
 
     .date {
@@ -79,6 +90,11 @@ $card-height: 15rem;
       padding:0;
       @include important-txt-regular;
       outline:none;
+      transition:0.2s;
+      &:hover{
+        color:black;
+        transition:0.2s;
+      }
     }
   }
   .card-feet {

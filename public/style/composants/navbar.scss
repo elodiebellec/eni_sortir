@@ -12,11 +12,12 @@
 }
 
 .navbar{
+
   display:flex;
   flex-flow: row nowrap;
   width:auto;
   height:15vh;
-  justify-content: space-between;
+ justify-content: space-between;
   align-items: center;
   padding-inline:2.5%;
   .logo{
@@ -24,13 +25,14 @@
     margin: 0;
   }
   .nav-items{
-    display:flex;
-    flex-flow: row nowrap;
+    display:grid;
+    justify-items: flex-end;
+    grid-template-columns: 50% 35%;
     min-width:40%;
-    justify-content: space-evenly;
+    justify-content: flex-end;
     align-items: center;
     .nav-item{
-       padding:30px;
+
      }
   }
 }
