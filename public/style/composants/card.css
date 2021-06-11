@@ -512,4 +512,17 @@ textarea {
   font-size: 8px;
 }
 
+.pagination {
+  padding: 0 0 1em 4em;
+}
+.pagination p {
+  font-family: "Signika", sans-serif;
+  font-weight: bold;
+  font-style: normal;
+  font-variant-caps: small-caps;
+  color: #232020;
+  font-size: 18px;
+  color: #636F75;
+}
+
 /*# sourceMappingURL=card.css.map */
